@@ -14,6 +14,9 @@ if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
 }
 
+// Middleware
+app.use(express.json());
+
 // TODO: API routes
 
 // General server error handling
