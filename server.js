@@ -16,7 +16,9 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // DB Setup
-
+mongoose
+    .connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .catch(err => console.error("Mongo connection error", err));
 
 // Middleware
 app.use(express.json());
@@ -34,6 +36,5 @@ app.use((err, req, res, next) => {
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
-
 
 app.listen(PORT, () => console.log(`Server running in ${process.env.NODE_ENV} mode, and listening on PORT ${PORT}.`));
