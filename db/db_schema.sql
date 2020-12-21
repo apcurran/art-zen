@@ -17,7 +17,7 @@ CREATE TABLE artwork(
     FOREIGN KEY(user_id) REFERENCES app_user(user_id) ON DELETE CASCADE,
     title VARCHAR(100),
     description VARCHAR(500),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE artwork_like(
@@ -29,7 +29,8 @@ CREATE TABLE artwork_like(
 CREATE TABLE artwork_comment(
     comment_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
-    FOREIGN KEY(user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
+    FOREIGN KEY(user_id) REFERENCES app_user(user_id) ON DELETE CASCADE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE artwork_favorite(
