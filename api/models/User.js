@@ -9,8 +9,8 @@ const UserSchema = new mongoose.Schema({
     bio_description: { type: String, max: 1000 },
     followers: [
         {
-            follower_user_id: { type: String, required: true },
-            follower_username: { type: String, required: true }
+            user_id: { type: String, required: true },
+            username: { type: String, required: true }
         }
     ],
     created_at: { type: Date, default: Date.now }
