@@ -1,6 +1,8 @@
 CREATE TABLE app_user(
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR NOT NULL,
     bio_description VARCHAR,
     avatar_img_url VARCHAR
 );
