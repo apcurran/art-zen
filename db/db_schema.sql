@@ -5,7 +5,7 @@ CREATE TABLE app_user(
     avatar_img_url VARCHAR
 );
 
-CREATE TABLE app_user_follower(
+CREATE TABLE follower(
     follower_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     FOREIGN KEY(user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
