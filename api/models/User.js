@@ -7,7 +7,11 @@ const UserSchema = new mongoose.Schema({
     email: { type: String, min: 1, max: 100, required: true },
     password: { type: String, min: 6, max: 100, required: true },
     bio_description: { type: String, max: 1000 },
-    followers: { type: Array },
+    followers: [
+        {
+            follower_username: { type: String, required: true }
+        }
+    ],
     created_at: { type: Date, default: Date.now }
 });
 
