@@ -3,7 +3,6 @@
 require("dotenv").config();
 
 const express = require("express");
-const mongoose = require("mongoose");
 const morgan = require("morgan");
 const PORT = process.env.PORT || 5000;
 // TODO: Import routers
@@ -14,11 +13,6 @@ const app = express();
 if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
 }
-
-// DB Setup
-mongoose
-    .connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .catch(err => console.error("Mongo connection error", err));
 
 // Middleware
 app.use(express.json());
