@@ -8,7 +8,7 @@ const ArtworkSchema = mongoose.Schema({
     title: { type: String, min: 1, max: 100, required: true },
     likes: [
         {
-            user_id: { type: String, required: true }
+            user_id: { type: String, required: true },
         }
     ],
     favorites: [
@@ -19,7 +19,7 @@ const ArtworkSchema = mongoose.Schema({
     comments: [
         {
             user_id: { type: String, required: true },
-            text: { type: String, required: true } 
+            text: { type: String, required: true }
         }
     ],
     created_at: { type: Date, default: Date.now }
