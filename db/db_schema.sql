@@ -14,8 +14,9 @@ CREATE TABLE app_user_follower(
 CREATE TABLE artwork(
     artwork_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
-    FOREIGN KEY(user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
+    FOREIGN KEY(user_id) REFERENCES app_user(user_id) ON DELETE CASCADE,
     title VARCHAR(100),
+    description VARCHAR(500),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 );
 
