@@ -25,12 +25,16 @@ CREATE TABLE artwork(
 
 CREATE TABLE artwork_like(
     like_id SERIAL PRIMARY KEY,
+    artwork_id INT NOT NULL,
+    FOREIGN KEY(artwork_id) REFERENCES artwork(artwork_id) ON DELETE CASCADE,
     user_id INT NOT NULL,
     FOREIGN KEY(user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE artwork_comment(
     comment_id SERIAL PRIMARY KEY,
+    artwork_id INT NOT NULL,
+    FOREIGN KEY(artwork_id) REFERENCES artwork(artwork_id) ON DELETE CASCADE,
     user_id INT NOT NULL,
     FOREIGN KEY(user_id) REFERENCES app_user(user_id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -38,6 +42,8 @@ CREATE TABLE artwork_comment(
 
 CREATE TABLE artwork_favorite(
     favorite_id SERIAL PRIMARY KEY,
+    artwork_id INT NOT NULL,
+    FOREIGN KEY(artwork_id) REFERENCES artwork(artwork_id) ON DELETE CASCADE,
     user_id INT NOT NULL,
     FOREIGN KEY(user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
 );
