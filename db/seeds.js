@@ -14,5 +14,6 @@ async function getCloudinaryPublicIds() {
 }
 
 (async function populateDb() {
-    console.log(await getCloudinaryPublicIds());
+    const artworkImgPublicIds = await getCloudinaryPublicIds();
+
 })();

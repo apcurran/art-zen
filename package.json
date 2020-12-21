@@ -24,6 +24,7 @@
     "sql-template-strings": "^2.2.2"
   },
   "devDependencies": {
+    "faker": "^5.1.0",
     "morgan": "^1.10.0"
   }
 }

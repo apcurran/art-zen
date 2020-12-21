@@ -3,7 +3,6 @@
 require("dotenv").config();
 
 const express = require("express");
-const morgan = require("morgan");
 const PORT = process.env.PORT || 5000;
 // TODO: Import routers
 
@@ -11,6 +10,8 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 if (process.env.NODE_ENV === "development") {
+    const morgan = require("morgan");
+    
     app.use(morgan("dev"));
 }
 
