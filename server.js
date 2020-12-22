@@ -4,8 +4,8 @@ require("dotenv").config();
 
 const express = require("express");
 const PORT = process.env.PORT || 5000;
-// TODO: Import routers
-
+// Import routers
+const authRouter = require("./api/routes/auth-router");
 
 const app = express();
 
@@ -18,7 +18,8 @@ if (process.env.NODE_ENV === "development") {
 // Middleware
 app.use(express.json());
 
-// TODO: API routes
+// API routers
+app.use("/api/auth", authRouter);
 
 // General server error handling
 app.use((err, req, res, next) => {
