@@ -56,6 +56,10 @@ async function postUserArtwork(req, res, next) {
     }
 }
 
+async function postUserArtworkComment(req, res, next) {
+
+}
+
 async function postUserFollower(req, res, next) {
 
 }
@@ -85,6 +89,7 @@ module.exports = {
     getUserArtwork,
     getUserArtworks,
     postUserArtwork,
+    postUserArtworkComment,
     postUserFollower,
     patchUser,
     deleteUser,
