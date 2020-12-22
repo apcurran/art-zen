@@ -26,7 +26,7 @@ async function getCloudinaryPublicIds() {
         const username = faker.internet.userName();
         const email = faker.internet.email();
         const bio_description = faker.lorem.sentences(3);
-        const avatar_img_url = faker.image.abstract();
+        const avatar_img_url = "http://placeimg.com/200/200/abstract";
 
         // Hash pw
         const saltRounds = 12;
