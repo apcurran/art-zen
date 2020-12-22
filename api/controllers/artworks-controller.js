@@ -42,7 +42,22 @@ async function getUserArtwork(req, res, next) {
 }
 
 async function getUserArtworks(req, res, next) {
+    try {
+        const { id } = req.params;
+        // TODO: test once followers are created
+        // const { rows } = await db.query(SQL`
+        //     SELECT *
+        //     FROM artwork
+        //     INNER JOIN app_user
+        //     ON artwork.user_id = app_user.user_id
+        //     INNER JOIN followers
+        //     ON app_user.user_id = followers.user_id 
+        //     WHERE artwork.user_id = ${id}
+        // `);
 
+    } catch (err) {
+        next(err);
+    }
 }
 
 // POST controllers
