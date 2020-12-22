@@ -60,6 +60,12 @@ async function postUserFollower(req, res, next) {
 
 }
 
+// PATCH controller
+
+async function patchUser(req, res, next) {
+
+}
+
 // DELETE controllers
 
 async function deleteUser(req, res, next) {
@@ -80,6 +86,7 @@ module.exports = {
     getUserArtworks,
     postUserArtwork,
     postUserFollower,
+    patchUser,
     deleteUser,
     deleteUserArtwork,
     deleteUserFollower,

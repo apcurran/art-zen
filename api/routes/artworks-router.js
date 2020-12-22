@@ -4,7 +4,7 @@ const express = require("express");
 const router = express.Router();
 
 const artworksController = require("../controllers/artworks-controller");
-// TODO pull in verification middleware
+// TODO: pull in verification middleware
 
 // GET all artworks
 router.get("/", artworksController.getArtworks);
@@ -16,6 +16,8 @@ router.get("/users/:id", artworksController.getUserArtworks);
 router.post("/", artworksController.postUserArtwork);
 // POST new account follower
 router.post("/users/:id/followers", artworksController.postUserFollower);
+// PATCH user account
+router.patch("/users/:id", artworksController.patchUser);
 // DELETE user account
 router.delete("/users/:id", artworksController.deleteUser);
 // DELETE artwork
