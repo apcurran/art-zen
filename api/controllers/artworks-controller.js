@@ -56,9 +56,31 @@ async function postUserArtwork(req, res, next) {
     }
 }
 
+async function postUserFollower(req, res, next) {
+
+}
+
+// DELETE controllers
+
+async function deleteUser(req, res, next) {
+
+}
+
+async function deleteUserArtwork(req, res, next) {
+
+}
+
+async function deleteUserFollower(req, res, next) {
+
+}
+
 module.exports = {
     getArtworks,
     getUserArtwork,
     getUserArtworks,
     postUserArtwork,
+    postUserFollower,
+    deleteUser,
+    deleteUserArtwork,
+    deleteUserFollower,
 };

@@ -14,5 +14,13 @@ router.get("/:id", artworksController.getUserArtwork);
 router.get("/users/:id", artworksController.getUserArtworks);
 // POST new artwork
 router.post("/", artworksController.postUserArtwork);
+// POST new account follower
+router.post("/users/:id/followers", artworksController.postUserFollower);
+// DELETE user account
+router.delete("/users/:id", artworksController.deleteUser);
+// DELETE artwork
+router.delete("/:id", artworksController.deleteUserArtwork);
+// DELETE account follower
+router.delete("/users/:id/followers/:id", artworksController.deleteUserFollower);
 
 module.exports = router;
