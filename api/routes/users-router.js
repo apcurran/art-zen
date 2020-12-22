@@ -8,4 +8,6 @@ const usersController = require("../controllers/users-controller");
 
 router.get("/artworks", usersController.getArtworks);
 
+router.get("/artworks/:id", usersController.getUserArtwork);
+
 module.exports = router;
