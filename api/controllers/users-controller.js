@@ -27,8 +27,8 @@ async function getUserArtwork(req, res, next) {
         const { rows } = await db.query(SQL`
             SELECT *
             FROM artwork
-            JOIN app_user
-            ON app_user.user_id = artwork.user_id
+            INNER JOIN app_user
+            ON artwork.user_id = app_user.user_id
             WHERE artwork.artwork_id = ${id}
         `);
 
