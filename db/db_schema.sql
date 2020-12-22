@@ -7,12 +7,6 @@ CREATE TABLE app_user(
     avatar_img_url VARCHAR
 );
 
-CREATE TABLE follower(
-    follower_id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL UNIQUE,
-    FOREIGN KEY(user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
-);
-
 CREATE TABLE artwork(
     artwork_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL UNIQUE,
@@ -21,6 +15,12 @@ CREATE TABLE artwork(
     description VARCHAR(500) NOT NULL,
     img_url VARCHAR NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE follower(
+    follower_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL UNIQUE,
+    FOREIGN KEY(user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE artwork_like(
