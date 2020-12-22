@@ -25,7 +25,9 @@ async function getUserArtwork(req, res, next) {
     try {
         const { id } = req.params;
         const { rows } = await db.query(SQL`
-            SELECT *
+            SELECT
+                artwork.artwork_id, artwork.user_id, artwork.title, artwork.description, artwork.img_url, artwork.created_at,
+                app_user.username, app_user.avatar_img_url
             FROM artwork
             INNER JOIN app_user
             ON artwork.user_id = app_user.user_id
@@ -39,7 +41,24 @@ async function getUserArtwork(req, res, next) {
     }
 }
 
+async function getUserArtworks(req, res, next) {
+
+}
+
+// POST controllers
+
+async function postUserArtwork(req, res, next) {
+    try {
+        
+
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     getArtworks,
     getUserArtwork,
+    getUserArtworks,
+    postUserArtwork,
 };
