@@ -8,7 +8,7 @@ const artworksController = require("../controllers/artworks-controller");
 
 // GET specific user artworks based on user id
 router.get("/users/:id", artworksController.getUserArtworks);
-// GET search results for artwork genre, name, or username
+// GET search results for artwork title or genre
 router.get("/search", artworksController.getSearch);
 // GET specific artwork based on artwork id
 router.get("/:id", artworksController.getUserArtwork);
