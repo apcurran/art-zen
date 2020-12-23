@@ -43,8 +43,10 @@ async function getUserArtwork(req, res, next) {
 
 async function getUserArtworks(req, res, next) {
     try {
-        const { id } = req.params;
+        res.send("getUserArtworks ran");
+        // const { id } = req.params;
         // TODO: test once followers are created
+
         // const { rows } = await db.query(SQL`
         //     SELECT *
         //     FROM artwork
@@ -54,6 +56,17 @@ async function getUserArtworks(req, res, next) {
         //     ON app_user.user_id = followers.user_id 
         //     WHERE artwork.user_id = ${id}
         // `);
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function getSearch(req, res, next) {
+    try {
+        const { q } = req.query;
+
+        res.send(q);
 
     } catch (err) {
         next(err);
@@ -103,6 +116,7 @@ module.exports = {
     getArtworks,
     getUserArtwork,
     getUserArtworks,
+    getSearch,
     postUserArtwork,
     postUserArtworkComment,
     postUserFollower,
