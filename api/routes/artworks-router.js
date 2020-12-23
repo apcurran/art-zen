@@ -5,6 +5,7 @@ const router = express.Router();
 
 const artworksController = require("../controllers/artworks-controller");
 // TODO: pull in verification middleware
+const verifyAuth = require("../middleware/verify-auth");
 
 // GET specific user artworks based on user id
 router.get("/users/:id", artworksController.getUserArtworks);
@@ -15,18 +16,18 @@ router.get("/:id", artworksController.getUserArtwork);
 // GET all artworks
 router.get("/", artworksController.getArtworks);
 // POST new account follower
-router.post("/users/:id/followers", artworksController.postUserFollower);
+router.post("/users/:id/followers", verifyAuth, artworksController.postUserFollower);
 // POST new artwork comment
-router.post("/:id/comments", artworksController.postUserArtworkComment);
+router.post("/:id/comments", verifyAuth, artworksController.postUserArtworkComment);
 // POST new artwork
-router.post("/", artworksController.postUserArtwork);
+router.post("/", verifyAuth, artworksController.postUserArtwork);
 // PATCH user account
-router.patch("/users/:id", artworksController.patchUser);
+router.patch("/users/:id", verifyAuth, artworksController.patchUser);
 // DELETE account follower
-router.delete("/users/:id/followers/:id", artworksController.deleteUserFollower);
+router.delete("/users/:id/followers/:id", verifyAuth, artworksController.deleteUserFollower);
 // DELETE user account
-router.delete("/users/:id", artworksController.deleteUser);
+router.delete("/users/:id", verifyAuth, artworksController.deleteUser);
 // DELETE artwork
-router.delete("/:id", artworksController.deleteUserArtwork);
+router.delete("/:id", verifyAuth, artworksController.deleteUserArtwork);
 
 module.exports = router;
