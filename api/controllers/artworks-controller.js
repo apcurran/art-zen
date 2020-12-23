@@ -70,8 +70,8 @@ async function getSearch(req, res, next) {
         const { rows } = await db.query(SQL`
             SELECT artwork.artwork_id, artwork.title, artwork.img_url, artwork.genre
             FROM artwork
-            WHERE title LIKE ${revisedWildcardQuery}
-               OR genre LIKE ${revisedWildcardQuery}
+            WHERE LOWER(title) LIKE LOWER(TRIM(${revisedWildcardQuery}))
+               OR LOWER(genre) LIKE LOWER(TRIM(${revisedWildcardQuery}))
         `);
 
         res.send(rows);
