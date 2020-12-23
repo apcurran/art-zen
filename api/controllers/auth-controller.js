@@ -16,7 +16,34 @@ async function postUserSignup(req, res, next) {
         return res.status(400).json({ error: err.details[0].message });
     }
 
-    res.send("signup route");
+    try {
+        // Data is valid, now reject creating an existing user.
+        const { username, email, password } = req.body;
+        const emailExists = await db.query(SQL`
+            SELECT app_user.user_id
+            FROM app_user
+            WHERE app_user.email = ${email}
+        `);
+
+        if (emailExists.rows.length > 0) {
+            return res.status(400).json({ error: "Email already exists." });
+        }
+
+        // Hash pw
+        const saltRounds = 12;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+        // Add new user to db
+        await db.query(SQL`
+            INSERT INTO app_user(username, email, password)
+            VALUES (${username}, ${email}, ${hashedPassword})
+        `);
+
+        res.status(201).json({ message: "New user created." });
+
+    } catch (err) {
+        next(err);
+    }
 }
 
 async function postUserLogin(req, res, next) {
