@@ -16,7 +16,7 @@ router.get("/:id", artworksController.getUserArtwork);
 router.get("/", artworksController.getArtworks);
 // POST new account follower
 router.post("/users/:id/followers", artworksController.postUserFollower);
-// POST new comment
+// POST new artwork comment
 router.post("/:id/comments", artworksController.postUserArtworkComment);
 // POST new artwork
 router.post("/", artworksController.postUserArtwork);
