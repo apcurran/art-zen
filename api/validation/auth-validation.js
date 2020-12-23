@@ -18,14 +18,11 @@ function signupValidation(data) {
                 .string()
                 .min(6)
                 .required(),
-        repeat_password: Joi
-                .ref("password"),
         bio_description: Joi
                 .string(),
         avatar_img_url: Joi
                 .string()
-    })
-        .with("password", "repeat_password");
+    });
 
     return schema.validateAsync(data);
 }
