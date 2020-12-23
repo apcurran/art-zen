@@ -65,8 +65,16 @@ async function getUserArtworks(req, res, next) {
 async function getSearch(req, res, next) {
     try {
         const { q } = req.query;
+        const revisedWildcardQuery = `%${q}%`;
 
-        res.send(q);
+        const { rows } = await db.query(SQL`
+            SELECT artwork.artwork_id, artwork.title, artwork.img_url, artwork.genre
+            FROM artwork
+            WHERE title LIKE ${revisedWildcardQuery}
+               OR genre LIKE ${revisedWildcardQuery}
+        `);
+
+        res.send(rows);
 
     } catch (err) {
         next(err);
