@@ -43,19 +43,19 @@ async function getUserArtwork(req, res, next) {
 
 async function getUserArtworks(req, res, next) {
     try {
-        res.send("getUserArtworks ran");
-        // const { id } = req.params;
-        // TODO: test once followers are created
+        const { id } = req.params;
+        const { rows } = await db.query(SQL`
+            SELECT
+                artwork.artwork_id, artwork.user_id, artwork.img_url,
+                app_user.username, app_user.avatar_img_url
+            FROM artwork
+            INNER JOIN app_user
+            ON artwork.user_id = app_user.user_id
+            WHERE artwork.user_id = ${id}
+            ORDER BY artwork.created_at DESC
+        `);
 
-        // const { rows } = await db.query(SQL`
-        //     SELECT *
-        //     FROM artwork
-        //     INNER JOIN app_user
-        //     ON artwork.user_id = app_user.user_id
-        //     INNER JOIN followers
-        //     ON app_user.user_id = followers.user_id 
-        //     WHERE artwork.user_id = ${id}
-        // `);
+        res.status(200).json(rows);
 
     } catch (err) {
         next(err);
