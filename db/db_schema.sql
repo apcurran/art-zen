@@ -13,6 +13,7 @@ CREATE TABLE artwork(
     FOREIGN KEY(user_id) REFERENCES app_user(user_id) ON DELETE CASCADE,
     title VARCHAR(100) NOT NULL,
     description VARCHAR(500) NOT NULL,
+    genre VARCHAR(20) NOT NULL,
     img_url VARCHAR NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

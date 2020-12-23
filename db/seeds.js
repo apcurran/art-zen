@@ -51,7 +51,7 @@ function randomGenre(genreArr) {
         const title = faker.company.catchPhrase();
         const description = faker.lorem.sentences(2);
         // Generate randomized genre
-        const genreArr = ["fantasy", "landscape", "realism", "sci-fi", "anime", "horror", "modern"];
+        const genreArr = ["fantasy", "landscape", "realism", "sci-fi", "anime", "horror", "modern", "portrait"];
         const genre = randomGenre(genreArr);
         const img_url = img;
         
