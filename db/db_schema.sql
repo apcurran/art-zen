@@ -36,8 +36,9 @@ CREATE TABLE artwork_comment(
     comment_id SERIAL PRIMARY KEY,
     artwork_id INT NOT NULL UNIQUE,
     FOREIGN KEY(artwork_id) REFERENCES artwork(artwork_id) ON DELETE CASCADE,
-    user_id INT NOT NULL,
+    user_id INT NOT NULL UNIQUE,
     FOREIGN KEY(user_id) REFERENCES app_user(user_id) ON DELETE CASCADE,
+    text VARCHAR(500) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -45,6 +46,6 @@ CREATE TABLE artwork_favorite(
     favorite_id SERIAL PRIMARY KEY,
     artwork_id INT NOT NULL UNIQUE,
     FOREIGN KEY(artwork_id) REFERENCES artwork(artwork_id) ON DELETE CASCADE,
-    user_id INT NOT NULL,
+    user_id INT NOT NULL UNIQUE,
     FOREIGN KEY(user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
 );

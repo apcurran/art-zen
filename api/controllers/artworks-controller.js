@@ -101,7 +101,16 @@ async function postUserArtwork(req, res, next) {
 }
 
 async function postUserArtworkComment(req, res, next) {
+    const userId = req.user._id;
+    const artworkId = req.params.id;
+    const { text } = req.body;
 
+    await db.query(SQL`
+        INSERT INTO artwork_comment(artwork_id, user_id, text)
+        VALUES (${artworkId}, ${userId}, ${text})
+    `);
+
+    res.status(201).json({ message: "New comment created." });
 }
 
 async function postUserFollower(req, res, next) {
