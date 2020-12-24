@@ -115,8 +115,13 @@ async function postUserArtworkComment(req, res, next) {
 
 async function postUserFollower(req, res, next) {
     const userId = req.params.id;
-    
-    res.send(userId);
+
+    await db.query(SQL`
+        INSERT INTO follower(user_id)
+        VALUES (${userId})
+    `);
+
+    res.status(201).json({ message: "New follower added." });
 }
 
 // PATCH controller
