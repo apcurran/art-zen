@@ -114,7 +114,9 @@ async function postUserArtworkComment(req, res, next) {
 }
 
 async function postUserFollower(req, res, next) {
-
+    const userId = req.params.id;
+    
+    res.send(userId);
 }
 
 // PATCH controller
