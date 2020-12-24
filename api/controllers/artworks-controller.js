@@ -85,14 +85,12 @@ async function getSearch(req, res, next) {
 
 async function postUserArtwork(req, res, next) {
     try {
-        // TODO: get user_id from logged in user first
+        const userId = req.user._id;
+        const { title, description, genre, img_url } = req.body;
 
-        const { title, description, img_url } = req.body;
-
-        // TODO: finish insert query when jwt tokens are implemented
         await db.query(SQL`
-            INSERT INTO artwork(user_id, title, description, img_url)
-            VALUES ()
+            INSERT INTO artwork(user_id, title, description, genre, img_url)
+            VALUES (${userId}, ${title}, ${description}, ${genre}, ${img_url})
         `);
 
         res.status(201).json({ message: "New artwork created." });
