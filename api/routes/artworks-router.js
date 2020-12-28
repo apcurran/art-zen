@@ -4,7 +4,6 @@ const express = require("express");
 const router = express.Router();
 
 const artworksController = require("../controllers/artworks-controller");
-// TODO: pull in verification middleware
 const verifyAuth = require("../middleware/verify-auth");
 
 // GET specific user artworks based on user id

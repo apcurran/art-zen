@@ -12,9 +12,9 @@ router.post("/:userId/followers", verifyAuth, usersController.postUserFollower);
 router.post("/", verifyAuth, usersController.postNewUser);
 // PATCH user account
 router.patch("/:id", verifyAuth, usersController.patchUser);
-// DELETE user account
-router.delete("/:id", verifyAuth, usersController.deleteUser);
 // DELETE account follower
 router.delete("/:userId/followers/:followerId", verifyAuth, usersController.deleteUserFollower);
+// DELETE user account
+router.delete("/:id", verifyAuth, usersController.deleteUser);
 
 module.exports = router;
