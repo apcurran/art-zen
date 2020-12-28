@@ -186,7 +186,7 @@ async function deleteUserArtworkFavorite(req, res, next) {
 }
 
 async function deleteUserArtwork(req, res, next) {
-    const artworkId = req.params.id;
+    const { artworkId } = req.params;
     const userId = req.user._id;
 
     try {

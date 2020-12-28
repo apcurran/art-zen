@@ -27,6 +27,6 @@ router.delete("/:artworkId/likes/:likeId", verifyAuth, artworksController.delete
 // DELETE artwork favorite
 router.delete("/:artworkId/favorites/:favoriteId", verifyAuth, artworksController.deleteUserArtworkFavorite);
 // DELETE artwork
-router.delete("/:id", verifyAuth, artworksController.deleteUserArtwork);
+router.delete("/:artworkId", verifyAuth, artworksController.deleteUserArtwork);
 
 module.exports = router;
