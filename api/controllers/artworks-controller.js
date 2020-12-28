@@ -84,6 +84,7 @@ async function getSearch(req, res, next) {
 async function postUserArtwork(req, res, next) {
     try {
         const userId = req.user._id;
+        // TODO: validate data
         const { title, description, genre, img_url } = req.body;
 
         await db.query(SQL`
@@ -118,6 +119,7 @@ async function postUserArtworkLike(req, res, next) {
 async function postUserArtworkComment(req, res, next) {
     const userId = req.user._id;
     const { artworkId } = req.params;
+    // TODO: validate data
     const { text } = req.body;
 
     try {
