@@ -17,9 +17,9 @@ router.get("/", artworksController.getArtworks);
 // POST new artwork like
 router.get("/:artworkId/likes", artworksController.postUserArtworkLike);
 // POST new artwork comment
-router.post("/:id/comments", verifyAuth, artworksController.postUserArtworkComment);
+router.post("/:artworkId/comments", verifyAuth, artworksController.postUserArtworkComment);
 // POST new artwork favorite
-router.post("/:id/favorites", verifyAuth, artworksController.postUserArtworkFavorite);
+router.post("/:artworkId/favorites", verifyAuth, artworksController.postUserArtworkFavorite);
 // POST new artwork
 router.post("/", verifyAuth, artworksController.postUserArtwork);
 // DELETE artwork like

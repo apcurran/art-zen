@@ -117,7 +117,7 @@ async function postUserArtworkLike(req, res, next) {
 
 async function postUserArtworkComment(req, res, next) {
     const userId = req.user._id;
-    const artworkId = req.params.id;
+    const { artworkId } = req.params;
     const { text } = req.body;
 
     try {
@@ -134,7 +134,7 @@ async function postUserArtworkComment(req, res, next) {
 }
 
 async function postUserArtworkFavorite(req, res, next) {
-    const artworkId = req.params.id;
+    const { artworkId } = req.params;
     const userId = req.user._id;
 
     try {
