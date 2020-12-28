@@ -8,8 +8,6 @@ const verifyAuth = require("../middleware/verify-auth");
 
 // POST new account follower
 router.post("/:userId/followers", verifyAuth, usersController.postUserFollower);
-// POST new account
-router.post("/", verifyAuth, usersController.postNewUser);
 // PATCH user account
 router.patch("/:id", verifyAuth, usersController.patchUser);
 // DELETE account follower

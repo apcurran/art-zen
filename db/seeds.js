@@ -40,9 +40,9 @@ function randomGenre(genreArr) {
         // Save in db
         const savedUser = await db.query(SQL`
         INSERT INTO app_user
-        (username, email, password, bio_description, avatar_img_url)
+            (username, email, password, bio_description, avatar_img_url)
         VALUES
-        (${username}, ${email}, ${hashedPassword}, ${bio_description}, ${avatar_img_url})
+            (${username}, ${email}, ${hashedPassword}, ${bio_description}, ${avatar_img_url})
         RETURNING *
         `);
         

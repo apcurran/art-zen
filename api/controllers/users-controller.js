@@ -3,10 +3,7 @@
 const db = require("../../db/index");
 const SQL = require("sql-template-strings");
 
-async function postNewUser(req, res, next) {
-    
-}
-
+// POST controllers
 async function postUserFollower(req, res, next) {
     const { userId } = req.params;
     const followerId = req.user._id;
@@ -25,7 +22,6 @@ async function postUserFollower(req, res, next) {
 }
 
 // PATCH controller
-
 async function patchUser(req, res, next) {
     const userId = req.user._id;
 
@@ -45,6 +41,7 @@ async function patchUser(req, res, next) {
     }
 }
 
+// DELETE controllers
 async function deleteUserFollower(req, res, next) {
     const { userId } = req.params;
     const followerId = req.user._id;
@@ -79,7 +76,6 @@ async function deleteUser(req, res, next) {
 }
 
 module.exports = {
-    postNewUser,
     postUserFollower,
     patchUser,
     deleteUserFollower,
