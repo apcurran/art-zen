@@ -133,6 +133,23 @@ async function postUserArtworkComment(req, res, next) {
     }
 }
 
+async function postUserArtworkFavorite(req, res, next) {
+    const artworkId = req.params.id;
+    const userId = req.user._id;
+
+    try {
+        await db.query(SQL`
+            INTO INTO artwork_favorite(artwork_id, user_id)
+            VALUES (${artworkId}, ${userId})
+        `);
+
+        res.status(201).json({ message: "New favorited added." });
+
+    } catch (err) {
+        next(err);
+    }
+}
+
 // DELETE controllers
 async function deleteUserArtwork(req, res, next) {
     const artworkId = req.params.id;
@@ -159,5 +176,6 @@ module.exports = {
     postUserArtwork,
     postUserArtworkLike,
     postUserArtworkComment,
+    postUserArtworkFavorite,
     deleteUserArtwork,
 };

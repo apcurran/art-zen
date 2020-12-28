@@ -18,6 +18,8 @@ router.get("/", artworksController.getArtworks);
 router.get("/:id/likes", artworksController.postUserArtworkLike);
 // POST new artwork comment
 router.post("/:id/comments", verifyAuth, artworksController.postUserArtworkComment);
+// POST new artwork favorite
+router.post("/:id/favorites", verifyAuth, artworksController.postUserArtworkFavorite);
 // POST new artwork
 router.post("/", verifyAuth, artworksController.postUserArtwork);
 // DELETE artwork
