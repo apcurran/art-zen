@@ -14,6 +14,8 @@ router.get("/search", artworksController.getSearch);
 router.get("/:id", artworksController.getUserArtwork);
 // GET all artworks
 router.get("/", artworksController.getArtworks);
+// POST new artwork like
+router.get("/:id/likes", artworksController.postUserArtworkLike);
 // POST new artwork comment
 router.post("/:id/comments", verifyAuth, artworksController.postUserArtworkComment);
 // POST new artwork

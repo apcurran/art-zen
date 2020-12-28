@@ -98,6 +98,23 @@ async function postUserArtwork(req, res, next) {
     }
 }
 
+async function postUserArtworkLike(req, res, next) {
+    const artworkId = req.params.id;
+    const userId = req.user._id;
+
+    try {
+        await db.query(SQL`
+            INSERT INTO artwork_like(artwork_id, user_id)
+            VALUES (${artworkId}, ${userId})
+        `);
+
+        res.status(201).json({ message: "New Like added." });
+
+    } catch (err) {
+        next(err);
+    }
+}
+
 async function postUserArtworkComment(req, res, next) {
     const userId = req.user._id;
     const artworkId = req.params.id;
@@ -140,6 +157,7 @@ module.exports = {
     getUserArtworks,
     getSearch,
     postUserArtwork,
+    postUserArtworkLike,
     postUserArtworkComment,
     deleteUserArtwork,
 };
