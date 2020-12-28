@@ -161,16 +161,29 @@ async function deleteUser(req, res, next) {
     const userId = req.user._id;
 
     try {
-        
+        await db.query(SQL`
+            DELETE FROM app_user
+            WHERE app_user.user_id = ${userId}
+        `);
+
+        res.status(200).json({ message: `Employee with id, ${userId} deleted.` });
+
     } catch (err) {
         next(err);
     }
 }
 
 async function deleteUserArtwork(req, res, next) {
+    const artworkId = req.params.id;
     const userId = req.user._id;
 
     try {
+        await db.query(SQL`
+            DELETE FROM artwork
+            WHERE (artwork.artwork_id = ${artworkId}) AND (artwork.user_id = ${userId})
+        `);
+
+        res.status(200).json({ message: `Artwork with id, ${artworkId} deleted.` });
         
     } catch (err) {
         next(err);
