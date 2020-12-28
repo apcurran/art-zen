@@ -19,9 +19,10 @@ CREATE TABLE artwork(
 );
 
 CREATE TABLE follower(
-    follower_id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL UNIQUE,
-    FOREIGN KEY(user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
+    follower_user_id INT NOT NULL UNIQUE,
+    FOREIGN KEY(follower_user_id) REFERENCES app_user(user_id) ON DELETE CASCADE,
+    account_user_id INT NOT NULL UNIQUE,
+    FOREIGN KEY(account_user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE artwork_like(
