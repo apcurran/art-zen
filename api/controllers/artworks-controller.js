@@ -4,7 +4,6 @@ const db = require("../../db/index");
 const SQL = require("sql-template-strings");
 
 // GET controllers
-
 // Various artists sorted by most recent
 async function getArtworks(req, res, next) {
     try {
@@ -82,7 +81,6 @@ async function getSearch(req, res, next) {
 }
 
 // POST controllers
-
 async function postUserArtwork(req, res, next) {
     try {
         const userId = req.user._id;
@@ -119,7 +117,6 @@ async function postUserArtworkComment(req, res, next) {
 }
 
 // DELETE controllers
-
 async function deleteUserArtwork(req, res, next) {
     const artworkId = req.params.id;
     const userId = req.user._id;
