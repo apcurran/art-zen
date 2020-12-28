@@ -7,7 +7,7 @@ const artworksController = require("../controllers/artworks-controller");
 const verifyAuth = require("../middleware/verify-auth");
 
 // GET specific user artworks based on user id
-router.get("/users/:id", artworksController.getUserArtworks);
+router.get("/users/:userId", artworksController.getUserArtworks);
 // GET search results for artwork title or genre
 router.get("/search", artworksController.getSearch);
 // GET specific artwork based on artwork id
