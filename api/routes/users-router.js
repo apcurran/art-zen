@@ -3,12 +3,13 @@
 const express = require("express");
 const router = express.Router();
 
-// const artworksController = require("../controllers/artworks-controller");
-// TODO: pull in verification middleware
+const usersController = require("../controllers/users-controller");
 const verifyAuth = require("../middleware/verify-auth");
 
 // POST new account follower
-// router.post("/users/:userId/followers", verifyAuth, artworksController.postUserFollower);
+router.post("/users/:userId/followers", verifyAuth, usersController.postUserFollower);
+// POST new account
+router.post("/", verifyAuth, usersController.postNewUser);
 // PATCH user account
 // router.patch("/users/:id", verifyAuth, artworksController.patchUser);
 // DELETE account follower

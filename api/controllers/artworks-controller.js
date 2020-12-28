@@ -118,22 +118,7 @@ async function postUserArtworkComment(req, res, next) {
     }
 }
 
-async function postUserFollower(req, res, next) {
-    const { userId } = req.params;
-    const followerId = req.user._id;
 
-    try {
-        await db.query(SQL`
-            INSERT INTO follower(follower_user_id, account_user_id)
-            VALUES (${followerId}, ${userId})
-        `);
-    
-        res.status(201).json({ message: "New follower added." });
-        
-    } catch (err) {
-        next(err);
-    }
-}
 
 // PATCH controller
 
@@ -215,7 +200,6 @@ module.exports = {
     getSearch,
     postUserArtwork,
     postUserArtworkComment,
-    postUserFollower,
     patchUser,
     deleteUser,
     deleteUserArtwork,
