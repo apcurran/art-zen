@@ -105,29 +105,41 @@ async function postUserArtworkComment(req, res, next) {
     const artworkId = req.params.id;
     const { text } = req.body;
 
-    await db.query(SQL`
-        INSERT INTO artwork_comment(artwork_id, user_id, text)
-        VALUES (${artworkId}, ${userId}, ${text})
-    `);
-
-    res.status(201).json({ message: "New comment created." });
+    try {
+        await db.query(SQL`
+            INSERT INTO artwork_comment(artwork_id, user_id, text)
+            VALUES (${artworkId}, ${userId}, ${text})
+        `);
+    
+        res.status(201).json({ message: "New comment created." });
+        
+    } catch (err) {
+        next(err);
+    }
 }
 
 async function postUserFollower(req, res, next) {
     const userId = req.params.id;
 
-    await db.query(SQL`
-        INSERT INTO follower(user_id)
-        VALUES (${userId})
-    `);
-
-    res.status(201).json({ message: "New follower added." });
+    try {
+        await db.query(SQL`
+            INSERT INTO follower(user_id)
+            VALUES (${userId})
+        `);
+    
+        res.status(201).json({ message: "New follower added." });
+        
+    } catch (err) {
+        next(err);
+    }
 }
 
 // PATCH controller
 
 async function patchUser(req, res, next) {
+    const userId = req.user._id;
 
+    
 }
 
 // DELETE controllers
