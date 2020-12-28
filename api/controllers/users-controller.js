@@ -3,6 +3,8 @@
 const db = require("../../db/index");
 const SQL = require("sql-template-strings");
 
+const { userPatchValidation } = require("../validation/users-validation");
+
 // POST controllers
 async function postUserFollower(req, res, next) {
     const { userId } = req.params;
@@ -23,8 +25,15 @@ async function postUserFollower(req, res, next) {
 
 // PATCH controller
 async function patchUser(req, res, next) {
+    try {
+        await userPatchValidation(req.body);
+
+    } catch (err) {
+        return res.status(400).json({ error: err.details[0].message });
+    }
+
     const userId = req.user._id;
-    // TODO: Validate data
+    // Data now valid
     const { bio_description, avatar_img_url } = req.body;
 
     try {

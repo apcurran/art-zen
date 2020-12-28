@@ -3,7 +3,7 @@
 const db = require("../../db/index");
 const SQL = require("sql-template-strings");
 
-const { userArtworkValidation } = require("../validation/artworks-validation");
+const { userArtworkValidation, userArtworkCommentValidation } = require("../validation/artworks-validation");
 
 // GET controllers
 // Various artists sorted by most recent
@@ -126,9 +126,16 @@ async function postUserArtworkLike(req, res, next) {
 }
 
 async function postUserArtworkComment(req, res, next) {
+    try {
+        await userArtworkCommentValidation(req.body);
+
+    } catch (err) {
+        return res.status(400).json({ error: err.details[0].message });
+    }
+
     const userId = req.user._id;
     const { artworkId } = req.params;
-    // TODO: validate data
+    // Data now valid
     const { text } = req.body;
 
     try {

@@ -24,6 +24,17 @@ function userArtworkValidation(data) {
     return schema.validateAsync(data);
 }
 
+function userArtworkCommentValidation(data) {
+    const schema = Joi.object({
+        text: Joi
+                .string()
+                .max(500)
+    });
+
+    return schema.validateAsync(data);
+}
+
 module.exports = {
     userArtworkValidation,
+    userArtworkCommentValidation
 };
