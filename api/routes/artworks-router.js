@@ -15,7 +15,7 @@ router.get("/:artworkId", artworksController.getUserArtwork);
 // GET all artworks
 router.get("/", artworksController.getArtworks);
 // POST new artwork like
-router.get("/:artworkId/likes", artworksController.postUserArtworkLike);
+router.post("/:artworkId/likes", artworksController.postUserArtworkLike);
 // POST new artwork comment
 router.post("/:artworkId/comments", verifyAuth, artworksController.postUserArtworkComment);
 // POST new artwork favorite
