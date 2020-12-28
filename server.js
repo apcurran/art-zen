@@ -6,6 +6,7 @@ const express = require("express");
 const PORT = process.env.PORT || 5000;
 // Import routers
 const authRouter = require("./api/routes/auth-router");
+const usersRouter = require("./api/routes/users-router");
 const artworksRouter = require("./api/routes/artworks-router");
 
 const app = express();
@@ -21,6 +22,7 @@ app.use(express.json());
 
 // API routers
 app.use("/api/auth", authRouter);
+app.use("/api/users", usersRouter);
 app.use("/api/artworks", artworksRouter);
 
 // General server error handling
