@@ -7,11 +7,11 @@ const usersController = require("../controllers/users-controller");
 const verifyAuth = require("../middleware/verify-auth");
 
 // POST new account follower
-router.post("/users/:userId/followers", verifyAuth, usersController.postUserFollower);
+router.post("/:userId/followers", verifyAuth, usersController.postUserFollower);
 // POST new account
 router.post("/", verifyAuth, usersController.postNewUser);
 // PATCH user account
-// router.patch("/users/:id", verifyAuth, artworksController.patchUser);
+router.patch("/:id", verifyAuth, usersController.patchUser);
 // DELETE account follower
 // router.delete("/users/:userId/followers/:followerId", verifyAuth, artworksController.deleteUserFollower);
 // DELETE user account
