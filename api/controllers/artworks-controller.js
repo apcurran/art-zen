@@ -152,13 +152,13 @@ async function postUserArtworkFavorite(req, res, next) {
 
 // DELETE controllers
 async function deleteUserArtworkLike(req, res, next) {
-    const { artworkId } = req.params;
+    const { artworkId, likeId } = req.params;
     const userId = req.user._id;
 
     try {
         await db.query(SQL`
             DELETE FROM artwork_like
-            WHERE (artwork_like.artwork_id = ${artworkId}) AND (artwork_like.user_id = ${userId})
+            WHERE (artwork_like.like_id = ${likeId}) AND (artwork_like.user_id = ${userId})
         `);
 
         res.status(200).json({ message: "Deleted artwork like." });

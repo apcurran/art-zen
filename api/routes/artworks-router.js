@@ -23,7 +23,7 @@ router.post("/:id/favorites", verifyAuth, artworksController.postUserArtworkFavo
 // POST new artwork
 router.post("/", verifyAuth, artworksController.postUserArtwork);
 // DELETE artwork like
-router.delete("/:artworkId/likes/:userId", verifyAuth, artworksController.deleteUserArtworkLike);
+router.delete("/:artworkId/likes/:likeId", verifyAuth, artworksController.deleteUserArtworkLike);
 // DELETE artwork favorite
 router.delete("/:artworkId/favorites/:userId", verifyAuth, artworksController.deleteUserArtworkFavorite);
 // DELETE artwork
