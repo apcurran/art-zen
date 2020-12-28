@@ -90,5 +90,5 @@ module.exports = {
     postUserFollower,
     patchUser,
     deleteUserFollower,
-    deleteUser,
+    deleteUser
 };

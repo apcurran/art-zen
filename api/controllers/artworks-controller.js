@@ -231,5 +231,5 @@ module.exports = {
     postUserArtworkFavorite,
     deleteUserArtworkLike,
     deleteUserArtworkFavorite,
-    deleteUserArtwork,
+    deleteUserArtwork
 };

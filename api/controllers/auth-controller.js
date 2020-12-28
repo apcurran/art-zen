@@ -87,5 +87,5 @@ async function postUserLogin(req, res, next) {
 
 module.exports = {
     postUserSignup,
-    postUserLogin,
+    postUserLogin
 };
