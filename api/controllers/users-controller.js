@@ -24,6 +24,8 @@ async function postUserFollower(req, res, next) {
 // PATCH controller
 async function patchUser(req, res, next) {
     const userId = req.user._id;
+    // TODO: Validate data
+    const { bio_description, avatar_img_url } = req.body;
 
     try {
         await db.query(SQL`
