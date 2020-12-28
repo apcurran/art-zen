@@ -24,7 +24,7 @@ router.post("/", verifyAuth, artworksController.postUserArtwork);
 // PATCH user account
 router.patch("/users/:id", verifyAuth, artworksController.patchUser);
 // DELETE account follower
-router.delete("/users/:id/followers/:id", verifyAuth, artworksController.deleteUserFollower);
+router.delete("/users/:userId/followers/:followerId", verifyAuth, artworksController.deleteUserFollower);
 // DELETE user account
 router.delete("/users/:id", verifyAuth, artworksController.deleteUser);
 // DELETE artwork

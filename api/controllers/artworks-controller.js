@@ -184,7 +184,7 @@ async function deleteUserArtwork(req, res, next) {
         `);
 
         res.status(200).json({ message: `Artwork with id, ${artworkId} deleted.` });
-        
+
     } catch (err) {
         next(err);
     }
@@ -192,6 +192,7 @@ async function deleteUserArtwork(req, res, next) {
 
 async function deleteUserFollower(req, res, next) {
     try {
+        
         
     } catch (err) {
         next(err);
