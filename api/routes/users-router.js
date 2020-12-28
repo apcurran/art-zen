@@ -13,7 +13,7 @@ router.post("/", verifyAuth, usersController.postNewUser);
 // PATCH user account
 router.patch("/:id", verifyAuth, usersController.patchUser);
 // DELETE user account
-// router.delete("/users/:id", verifyAuth, artworksController.deleteUser);
+router.delete("/:id", verifyAuth, usersController.deleteUser);
 // DELETE account follower
 router.delete("/:userId/followers/:followerId", verifyAuth, usersController.deleteUserFollower);
 

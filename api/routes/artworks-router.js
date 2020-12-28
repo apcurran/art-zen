@@ -19,8 +19,6 @@ router.get("/", artworksController.getArtworks);
 router.post("/:id/comments", verifyAuth, artworksController.postUserArtworkComment);
 // POST new artwork
 router.post("/", verifyAuth, artworksController.postUserArtwork);
-// DELETE user account
-router.delete("/users/:id", verifyAuth, artworksController.deleteUser);
 // DELETE artwork
 router.delete("/:id", verifyAuth, artworksController.deleteUserArtwork);
 

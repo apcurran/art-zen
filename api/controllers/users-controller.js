@@ -62,9 +62,26 @@ async function deleteUserFollower(req, res, next) {
     }
 }
 
+async function deleteUser(req, res, next) {
+    const userId = req.user._id;
+
+    try {
+        await db.query(SQL`
+            DELETE FROM app_user
+            WHERE app_user.user_id = ${userId}
+        `);
+
+        res.status(200).json({ message: `Employee with id, ${userId} deleted.` });
+
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     postNewUser,
     postUserFollower,
     patchUser,
     deleteUserFollower,
+    deleteUser,
 };
