@@ -22,7 +22,7 @@ async function getArtworks(req, res, next) {
 
 async function getUserArtwork(req, res, next) {
     try {
-        const { id } = req.params;
+        const { artworkId } = req.params;
         const { rows } = await db.query(SQL`
             SELECT
                 artwork.artwork_id, artwork.user_id, artwork.title, artwork.description, artwork.img_url, artwork.created_at,
@@ -30,7 +30,7 @@ async function getUserArtwork(req, res, next) {
             FROM artwork
             INNER JOIN app_user
             ON artwork.user_id = app_user.user_id
-            WHERE artwork.artwork_id = ${id}
+            WHERE artwork.artwork_id = ${artworkId}
         `);
 
         res.status(200).json(rows[0]);
@@ -99,7 +99,7 @@ async function postUserArtwork(req, res, next) {
 }
 
 async function postUserArtworkLike(req, res, next) {
-    const artworkId = req.params.id;
+    const { artworkId } = req.params;
     const userId = req.user._id;
 
     try {

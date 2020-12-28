@@ -11,11 +11,11 @@ router.get("/users/:userId", artworksController.getUserArtworks);
 // GET search results for artwork title or genre
 router.get("/search", artworksController.getSearch);
 // GET specific artwork based on artwork id
-router.get("/:id", artworksController.getUserArtwork);
+router.get("/:artworkId", artworksController.getUserArtwork);
 // GET all artworks
 router.get("/", artworksController.getArtworks);
 // POST new artwork like
-router.get("/:id/likes", artworksController.postUserArtworkLike);
+router.get("/:artworkId/likes", artworksController.postUserArtworkLike);
 // POST new artwork comment
 router.post("/:id/comments", verifyAuth, artworksController.postUserArtworkComment);
 // POST new artwork favorite
