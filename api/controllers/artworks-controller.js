@@ -158,15 +158,31 @@ async function patchUser(req, res, next) {
 // DELETE controllers
 
 async function deleteUser(req, res, next) {
+    const userId = req.user._id;
 
+    try {
+        
+    } catch (err) {
+        next(err);
+    }
 }
 
 async function deleteUserArtwork(req, res, next) {
+    const userId = req.user._id;
 
+    try {
+        
+    } catch (err) {
+        next(err);
+    }
 }
 
 async function deleteUserFollower(req, res, next) {
-
+    try {
+        
+    } catch (err) {
+        next(err);
+    }
 }
 
 module.exports = {
