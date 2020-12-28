@@ -3,6 +3,8 @@
 const db = require("../../db/index");
 const SQL = require("sql-template-strings");
 
+const { userArtworkValidation } = require("../validation/artworks-validation");
+
 // GET controllers
 // Various artists sorted by most recent
 async function getArtworks(req, res, next) {
@@ -83,8 +85,15 @@ async function getSearch(req, res, next) {
 // POST controllers
 async function postUserArtwork(req, res, next) {
     try {
+        await userArtworkValidation(req.body);
+
+    } catch (err) {
+        return res.status(400).json({ error: err.details[0].message });
+    }
+
+    try {
         const userId = req.user._id;
-        // TODO: validate data
+        // Data is now valid
         const { title, description, genre, img_url } = req.body;
 
         await db.query(SQL`
