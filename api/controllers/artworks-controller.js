@@ -157,7 +157,7 @@ async function postUserArtworkFavorite(req, res, next) {
 
     try {
         await db.query(SQL`
-            INTO INTO artwork_favorite(artwork_id, user_id)
+            INSERT INTO artwork_favorite(artwork_id, user_id)
             VALUES (${artworkId}, ${userId})
         `);
 

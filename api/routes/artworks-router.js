@@ -15,15 +15,15 @@ router.get("/:artworkId", artworksController.getUserArtwork);
 // GET all artworks
 router.get("/", artworksController.getArtworks);
 // POST new artwork like
-router.post("/:artworkId/likes", verifyAuth, artworksController.postUserArtworkLike);
+router.post("/:artworkId/likes", verifyAuth, artworksController.postUserArtworkLike); // tested
 // POST new artwork comment
-router.post("/:artworkId/comments", verifyAuth, artworksController.postUserArtworkComment);
+router.post("/:artworkId/comments", verifyAuth, artworksController.postUserArtworkComment); // tested
 // POST new artwork favorite
 router.post("/:artworkId/favorites", verifyAuth, artworksController.postUserArtworkFavorite);
 // POST new artwork
-router.post("/", verifyAuth, artworksController.postUserArtwork);
+router.post("/", verifyAuth, artworksController.postUserArtwork); 
 // DELETE artwork like
-router.delete("/:artworkId/likes/:likeId", verifyAuth, artworksController.deleteUserArtworkLike);
+router.delete("/:artworkId/likes/:likeId", verifyAuth, artworksController.deleteUserArtworkLike); // tested
 // DELETE artwork favorite
 router.delete("/:artworkId/favorites/:favoriteId", verifyAuth, artworksController.deleteUserArtworkFavorite);
 // DELETE artwork
