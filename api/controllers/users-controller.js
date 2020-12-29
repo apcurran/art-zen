@@ -40,7 +40,7 @@ async function patchUser(req, res, next) {
         await db.query(SQL`
             UPDATE app_user
             SET
-                bio_description = COALESCE(${bio_description}, bio_description)
+                bio_description = COALESCE(${bio_description}, bio_description),
                 avatar_img_url = COALESCE(${avatar_img_url}, avatar_img_url)
             WHERE app_user.user_id = ${userId}
         `);

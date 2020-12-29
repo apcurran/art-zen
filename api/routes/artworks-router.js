@@ -21,7 +21,7 @@ router.post("/:artworkId/comments", verifyAuth, artworksController.postUserArtwo
 // POST new artwork favorite
 router.post("/:artworkId/favorites", verifyAuth, artworksController.postUserArtworkFavorite); // tested
 // POST new artwork
-router.post("/", verifyAuth, artworksController.postUserArtwork); // 
+router.post("/", verifyAuth, artworksController.postUserArtwork); // TODO: need to delete and re-run script to create artwork table (to remove UNIQUE user_id constraint)
 // DELETE artwork like
 router.delete("/:artworkId/likes/:likeId", verifyAuth, artworksController.deleteUserArtworkLike); // tested
 // DELETE artwork favorite
