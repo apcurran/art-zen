@@ -79,7 +79,7 @@ async function deleteUser(req, res, next) {
             WHERE app_user.user_id = ${userId}
         `);
 
-        res.status(200).json({ message: `Employee with id, ${userId} deleted.` });
+        res.status(200).json({ message: `User with id, ${userId} deleted.` });
 
     } catch (err) {
         next(err);
