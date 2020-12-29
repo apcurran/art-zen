@@ -39,11 +39,11 @@ function randomGenre(genreArr) {
         
         // Save in db
         const savedUser = await db.query(SQL`
-        INSERT INTO app_user
-            (username, email, password, bio_description, avatar_img_url)
-        VALUES
-            (${username}, ${email}, ${hashedPassword}, ${bio_description}, ${avatar_img_url})
-        RETURNING *
+            INSERT INTO app_user
+                (username, email, password, bio_description, avatar_img_url)
+            VALUES
+                (${username}, ${email}, ${hashedPassword}, ${bio_description}, ${avatar_img_url})
+            RETURNING *
         `);
         
         // Create artwork row entry and link with foreign key from app_user.user_id
