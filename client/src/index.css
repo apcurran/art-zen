@@ -30,6 +30,12 @@ p {
   line-height: 1.6;
 }
 
+.App {
+  min-height: 100vh;
+  display: grid;
+  grid-auto-rows: auto 1fr auto;
+}
+
 /* Base err msg styling */
 .error {
   margin-bottom: 1rem;
