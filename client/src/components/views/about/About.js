@@ -1,11 +1,14 @@
 import "./About.css";
+import ArtMuseumIllustration from "../../../assets/images/illustration-art-museum-opt.svg";
+import SharingArticlesIllustration from "../../../assets/images/illustration-sharing-articles-opt.svg";
+import MonsterArtistIllustration from "../../../assets/images/illustration-monster-artist-opt.svg";
 
 function About() {
     return (
         <main className="main-about">
             <section className="main-about__section">
                 <figure className="main-about__section__fig">
-                    img here
+                    <img src={ArtMuseumIllustration} alt="Illustration of a man staring at art in a museum." className="main-about__section__fig__img"/>
                 </figure>
                 <div className="main-about__section__content">
                     <h2 className="main-about__section__title">
@@ -25,10 +28,14 @@ function About() {
                         Share your struggles and challenges, post tips on other artists' pages, or show some love by favoriting a piece you like.
                     </p>
                 </div>
-                <figure className="main-about__section__fig">img here</figure>
+                <figure className="main-about__section__fig">
+                    <img src={SharingArticlesIllustration} alt="" className="main-about__section__fig__img"/>
+                </figure>
             </section>
             <section className="main-about__section">
-                <figure className="main-about__section__fig">img here</figure>
+                <figure className="main-about__section__fig">
+                    <img src={MonsterArtistIllustration} alt="" className="main-about__section__fig__img"/>
+                </figure>
                 <div className="main-about__section__content">
                     <h2 className="main-about__section__title">
                         Join now to share your masterpiece with the world!

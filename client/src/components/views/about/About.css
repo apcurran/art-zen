@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
+    gap: 4rem;
 }
 
 .main-about__section:nth-of-type(odd) {
@@ -22,4 +22,12 @@
 
 .main-about__section__title {
     margin-bottom: .5rem;
+}
+
+.main-about__section__fig {
+    width: 40rem;
+}
+
+.main-about__section__fig__img {
+    width: 100%;
 }
