@@ -23,16 +23,20 @@ async function getArtworks(req, res, next) {
 }
 
 async function getUserArtwork(req, res, next) {
+    // Combine artwork, comments, likes(count and your 'like'), and favorites(count and your 'favorite') tables
     try {
         const { artworkId } = req.params;
         const { rows } = await db.query(SQL`
             SELECT
-                artwork.artwork_id, artwork.user_id, artwork.title, artwork.description, artwork.img_url, artwork.created_at,
-                app_user.username, app_user.avatar_img_url
+                artwork.artwork_id, artwork.user_id, artwork.title, artwork.description, artwork.img_url, artwork.created_at AS artwork_created_at,
+                app_user.username, app_user.avatar_img_url,
+                artwork_comment.comment_id, artwork_comment.user_id AS commenter_user_id, artwork_comment.text, artwork_comment.created_at AS artwork_comment_created_at
             FROM artwork
-            INNER JOIN app_user
-            ON artwork.user_id = app_user.user_id
-            WHERE artwork.artwork_id = ${artworkId}
+            LEFT JOIN app_user
+                ON artwork.user_id = app_user.user_id
+            LEFT JOIN artwork_comment
+                ON artwork.artwork_id = artwork_comment.artwork_id
+            WHERE artwork.artwork_id = ${artworkId} AND artwork_comment.artwork_id = ${artworkId}
         `);
 
         res.status(200).json(rows[0]);
@@ -51,7 +55,7 @@ async function getUserArtworks(req, res, next) {
                 app_user.username, app_user.avatar_img_url
             FROM artwork
             INNER JOIN app_user
-            ON artwork.user_id = app_user.user_id
+                ON artwork.user_id = app_user.user_id
             WHERE artwork.user_id = ${userId}
             ORDER BY artwork.created_at DESC
         `);

@@ -1,0 +1,16 @@
+.header {
+    padding: 2rem 0;
+}
+
+.nav {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: var(--wrapper-max-width);
+    width: var(--wrapper-width);
+}
+
+.logo {
+    width: 14rem;
+}
