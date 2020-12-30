@@ -1,0 +1,11 @@
+.footer {
+    padding: 1.75rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer__title {
+    color: var(--brand-orange);
+    font-weight: 400;
+}

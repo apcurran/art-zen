@@ -1,0 +1,25 @@
+.main-about__section {
+    padding: 6rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.main-about__section:nth-of-type(odd) {
+    background-color: var(--ultra-light-grey);
+    color: var(--main-bg-clr);
+}
+
+.main-about__section:nth-of-type(even) {
+    background-color: transparent;
+    color: var(--ultra-light-grey);
+}
+
+.main-about__section__content {
+    max-width: 50ch;
+}
+
+.main-about__section__title {
+    margin-bottom: .5rem;
+}

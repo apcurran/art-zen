@@ -8,6 +8,9 @@
   --wrapper-max-width: 80rem;
   --wrapper-width: 92.5%;
   --page-title-fz: 1.75rem;
+  --main-bg-clr: #111827;
+  --ultra-light-grey:  #f9fafb;
+  --brand-orange: #fdba74;
 }
 
 body,
@@ -19,7 +22,7 @@ button {
 }
 
 body {
-  background-color: #111827;
+  background-color: var(--main-bg-clr);
   color: #fff;
 }
 
