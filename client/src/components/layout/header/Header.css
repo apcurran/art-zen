@@ -28,3 +28,27 @@
     text-decoration: none;
     font-size: 1.0625rem;
 }
+
+.search-form {
+    width: 25rem;
+}
+
+.search-form__input {
+    width: 100%;
+    padding: .5625rem .5rem;
+    background-color: transparent;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    caret-color: #fff;
+    border-bottom: 2px solid #D1D5DB;
+    color: #fff;
+}
+
+.search-form__input::placeholder {
+    color: #D1D5DB;
+}
+
+.search-form__input:focus {
+    border-bottom-color: #fff;
+}
