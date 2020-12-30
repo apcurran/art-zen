@@ -23,10 +23,15 @@ body {
   color: #fff;
 }
 
+p {
+  line-height: 1.6;
+}
+
 /* Base err msg styling */
 .error {
   margin-bottom: 1rem;
   padding: .5rem;
   background-color: #fecaca;
   color: #b91c1c;
+  font-weight: 700;
 }

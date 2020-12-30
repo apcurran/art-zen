@@ -11,6 +11,20 @@
     width: var(--wrapper-width);
 }
 
-.logo {
-    width: 14rem;
+.nav__logo-img {
+    width: 13rem;
+}
+
+.nav__list {
+    display: flex;
+    align-items: center;
+    gap: 3ch;
+    list-style: none;
+}
+
+.nav__link {
+    padding: .5rem 0;
+    color: inherit;
+    text-decoration: none;
+    font-size: 1.0625rem;
 }
