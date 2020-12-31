@@ -40,7 +40,7 @@ async function getUserArtwork(req, res, next) {
         // `);
 
         // Combine only artwork and user tables
-        const artworkAndUserData = (await db.query(SQL`
+        const artworkAndUserData = db.query(SQL`
             SELECT
                 artwork.artwork_id, artwork.user_id, artwork.title, artwork.description, artwork.img_url, artwork.created_at AS artwork_created_at,
                 app_user.username, app_user.avatar_img_url
@@ -48,31 +48,39 @@ async function getUserArtwork(req, res, next) {
             LEFT JOIN app_user
                 ON artwork.user_id = app_user.user_id
             WHERE artwork.artwork_id = ${artworkId}
-        `)).rows[0];
+        `);
         // Comment table
-        const commentsData = (await db.query(SQL`
+        const commentsData = db.query(SQL`
             SELECT *
             FROM artwork_comment
             WHERE artwork_comment.artwork_id = ${artworkId}
-        `)).rows;
+        `);
         // Like table
-        const likesData = (await db.query(SQL`
+        const likesData = db.query(SQL`
             SELECT *
             FROM artwork_like
             WHERE artwork_like.artwork_id = ${artworkId}
-        `)).rows;
-        const favoritesData = (await db.query(SQL`
+        `);
+        // Favorite table
+        const favoritesData = db.query(SQL`
             SELECT *
             FROM artwork_favorite
             WHERE artwork_favorite.artwork_id = ${artworkId}
-        `)).rows;
+        `);
 
-        console.log(artworkAndUserData);
-        console.log(commentsData);
-        console.log(likesData);
-        console.log(favoritesData);
+        const data = await Promise.all([artworkAndUserData, commentsData, likesData, favoritesData]);
 
-        res.status(200).json("Finished queries");
+        const resolvedArtworkAndUserData = data[0].rows[0];
+        const resolvedCommentsData = data[1].rows;
+        const resolvedLikesData = data[2].rows;
+        const resolvedFavoritesData = data[3].rows;
+
+        console.log(resolvedArtworkAndUserData);
+        console.log(resolvedCommentsData);
+        console.log(resolvedLikesData);
+        console.log(resolvedFavoritesData);
+
+        res.status(200).json(resolvedFavoritesData);
 
     } catch (err) {
         next(err);
