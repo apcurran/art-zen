@@ -23,25 +23,56 @@ async function getArtworks(req, res, next) {
 }
 
 async function getUserArtwork(req, res, next) {
-    // Combine artwork, comments, likes(count and your 'like'), and favorites(count and your 'favorite') tables
     try {
         const { artworkId } = req.params;
-        // TESTED: Functional, but not ideal
+        // Combine artwork, user, and comment tables
+        // const { rows } = await db.query(SQL`
+        //     SELECT
+        //         artwork.artwork_id, artwork.user_id, artwork.title, artwork.description, artwork.img_url, artwork.created_at AS artwork_created_at,
+        //         app_user.username, app_user.avatar_img_url,
+        //         artwork_comment.comment_id, artwork_comment.user_id AS commenter_user_id, artwork_comment.text, artwork_comment.created_at AS artwork_comment_created_at
+        //     FROM artwork
+        //     LEFT JOIN app_user
+        //         ON artwork.user_id = app_user.user_id
+        //     LEFT JOIN artwork_comment
+        //         ON artwork.artwork_id = artwork_comment.artwork_id
+        //     WHERE artwork.artwork_id = ${artworkId}
+        // `);
 
-        const { rows } = await db.query(SQL`
+        // Combine only artwork and user tables
+        const artworkAndUserData = (await db.query(SQL`
             SELECT
                 artwork.artwork_id, artwork.user_id, artwork.title, artwork.description, artwork.img_url, artwork.created_at AS artwork_created_at,
-                app_user.username, app_user.avatar_img_url,
-                artwork_comment.comment_id, artwork_comment.user_id AS commenter_user_id, artwork_comment.text, artwork_comment.created_at AS artwork_comment_created_at
+                app_user.username, app_user.avatar_img_url
             FROM artwork
             LEFT JOIN app_user
                 ON artwork.user_id = app_user.user_id
-            LEFT JOIN artwork_comment
-                ON artwork.artwork_id = artwork_comment.artwork_id
             WHERE artwork.artwork_id = ${artworkId}
-        `);
+        `)).rows[0];
+        // Comment table
+        const commentsData = (await db.query(SQL`
+            SELECT *
+            FROM artwork_comment
+            WHERE artwork_comment.artwork_id = ${artworkId}
+        `)).rows;
+        // Like table
+        const likesData = (await db.query(SQL`
+            SELECT *
+            FROM artwork_like
+            WHERE artwork_like.artwork_id = ${artworkId}
+        `)).rows;
+        const favoritesData = (await db.query(SQL`
+            SELECT *
+            FROM artwork_favorite
+            WHERE artwork_favorite.artwork_id = ${artworkId}
+        `)).rows;
 
-        res.status(200).json(rows);
+        console.log(artworkAndUserData);
+        console.log(commentsData);
+        console.log(likesData);
+        console.log(favoritesData);
+
+        res.status(200).json("Finished queries");
 
     } catch (err) {
         next(err);
@@ -167,7 +198,7 @@ async function postUserArtworkFavorite(req, res, next) {
             VALUES (${artworkId}, ${userId})
         `);
 
-        res.status(201).json({ message: "New favorited added." });
+        res.status(201).json({ message: "New favorite added." });
 
     } catch (err) {
         next(err);
