@@ -26,6 +26,8 @@ async function getUserArtwork(req, res, next) {
     // Combine artwork, comments, likes(count and your 'like'), and favorites(count and your 'favorite') tables
     try {
         const { artworkId } = req.params;
+        // TESTED: Functional, but not ideal
+
         const { rows } = await db.query(SQL`
             SELECT
                 artwork.artwork_id, artwork.user_id, artwork.title, artwork.description, artwork.img_url, artwork.created_at AS artwork_created_at,
@@ -39,7 +41,7 @@ async function getUserArtwork(req, res, next) {
             WHERE artwork.artwork_id = ${artworkId} AND artwork_comment.artwork_id = ${artworkId}
         `);
 
-        res.status(200).json(rows[0]);
+        res.status(200).json(rows);
 
     } catch (err) {
         next(err);
