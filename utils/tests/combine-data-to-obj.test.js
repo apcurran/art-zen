@@ -62,6 +62,12 @@ test("reformats the source params into the target obj structure", () => {
         }
     ];
 
+    const countsData ={
+        total_comments: "3",
+        total_likes: "2",
+        total_favorites: "2"
+    };
+
     const targetObj = {
         artwork_id: 28,
         user_id: 28,
@@ -117,8 +123,13 @@ test("reformats the source params into the target obj structure", () => {
                 artwork_id: 28,
                 user_id: 29
             }
-        ]
+        ],
+        counts: {
+            total_comments: "3",
+            total_likes: "2",
+            total_favorites: "2"
+        }
     };
 
-    expect(combineDataToObj(artworkAndUserData, commentsData, likesData, favsData)).toEqual(targetObj);
+    expect(combineDataToObj(artworkAndUserData, commentsData, likesData, favsData, countsData)).toEqual(targetObj);
 });

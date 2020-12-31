@@ -1,4 +1,4 @@
-function combineDataToObj(artworkAndUserData, commentsData, likesData, favsData) {
+function combineDataToObj(artworkAndUserData, commentsData, likesData, favsData, countsData) {
     return {
         ...artworkAndUserData,
         comments: [
@@ -9,7 +9,10 @@ function combineDataToObj(artworkAndUserData, commentsData, likesData, favsData)
         ],
         favorites: [
             ...favsData
-        ]
+        ],
+        counts: {
+            ...countsData
+        }
     };
 }
 
