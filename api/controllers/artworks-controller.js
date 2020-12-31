@@ -38,7 +38,7 @@ async function getUserArtwork(req, res, next) {
                 ON artwork.user_id = app_user.user_id
             LEFT JOIN artwork_comment
                 ON artwork.artwork_id = artwork_comment.artwork_id
-            WHERE artwork.artwork_id = ${artworkId} AND artwork_comment.artwork_id = ${artworkId}
+            WHERE artwork.artwork_id = ${artworkId}
         `);
 
         res.status(200).json(rows);

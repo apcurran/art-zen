@@ -1,5 +1,8 @@
 {
   "name": "art-zen",
+  "jest": {
+    "testPathIgnorePatterns": ["<rootDir>/client"]
+  },
   "version": "1.0.0",
   "description": "Art Zen is a social website for artists.",
   "main": "server.js",
