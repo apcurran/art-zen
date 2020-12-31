@@ -13,4 +13,4 @@ function combineDataToObj(artworkAndUserData, commentsData, likesData, favsData)
     };
 }
 
-module.exports = combineDataToObj;
+module.exports = { combineDataToObj };

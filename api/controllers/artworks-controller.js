@@ -4,6 +4,7 @@ const db = require("../../db/index");
 const SQL = require("sql-template-strings");
 
 const { userArtworkValidation, userArtworkCommentValidation } = require("../validation/artworks-validation");
+const { combineDataToObj } = require("../../utils/combine-data-to-obj");
 
 // GET controllers
 // Various artists sorted by most recent
@@ -75,12 +76,9 @@ async function getUserArtwork(req, res, next) {
         const resolvedLikesData = data[2].rows;
         const resolvedFavoritesData = data[3].rows;
 
-        console.log(resolvedArtworkAndUserData);
-        console.log(resolvedCommentsData);
-        console.log(resolvedLikesData);
-        console.log(resolvedFavoritesData);
+        const formattedFinalObj = combineDataToObj(resolvedArtworkAndUserData, resolvedCommentsData, resolvedLikesData, resolvedFavoritesData);
 
-        res.status(200).json(resolvedFavoritesData);
+        res.status(200).json(formattedFinalObj);
 
     } catch (err) {
         next(err);

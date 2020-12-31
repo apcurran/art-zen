@@ -1,4 +1,4 @@
-const combineDataToObj = require("../combine-data-to-obj");
+const { combineDataToObj } = require("../combine-data-to-obj");
 
 test("reformats the source params into the target obj structure", () => {
     const artworkAndUserData = {
