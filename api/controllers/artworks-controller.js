@@ -26,20 +26,6 @@ async function getArtworks(req, res, next) {
 async function getUserArtwork(req, res, next) {
     try {
         const { artworkId } = req.params;
-        // Combine artwork, user, and comment tables
-        // const { rows } = await db.query(SQL`
-        //     SELECT
-        //         artwork.artwork_id, artwork.user_id, artwork.title, artwork.description, artwork.img_url, artwork.created_at AS artwork_created_at,
-        //         app_user.username, app_user.avatar_img_url,
-        //         artwork_comment.comment_id, artwork_comment.user_id AS commenter_user_id, artwork_comment.text, artwork_comment.created_at AS artwork_comment_created_at
-        //     FROM artwork
-        //     LEFT JOIN app_user
-        //         ON artwork.user_id = app_user.user_id
-        //     LEFT JOIN artwork_comment
-        //         ON artwork.artwork_id = artwork_comment.artwork_id
-        //     WHERE artwork.artwork_id = ${artworkId}
-        // `);
-
         // Combine only artwork and user tables
         const artworkAndUserData = db.query(SQL`
             SELECT
@@ -70,7 +56,6 @@ async function getUserArtwork(req, res, next) {
         `);
 
         const data = await Promise.all([artworkAndUserData, commentsData, likesData, favoritesData]);
-
         const resolvedArtworkAndUserData = data[0].rows[0];
         const resolvedCommentsData = data[1].rows;
         const resolvedLikesData = data[2].rows;
