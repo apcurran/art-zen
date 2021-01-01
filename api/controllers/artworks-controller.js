@@ -93,7 +93,12 @@ async function getUserArtworks(req, res, next) {
         const { rows } = await db.query(SQL`
             SELECT
                 artwork.artwork_id, artwork.user_id, artwork.img_url,
-                app_user.username, app_user.avatar_img_url
+                app_user.username, app_user.avatar_img_url,
+                (
+                    SELECT COUNT(follower.follower_user_id)
+                    FROM follower
+                    WHERE follower.account_user_id = ${userId}
+                ) AS total_followers
             FROM artwork
             INNER JOIN app_user
                 ON artwork.user_id = app_user.user_id
