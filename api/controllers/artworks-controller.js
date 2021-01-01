@@ -95,6 +95,11 @@ async function getUserArtworks(req, res, next) {
                 artwork.artwork_id, artwork.user_id, artwork.img_url,
                 app_user.username, app_user.avatar_img_url,
                 (
+                    SELECT COUNT(artwork.artwork_id)
+                    FROM artwork
+                    WHERE artwork.user_id = ${userId}
+                ) AS total_creations,
+                (
                     SELECT COUNT(follower.follower_user_id)
                     FROM follower
                     WHERE follower.account_user_id = ${userId}
@@ -105,6 +110,8 @@ async function getUserArtworks(req, res, next) {
             WHERE artwork.user_id = ${userId}
             ORDER BY artwork.created_at DESC
         `);
+
+        // TODO: transform data to JSON ready format before responding to client
 
         res.status(200).json(rows);
 
