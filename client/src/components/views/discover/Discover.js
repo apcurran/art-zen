@@ -15,7 +15,7 @@ function Discover() {
     return (
         <div>
             <h1>Discover New Artists</h1>
-            <main>
+            <main className="masonry-grid">
                 {artworks.map(artwork => (
                     <Artwork img_url={artwork.img_url} key={artwork.artwork_id} />
                 ))}

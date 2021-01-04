@@ -1,0 +1,12 @@
+.masonry-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.masonry-grid__img {
+    width: auto;
+    flex: 1 0 auto;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    object-fit: cover;
+}
