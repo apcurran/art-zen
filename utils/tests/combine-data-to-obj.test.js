@@ -15,24 +15,24 @@ test("reformats the source params into the target obj structure", () => {
     const commentsData = [
         {
             comment_id: 1,
-            artwork_id: 28,
             user_id: 29,
+            comment_username: "Alex",
             text: "Hey, nice artwork!",
-            created_at: "2020-12-30T01:58:58.660Z"
+            comment_created_at: "2020-12-30T01:58:58.660Z"
         },
         {
             comment_id: 2,
-            artwork_id: 28,
             user_id: 29,
+            comment_username: "Alex",
             text: "Hey, nice artwork!",
-            created_at: "2020-12-30T02:14:38.139Z"
+            comment_created_at: "2020-12-30T02:14:38.139Z"
         },
         {
             comment_id: 3,
-            artwork_id: 28,
             user_id: 29,
+            comment_username: "Alex",
             text: "Test comment 2.",
-            created_at: "2020-12-30T02:24:11.143Z"
+            comment_created_at: "2020-12-30T02:24:11.143Z"
         }
     ];
 
@@ -85,24 +85,24 @@ test("reformats the source params into the target obj structure", () => {
         comments: [
             {
                 comment_id: 1,
-                artwork_id: 28,
                 user_id: 29,
                 text: "Hey, nice artwork!",
-                created_at: "2020-12-30T01:58:58.660Z"
+                comment_username: "Alex",
+                comment_created_at: "2020-12-30T01:58:58.660Z"
             },
             {
                 comment_id: 2,
-                artwork_id: 28,
                 user_id: 29,
                 text: "Hey, nice artwork!",
-                created_at: "2020-12-30T02:14:38.139Z"
+                comment_username: "Alex",
+                comment_created_at: "2020-12-30T02:14:38.139Z"
             },
             {
                 comment_id: 3,
-                artwork_id: 28,
                 user_id: 29,
                 text: "Test comment 2.",
-                created_at: "2020-12-30T02:24:11.143Z"
+                comment_username: "Alex",
+                comment_created_at: "2020-12-30T02:24:11.143Z"
             }
         ],
         likes: [
