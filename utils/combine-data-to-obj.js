@@ -1,3 +1,5 @@
+"use strict";
+
 function combineDataToObj(artworkAndUserData, commentsData, likesData, favsData, countsData) {
     return {
         ...artworkAndUserData,

@@ -93,7 +93,7 @@ async function getUserArtworks(req, res, next) {
         const { rows } = await db.query(SQL`
             SELECT
                 artwork.artwork_id, artwork.user_id, artwork.img_url,
-                app_user.username, app_user.avatar_img_url,
+                app_user.username, app_user.avatar_img_url, app_user.bio_description,
                 (
                     SELECT COUNT(artwork.artwork_id)
                     FROM artwork
