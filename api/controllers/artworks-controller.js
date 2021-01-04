@@ -5,6 +5,7 @@ const SQL = require("sql-template-strings");
 
 const { userArtworkValidation, userArtworkCommentValidation } = require("../validation/artworks-validation");
 const { combineDataToObj } = require("../../utils/combine-data-to-obj");
+const { combineUserArtworksDataToObj } = require("../../utils/combine-user-artworks-data-to-obj");
 
 // GET controllers
 // Various artists sorted by most recent
@@ -92,7 +93,7 @@ async function getUserArtworks(req, res, next) {
         const { userId } = req.params;
         const { rows } = await db.query(SQL`
             SELECT
-                artwork.artwork_id, artwork.user_id, artwork.img_url,
+                artwork.artwork_id, artwork.user_id, artwork.img_url AS artwork_img_url,
                 app_user.username, app_user.avatar_img_url, app_user.bio_description,
                 (
                     SELECT COUNT(artwork.artwork_id)
@@ -112,8 +113,9 @@ async function getUserArtworks(req, res, next) {
         `);
 
         // TODO: transform data to JSON ready format before responding to client
+        const formattedFinalObj = combineUserArtworksDataToObj(rows);
 
-        res.status(200).json(rows);
+        res.status(200).json(formattedFinalObj);
 
     } catch (err) {
         next(err);
