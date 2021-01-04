@@ -9,7 +9,10 @@ test("reformats the source params into the target obj structure", () => {
         img_url: "art-zen-app/high-king-and-dark-lord_ktxbqr",
         artwork_created_at: "2020-12-29T23:11:52.647Z",
         username: "Rosie.Graham1",
-        avatar_img_url: "http://placeimg.com/200/200/abstract"
+        avatar_img_url: "http://placeimg.com/200/200/abstract",
+        total_comments: "3",
+        total_likes: "2",
+        total_favorites: "2"
     };
 
     const commentsData = [
@@ -62,12 +65,6 @@ test("reformats the source params into the target obj structure", () => {
         }
     ];
 
-    const countsData ={
-        total_comments: "3",
-        total_likes: "2",
-        total_favorites: "2"
-    };
-
     const targetObj = {
         artwork_id: 28,
         user_id: 28,
@@ -77,11 +74,9 @@ test("reformats the source params into the target obj structure", () => {
         artwork_created_at: "2020-12-29T23:11:52.647Z",
         username: "Rosie.Graham1",
         avatar_img_url: "http://placeimg.com/200/200/abstract",
-        counts: {
-            total_comments: "3",
-            total_likes: "2",
-            total_favorites: "2"
-        },
+        total_comments: "3",
+        total_likes: "2",
+        total_favorites: "2",
         comments: [
             {
                 comment_id: 1,
@@ -131,5 +126,5 @@ test("reformats the source params into the target obj structure", () => {
         ]
     };
 
-    expect(combineDataToObj(artworkAndUserData, commentsData, likesData, favsData, countsData)).toEqual(targetObj);
+    expect(combineDataToObj(artworkAndUserData, commentsData, likesData, favsData)).toEqual(targetObj);
 });

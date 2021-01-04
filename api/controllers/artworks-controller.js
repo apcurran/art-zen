@@ -31,7 +31,19 @@ async function getUserArtwork(req, res, next) {
         const artworkAndUserData = db.query(SQL`
             SELECT
                 artwork.artwork_id, artwork.user_id, artwork.title, artwork.description, artwork.img_url, artwork.created_at AS artwork_created_at,
-                app_user.username, app_user.avatar_img_url
+                app_user.username, app_user.avatar_img_url,
+                (
+                    SELECT COUNT(artwork_comment.comment_id)
+                    FROM artwork_comment
+                ) AS total_comments,
+                (
+                    SELECT COUNT(artwork_like.like_id)
+                    FROM artwork_like
+                ) AS total_likes,
+                (
+                    SELECT COUNT(artwork_favorite.favorite_id)
+                    FROM artwork_favorite
+                ) AS total_favorites
             FROM artwork
             LEFT JOIN app_user
                 ON artwork.user_id = app_user.user_id
@@ -60,31 +72,14 @@ async function getUserArtwork(req, res, next) {
             FROM artwork_favorite
             WHERE artwork_favorite.artwork_id = ${artworkId}
         `);
-        // All counts
-        const countsData = db.query(SQL`
-            SELECT
-                (
-                    SELECT COUNT(artwork_comment.comment_id)
-                    FROM artwork_comment
-                ) AS total_comments,
-                (
-                    SELECT COUNT(artwork_like.like_id)
-                    FROM artwork_like
-                ) AS total_likes,
-                (
-                    SELECT COUNT(artwork_favorite.favorite_id)
-                    FROM artwork_favorite
-                ) AS total_favorites
-        `);
 
-        const data = await Promise.all([artworkAndUserData, commentsData, likesData, favoritesData, countsData]);
+        const data = await Promise.all([artworkAndUserData, commentsData, likesData, favoritesData]);
         const resolvedArtworkAndUserData = data[0].rows[0];
         const resolvedCommentsData = data[1].rows;
         const resolvedLikesData = data[2].rows;
         const resolvedFavoritesData = data[3].rows;
-        const resolvedCountsData = data[4].rows[0];
 
-        const formattedFinalObj = combineDataToObj(resolvedArtworkAndUserData, resolvedCommentsData, resolvedLikesData, resolvedFavoritesData, resolvedCountsData);
+        const formattedFinalObj = combineDataToObj(resolvedArtworkAndUserData, resolvedCommentsData, resolvedLikesData, resolvedFavoritesData);
 
         res.status(200).json(formattedFinalObj);
 
