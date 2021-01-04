@@ -112,7 +112,6 @@ async function getUserArtworks(req, res, next) {
             ORDER BY artwork.created_at DESC
         `);
 
-        // TODO: transform data to JSON ready format before responding to client
         const formattedFinalObj = combineUserArtworksDataToObj(rows);
 
         res.status(200).json(formattedFinalObj);
