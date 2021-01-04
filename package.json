@@ -1,8 +1,5 @@
 {
   "name": "art-zen",
-  "jest": {
-    "testPathIgnorePatterns": ["<rootDir>/client"]
-  },
   "version": "1.0.0",
   "description": "Art Zen is a social website for artists.",
   "main": "server.js",
@@ -29,7 +26,6 @@
   },
   "devDependencies": {
     "faker": "^5.1.0",
-    "jest": "^26.6.3",
     "morgan": "^1.10.0"
   }
 }
