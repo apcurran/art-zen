@@ -1,5 +1,5 @@
 .artwork-view__comments-total {
-    display: flex;
+    display: inline-flex;
     align-items: center;
 }
 
