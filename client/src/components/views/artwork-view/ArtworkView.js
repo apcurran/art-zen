@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 
+import "./ArtworkView.css";
 import ArtworkInfo from "./artwork-info/ArtworkInfo";
 
 function ArtworkView() {
@@ -41,8 +42,7 @@ function ArtworkView() {
     }, [id]);
 
     return (
-        <main>
-            <h1>Artwork View for {id}</h1>
+        <main className="artwork-view">
             <ArtworkInfo artworkData={artworkData} />
         </main>
     );
