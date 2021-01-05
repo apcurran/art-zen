@@ -13,11 +13,11 @@ function Discover() {
     }, []);
 
     return (
-        <div>
-            <h1>Discover New Artists</h1>
+        <div className="discover">
+            <h1 className="discover__title">Discover New Artists</h1>
             <main className="masonry-grid">
                 {artworks.map(artwork => (
-                    <Artwork img_url={artwork.img_url} key={artwork.artwork_id} />
+                    <Artwork img_url={artwork.img_url} artwork_id={artwork.artwork_id} key={artwork.artwork_id} />
                 ))}
             </main>
         </div>

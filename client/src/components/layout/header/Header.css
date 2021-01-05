@@ -1,9 +1,11 @@
 .header {
     padding: 2rem 0;
+    margin-bottom: 2rem;
 }
 
 .nav {
     margin: 0 auto;
+    padding: 0 .875rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
