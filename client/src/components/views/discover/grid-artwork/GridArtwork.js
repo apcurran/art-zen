@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { Image, Transformation } from "cloudinary-react";
 
-import "./Artwork.css";
+import "./GridArtwork.css";
 
-function Artwork({ img_url, artwork_id }) {
+function GridArtwork({ img_url, artwork_id }) {
     return (
         <Link to={{pathname: `/artworks/${artwork_id}`}} className="masonry-grid__link">
             <Image
@@ -17,4 +17,4 @@ function Artwork({ img_url, artwork_id }) {
     );
 }
 
-export default Artwork;
+export default GridArtwork;
