@@ -3,3 +3,17 @@
     max-width: 80rem;
     height: auto;
 }
+
+.artwork-view__info__author {
+    margin-bottom: 1rem;
+}
+
+.artwork-view__info__desc {
+    max-width: 75ch;
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+}
+
+.artwork-view__info__date {
+    color: var(--supporting-txt-clr);
+}

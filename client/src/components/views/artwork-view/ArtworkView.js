@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 
 import "./ArtworkView.css";
 import ArtworkInfo from "./artwork-info/ArtworkInfo";
+import ArtworkComments from "./artwork-comments/ArtworkComments";
 
 function ArtworkView() {
     const { id } = useParams();
@@ -44,6 +45,7 @@ function ArtworkView() {
     return (
         <main className="artwork-view">
             <ArtworkInfo artworkData={artworkData} />
+            <ArtworkComments comments={comments} />
         </main>
     );
 }

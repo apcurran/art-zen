@@ -1,0 +1,15 @@
+.artwork-view__comments-total {
+    display: flex;
+    align-items: center;
+}
+
+.artwork-view__comments-total__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.dot {
+    padding: 0 .25rem;
+    color: var(--supporting-txt-clr);
+}
