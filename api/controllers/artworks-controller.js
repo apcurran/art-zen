@@ -33,16 +33,19 @@ async function getUserArtwork(req, res, next) {
                 artwork.artwork_id, artwork.user_id, artwork.title, artwork.description, artwork.img_url, artwork.created_at AS artwork_created_at,
                 app_user.username, app_user.avatar_img_url,
                 (
-                    SELECT COUNT(artwork_comment.comment_id)
+                    SELECT CAST(COUNT(artwork_comment.comment_id) AS int)
                     FROM artwork_comment
+                    WHERE artwork_comment.artwork_id = ${artworkId}
                 ) AS total_comments,
                 (
-                    SELECT COUNT(artwork_like.like_id)
+                    SELECT CAST(COUNT(artwork_like.like_id) AS int)
                     FROM artwork_like
+                    WHERE artwork_like.artwork_id = ${artworkId}
                 ) AS total_likes,
                 (
-                    SELECT COUNT(artwork_favorite.favorite_id)
+                    SELECT CAST(COUNT(artwork_favorite.favorite_id) AS int)
                     FROM artwork_favorite
+                    WHERE artwork_favorite.artwork_id = ${artworkId}
                 ) AS total_favorites
             FROM artwork
             LEFT JOIN app_user
