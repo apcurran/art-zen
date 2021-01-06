@@ -104,12 +104,12 @@ async function getUserArtworks(req, res, next) {
                 artwork.artwork_id, artwork.user_id, artwork.img_url AS artwork_img_url,
                 app_user.username, app_user.avatar_img_url, app_user.bio_description,
                 (
-                    SELECT COUNT(artwork.artwork_id)
+                    SELECT CAST(COUNT(artwork.artwork_id) AS int)
                     FROM artwork
                     WHERE artwork.user_id = ${userId}
                 ) AS total_creations,
                 (
-                    SELECT COUNT(follower.follower_user_id)
+                    SELECT CAST(COUNT(follower.follower_user_id) AS int)
                     FROM follower
                     WHERE follower.account_user_id = ${userId}
                 ) AS total_followers
