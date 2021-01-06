@@ -4,7 +4,7 @@ import UserComment from "./user-comment/UserComment";
 
 function ArtworkComments({ comments }) {
     return (
-        <div>
+        <div className="artwork-view__comments-section">
             <section className="artwork-view__comments-total">
                 <span className="artwork-view__comments-total__title">Comments</span>
                 <span className="dot">&bull;</span>
