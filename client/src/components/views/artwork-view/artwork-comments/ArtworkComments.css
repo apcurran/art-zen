@@ -11,7 +11,7 @@
 }
 
 .dot {
-    padding: 0 .25rem;
+    padding: 0 .5rem;
     color: var(--supporting-txt-clr);
 }
 
@@ -19,20 +19,9 @@
     display: flex;
     align-items: center;
     gap: .875rem;
+    margin-bottom: .5rem;
     padding: 2rem 3rem;
     background-color: var(--dark-grey);
-}
-
-.artwork-view__comments__user__logged-out__avatar {
-    display: inline-flex;
-    padding: .75rem;
-    border-radius: 50%;
-    background-color: #4B5563;
-}
-
-.user-avatar-default-icon {
-    width: 1.625rem;
-    height: 1.625rem; 
 }
 
 .artwork-view__comments__user__logged-out__desc span {

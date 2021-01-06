@@ -1,0 +1,11 @@
+.user-avatar--default {
+    display: inline-flex;
+    padding: .75rem;
+    border-radius: 50%;
+    background-color: #4B5563;
+}
+
+.user-avatar--default__icon {
+    width: 1.625rem;
+    height: 1.625rem; 
+}
