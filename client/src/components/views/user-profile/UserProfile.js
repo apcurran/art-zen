@@ -2,23 +2,42 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import "./UserProfile.css";
+import UserProfileInfo from "./user-profile-info/UserProfileInfo";
+import UserProfileArtworksGrid from "./user-profile-artworks-grid/UserProfileArtworksGrid";
 
 function UserProfile() {
     const { id } = useParams();
+
+    const [profileData, setProfileData] = useState({
+        username: "",
+        avatarImg: "",
+        bioDesc: ""
+    });
+    const [totalCreations, setTotalCreations] = useState(0);
+    const [totalFollowers, setTotalFollowers] = useState(0);
+    const [artworks, setArtworks] = useState([]);
 
     useEffect(() => {
         fetch(`/api/artworks/users/${id}`)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                setProfileData({
+                    username: data.username,
+                    avatarImg: data.avatar_img_url,
+                    bioDesc: data.bio_description
+                });
+                setTotalCreations(data.total_creations);
+                setTotalFollowers(data.total_followers);
+                setArtworks(data.artworks);
             })
             .catch(err => console.error(err));
     }, [id]);
 
     return (
-        <div>
-            User Profile for {id}
-        </div>
+        <main>
+            <UserProfileInfo profileData={profileData} totalCreations={totalCreations} totalFollowers={totalFollowers} />
+            <UserProfileArtworksGrid artworks={artworks} />
+        </main>
     );
 }
 
