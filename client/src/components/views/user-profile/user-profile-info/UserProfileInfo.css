@@ -8,8 +8,8 @@
 }
 
 .user-profile__info__avatar__img {
-    width: 8rem;
-    height: 8rem;
+    width: 7rem;
+    height: 7rem;
     margin-right: 1rem;
     border-radius: 50%;
 }
@@ -43,4 +43,8 @@
     text-transform: uppercase;
     letter-spacing: .08rem;
     cursor: pointer;
+}
+
+.user-profile__info__bio {
+    max-width: 75ch;
 }
