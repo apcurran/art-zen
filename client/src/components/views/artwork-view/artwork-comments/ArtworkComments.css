@@ -1,6 +1,7 @@
 .artwork-view__comments-total {
     display: inline-flex;
     align-items: center;
+    margin-bottom: .875rem;
 }
 
 .artwork-view__comments-total__title {
@@ -12,4 +13,28 @@
 .dot {
     padding: 0 .25rem;
     color: var(--supporting-txt-clr);
+}
+
+.artwork-view__comments__user__logged-out {
+    display: flex;
+    align-items: center;
+    gap: .875rem;
+    padding: 2rem 3rem;
+    background-color: var(--dark-grey);
+}
+
+.artwork-view__comments__user__logged-out__avatar {
+    display: inline-flex;
+    padding: .75rem;
+    border-radius: 50%;
+    background-color: #4B5563;
+}
+
+.user-avatar-default-icon {
+    width: 1.625rem;
+    height: 1.625rem; 
+}
+
+.artwork-view__comments__user__logged-out__desc span {
+    font-weight: 700;
 }
