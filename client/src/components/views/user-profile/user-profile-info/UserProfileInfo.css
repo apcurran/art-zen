@@ -28,6 +28,7 @@
 }
 
 .user-profile__info-sect__username {
+    margin-bottom: .25rem;
     line-height: 1;
     color: var(--brand-orange);
 }
