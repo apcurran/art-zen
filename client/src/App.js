@@ -4,6 +4,7 @@ import Header from "./components/layout/header/Header";
 import About from "./components/views/about/About";
 import Discover from "./components/views/discover/Discover";
 import ArtworkView from "./components/views/artwork-view/ArtworkView";
+import UserProfile from "./components/views/user-profile/UserProfile";
 import Footer from "./components/layout/footer/Footer";
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <div className="App">
         <Header />
         <Switch>
+          <Route path="/artworks/users/:id" component={UserProfile} />
           <Route path="/artworks/:id" component={ArtworkView} />
           <Route path="/about" component={About} />
           <Route path="/" component={Discover} />

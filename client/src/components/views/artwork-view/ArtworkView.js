@@ -7,6 +7,7 @@ import ArtworkComments from "./artwork-comments/ArtworkComments";
 
 function ArtworkView() {
     const { id } = useParams();
+    
     const [artworkData, setArtworkData] = useState({
         artwork_id: 0,
         user_id: 0,
