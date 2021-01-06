@@ -1,15 +1,11 @@
 
 import { Link } from "react-router-dom";
 import { Image, Transformation } from "cloudinary-react";
-import { format, parseISO } from "date-fns";
 
 import "./ArtworkInfo.css";
+import formatDate from "../../../../utils/format-date";
 
 function ArtworkInfo({ artworkData }) {
-    function formatDate(date) {
-        return format(parseISO(date), "MMM do, yyyy");
-    }
-
     return (
         <section className="artwork-view__info">
             <figure className="artwork-view__info__fig">
