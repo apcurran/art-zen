@@ -19,7 +19,8 @@ function ArtworkInfo({ artworkData }) {
                 </Image>
             </figure>
             <h1 className="artwork-view__info__title">{artworkData.title}</h1>
-            <p className="artwork-view__info__author">by {artworkData.username}</p>
+            <span className="artwork-view__info__by">by</span>
+            <Link to={{pathname: `/artworks/users/${artworkData.user_id}`}} className="artwork-view__info__author">{artworkData.username}</Link>
             <p className="artwork-view__info__desc">{artworkData.description}</p>
             {artworkData.artwork_created_at ? (
                 <p className="artwork-view__info__date">Published on {formatDate(artworkData.artwork_created_at)}</p>

@@ -4,12 +4,17 @@
     height: auto;
 }
 
+.artwork-view__info__by {
+    margin-right: .5rem;
+}
+
 .artwork-view__info__author {
-    margin-bottom: 1rem;
+    color: var(--brand-orange);
 }
 
 .artwork-view__info__desc {
     max-width: 75ch;
+    margin-top: 1rem;
     margin-bottom: 1.25rem;
     line-height: 1.6;
 }
