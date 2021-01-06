@@ -1,11 +1,11 @@
 import "./UserAvatar.css";
 
-function UserAvatar() {
+function UserAvatar({ avatarImg }) {
     return (
-        <div>
-            
-        </div>
-    )
+        <figure className="user-avatar">
+            <img src={avatarImg} alt="User avatar" className="user-avatar__img" width="200" height="200"/>
+        </figure>
+    );
 }
 
-export default UserAvatar
+export default UserAvatar;

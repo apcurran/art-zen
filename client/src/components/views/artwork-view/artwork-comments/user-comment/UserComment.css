@@ -1,0 +1,19 @@
+.comment-segment {
+    display: flex;
+    gap: .875rem;
+    padding: 2rem 3rem;
+    background-color: var(--dark-grey);
+}
+
+.comment-segment:not(:last-child) {
+    border-bottom: 1px solid var(--main-bg-clr);
+}
+
+.comment-segment__info__username {
+    display: inline-block;
+    margin-right: 1.25rem;
+}
+
+.comment-segment__info__date {
+    color: var(--supporting-txt-clr);
+}

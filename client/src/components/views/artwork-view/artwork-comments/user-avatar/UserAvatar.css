@@ -1,0 +1,10 @@
+.user-avatar {
+    display: inline-flex;
+    border-radius: 50%;
+}
+
+.user-avatar__img {
+    border-radius: 50%;
+    width: 5rem;
+    height: 5rem;
+}

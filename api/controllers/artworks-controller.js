@@ -56,10 +56,15 @@ async function getUserArtwork(req, res, next) {
         const commentsData = db.query(SQL`
             SELECT artwork_comment.comment_id, artwork_comment.user_id, artwork_comment.text, artwork_comment.created_at AS comment_created_at,
                 (
-                    SELECT app_user.username 
+                    SELECT app_user.username
                     FROM app_user
                     WHERE app_user.user_id = artwork_comment.user_id
-                ) AS comment_username
+                ) AS comment_username,
+                (
+                    SELECT app_user.avatar_img_url
+                    FROM app_user
+                    WHERE app_user.user_id = artwork_comment.user_id
+                ) AS comment_avatar_img
             FROM artwork_comment
             WHERE artwork_comment.artwork_id = ${artworkId}
         `);
