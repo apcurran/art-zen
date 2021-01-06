@@ -34,7 +34,7 @@ function UserProfile() {
     }, [id]);
 
     return (
-        <main>
+        <main className="user-profile-main">
             <UserProfileInfo profileData={profileData} totalCreations={totalCreations} totalFollowers={totalFollowers} />
             <UserProfileArtworksGrid artworks={artworks} />
         </main>

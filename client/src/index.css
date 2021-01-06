@@ -7,6 +7,7 @@
 :root {
   --wrapper-max-width: 95rem;
   --wrapper-width: 92.5%;
+  --max-width-med: 80rem;
   --page-title-fz: 1.75rem;
   --main-bg-clr: #111827;
   --ultra-light-grey:  #f9fafb;
