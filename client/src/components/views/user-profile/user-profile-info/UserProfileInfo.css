@@ -1,3 +1,46 @@
 .user-profile__info {
+    display: flex;
     margin-bottom: 2rem;
+}
+
+.user-profile__info__avatar {
+    border-radius: 50%;
+}
+
+.user-profile__info__avatar__img {
+    width: 8rem;
+    height: 8rem;
+    margin-right: 1rem;
+    border-radius: 50%;
+}
+
+.user-profile__info-sect__inner-container {
+    display: flex;
+}
+
+.user-profile__info-sect--left {
+    margin-right: 1.5rem;
+    margin-bottom: .5rem;
+}
+
+.user-profile__info-sect__totals span {
+    font-weight: 700;
+}
+
+.user-profile__info-sect__username {
+    line-height: 1;
+    color: var(--brand-orange);
+}
+
+.user-profile__info__follow-btn {
+    padding: .625rem 1.25rem;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--brand-orange);
+    color: var(--main-bg-clr);
+    font-weight: 700;
+    font-size: .875rem;
+    text-transform: uppercase;
+    letter-spacing: .08rem;
+    cursor: pointer;
 }
