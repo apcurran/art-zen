@@ -17,7 +17,19 @@
 .artwork-view__info__social-data {
     display: flex;
     align-items: flex-end;
-    color: var(--supporting-txt-clr);
+}
+
+.artwork-view__info__social-data__container {
+    display: flex;
+    align-items: flex-end;
+    cursor: pointer;
+
+    opacity: .6;
+    transition: opacity 110ms ease;
+}
+
+.artwork-view__info__social-data__container:hover {
+    opacity: 1;
 }
 
 .like-heart-icon,
@@ -25,7 +37,6 @@
     margin-right: .375rem;
     width: 1.5rem;
     height: 1.5rem;
-    stroke: var(--supporting-txt-clr);
 }
 
 .artwork-view__info__social-data__totals:first-of-type {
