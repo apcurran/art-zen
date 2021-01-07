@@ -1,11 +1,15 @@
 .user-avatar--default {
-    display: inline-flex;
-    padding: .8125rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
     background-color: #4B5563;
+    width: 3.375rem;
+    height: 3.375rem;
 }
 
 .user-avatar--default__icon {
+    object-fit: contain;
     width: 1.625rem;
     height: 1.625rem; 
 }

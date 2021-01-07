@@ -7,6 +7,24 @@
     border-radius: 50%;
 }
 
+/* Default Avatar */
+.user-profile__info__avatar--default {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 7rem;
+    height: 7rem;
+    margin-right: 1rem;
+    background-color: #4b5563;
+}
+
+/* User Avatar */
+.user-profile__info__avatar__icon--default {
+    width: 2rem;
+    height: 2rem;
+    stroke: #fff;
+}
+
 .user-profile__info__avatar__img {
     width: 7rem;
     height: 7rem;

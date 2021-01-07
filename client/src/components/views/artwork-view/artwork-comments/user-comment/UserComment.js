@@ -11,7 +11,6 @@ function UserComment({ comment }) {
             ) : (
                 <UserAvatarDefault />
             )}
-            {/* <UserAvatar avatarImg={comment.comment_avatar_img} /> */}
             <div className="comment-segment__info">
                 <h4 className="comment-segment__info__username">{comment.comment_username}</h4>
                 <span className="comment-segment__info__date">{formatDate(comment.comment_created_at)}</span>

@@ -3,9 +3,15 @@ import "./UserProfileInfo.css";
 function UserProfileInfo({ profileData, totalCreations, totalFollowers }) {
     return (
         <section className="user-profile__info">
-            <figure className="user-profile__info__avatar">
-                <img src={profileData.avatarImg} alt="User avatar" className="user-profile__info__avatar__img"/>
-            </figure>
+            {profileData.avatarImg ? (
+                <figure className="user-profile__info__avatar">
+                    <img src={profileData.avatarImg} alt="User avatar" className="user-profile__info__avatar__img"/>
+                </figure>
+            ) : (
+                <figure className="user-profile__info__avatar  user-profile__info__avatar--default">
+                    <svg className="user-profile__info__avatar__icon--default" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                </figure>
+            )}
             <div className="user-profile__info-sect">
                 <div className="user-profile__info-sect__inner-container">
                     <div className="user-profile__info-sect--left">

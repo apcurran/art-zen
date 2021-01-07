@@ -12,6 +12,7 @@
 .comment-segment__info__username {
     display: inline-block;
     margin-right: 1.25rem;
+    margin-bottom: 1rem;
 }
 
 .comment-segment__info__date {

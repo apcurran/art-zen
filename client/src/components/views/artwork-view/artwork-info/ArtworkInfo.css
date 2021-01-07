@@ -1,3 +1,7 @@
+.artwork-view__info__fig {
+    margin-bottom: 2rem;
+}
+
 .artwork-view__info__fig__img {
     width: 100%;
     max-width: 80rem;
