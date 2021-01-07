@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 
 import { AuthContext } from "../../../contexts/AuthContext";
@@ -10,15 +10,7 @@ import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
 
 function Header() {
-    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-
-    useEffect(() => {
-        if (localStorage.authToken) {
-            setIsLoggedIn(true);
-        } else {
-            setIsLoggedIn(false);
-        }
-    }, []);
+    const { isLoggedIn } = useContext(AuthContext);
 
     return (
         <header className="header">

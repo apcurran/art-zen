@@ -11,7 +11,7 @@ import UserProfile from "./components/views/user-profile/UserProfile";
 import Footer from "./components/layout/footer/Footer";
 
 function App() {
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const { setIsLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     // Run auth check on app startup
