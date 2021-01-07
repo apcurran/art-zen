@@ -9,7 +9,27 @@
 }
 
 .artwork-view__info__author {
+    display: inline-block;
+    margin-bottom: .75rem;
     color: var(--brand-orange);
+}
+
+.artwork-view__info__social-data {
+    display: flex;
+    align-items: flex-end;
+    color: var(--supporting-txt-clr);
+}
+
+.like-heart-icon,
+.favorite-star-icon {
+    margin-right: .375rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    stroke: var(--supporting-txt-clr);
+}
+
+.artwork-view__info__social-data__totals:first-of-type {
+    margin-right: 1.5rem;
 }
 
 .artwork-view__info__desc {

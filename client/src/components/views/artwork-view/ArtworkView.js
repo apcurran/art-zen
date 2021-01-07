@@ -45,7 +45,7 @@ function ArtworkView() {
 
     return (
         <main className="artwork-view">
-            <ArtworkInfo artworkData={artworkData} />
+            <ArtworkInfo artworkData={artworkData} likes={likes} favorites={favorites} />
             <ArtworkComments comments={comments} />
         </main>
     );
