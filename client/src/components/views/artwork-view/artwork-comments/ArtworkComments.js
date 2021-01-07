@@ -18,7 +18,7 @@ function ArtworkComments({ comments }) {
                     </p>
                 </div>
                 {comments.map(comment => (
-                    <UserComment comment={comment} />
+                    <UserComment comment={comment} key={comment.comment_id} />
                 ))}
             </section>
         </div>

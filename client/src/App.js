@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import AuthContextProvider from "./contexts/AuthContext";
+
 import Header from "./components/layout/header/Header";
 import About from "./components/views/about/About";
 import Discover from "./components/views/discover/Discover";
@@ -10,16 +12,20 @@ import Footer from "./components/layout/footer/Footer";
 function App() {
   return (
     <Router>
-      <div className="App">
-        <Header />
-        <Switch>
-          <Route path="/artworks/users/:id" component={UserProfile} />
-          <Route path="/artworks/:id" component={ArtworkView} />
-          <Route path="/about" component={About} />
-          <Route path="/" component={Discover} />
-        </Switch>
-        <Footer />
-      </div>
+      <AuthContextProvider>
+
+        <div className="App">
+          <Header />
+          <Switch>
+            <Route path="/artworks/users/:id" component={UserProfile} />
+            <Route path="/artworks/:id" component={ArtworkView} />
+            <Route path="/about" component={About} />
+            <Route path="/" component={Discover} />
+          </Switch>
+          <Footer />
+        </div>
+
+      </AuthContextProvider>
     </Router>
   );
 }
