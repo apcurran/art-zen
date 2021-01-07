@@ -13,7 +13,6 @@ function UserProfile() {
         avatarImg: "",
         bioDesc: ""
     });
-    const [totalCreations, setTotalCreations] = useState(0);
     const [totalFollowers, setTotalFollowers] = useState(0);
     const [artworks, setArtworks] = useState([]);
 
@@ -26,7 +25,6 @@ function UserProfile() {
                     avatarImg: data.avatar_img_url,
                     bioDesc: data.bio_description
                 });
-                setTotalCreations(data.total_creations);
                 setTotalFollowers(data.total_followers);
                 setArtworks(data.artworks);
             })
@@ -35,7 +33,7 @@ function UserProfile() {
 
     return (
         <main className="user-profile-main">
-            <UserProfileInfo profileData={profileData} totalCreations={totalCreations} totalFollowers={totalFollowers} />
+            <UserProfileInfo profileData={profileData} totalCreations={artworks.length} totalFollowers={totalFollowers} />
             <UserProfileArtworksGrid artworks={artworks} />
         </main>
     );
