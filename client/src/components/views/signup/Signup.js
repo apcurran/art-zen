@@ -1,15 +1,36 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import "./Signup.css";
 
 function Signup() {
+    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+
+        await fetch("/api/auth/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username,
+                email,
+                password
+            })
+        });
+    }
 
     return (
         <main className="signup">
             <h1 className="signup__title">Create a New Account</h1>
-            <form className="signup__form">
+            <form onSubmit={handleSubmit} className="signup__form">
+                <div className="signup__form__group">
+                    <label htmlFor="username" className="signup__form__label">Username</label>
+                    <input onChange={(event) => setUsername(event.target.value)} type="text" name="username" id="username" className="signup__form__input" required/>
+                </div>
                 <div className="signup__form__group">
                     <label htmlFor="email" className="signup__form__label">Email</label>
                     <input onChange={(event) => setEmail(event.target.value)} type="email" name="email" id="email" className="signup__form__input" required/>
