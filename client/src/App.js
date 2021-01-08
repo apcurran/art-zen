@@ -8,7 +8,8 @@ import About from "./components/views/about/About";
 import Discover from "./components/views/discover/Discover";
 import ArtworkView from "./components/views/artwork-view/ArtworkView";
 import UserProfile from "./components/views/user-profile/UserProfile";
-import Signup from "./components/views/signup/Signup";
+import SignUp from "./components/views/sign-up/SignUp";
+import LogIn from "./components/views/log-in/LogIn";
 import Footer from "./components/layout/footer/Footer";
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
   useEffect(() => {
     // Run auth check on app startup
     localStorage.authToken ? setIsLoggedIn(true) : setIsLoggedIn(false);
-  }, []);
+  }, [setIsLoggedIn]);
 
   return (
     <Router>
@@ -26,7 +27,8 @@ function App() {
         <Switch>
           <Route path="/artworks/users/:id" component={UserProfile} />
           <Route path="/artworks/:id" component={ArtworkView} />
-          <Route path="/users/signup" component={Signup} />
+          <Route path="/auth/sign-up" component={SignUp} />
+          <Route path="/auth/log-in" component={LogIn} />
           <Route path="/about" component={About} />
           <Route path="/" component={Discover} />
         </Switch>
