@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+
+import { AuthContext } from "../../../contexts/AuthContext";
 
 import "./LogIn.css";
 
-function Login() {
+function LogIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const { setIsLoggedIn } = useContext(AuthContext);
+    const history = useHistory();
 
     async function handleSubmit(event) {
         event.preventDefault();
 
         try {
-            await fetch("/api/auth/login", {
+            const response = await fetch("/api/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -20,6 +26,13 @@ function Login() {
                     password
                 })
             });
+            const { accessToken } = await response.json();
+            // Save token
+            localStorage.setItem("authToken", accessToken);
+            // Update Auth Context
+            setIsLoggedIn(true);
+            // Push user to Discover page after successful log in
+            history.push("/");
             
         } catch (err) {
             console.error(err);
@@ -44,4 +57,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default LogIn;
