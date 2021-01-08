@@ -16,18 +16,21 @@ function ArtworkInfo({ artworkData, likes, favorites }) {
             return history.push("/auth/log-in");
         }
 
+        debugger;
         const token = localStorage.getItem("authToken");
+
 
         try {
             const response = await fetch(`/api/artworks/${artworkData.artwork_id}/likes`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": token
+                    "Authorization": `Bearer ${token}`
                 }
             });
 
-            console.log(response);
+            const likesData = await response.json();
+            console.log(likesData);
             
         } catch (err) {
             console.error(err);
