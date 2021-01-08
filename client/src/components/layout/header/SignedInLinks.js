@@ -9,6 +9,7 @@ function SignedInLinks() {
 
     function handleLogOut() {
         localStorage.removeItem("authToken");
+        localStorage.removeItem("userId");
 
         setIsLoggedIn(false);
         history.push("/");
