@@ -6,7 +6,7 @@ import { AuthContext } from "../../../../contexts/AuthContext";
 import "./ArtworkInfo.css";
 import formatDate from "../../../../utils/format-date";
 
-function ArtworkInfo({ artworkData, likes, favorites }) {
+function ArtworkInfo({ artworkData, likes, setLikes, favorites }) {
     const { isLoggedIn } = useContext(AuthContext);
     const history = useHistory();
 
@@ -16,9 +16,7 @@ function ArtworkInfo({ artworkData, likes, favorites }) {
             return history.push("/auth/log-in");
         }
 
-        debugger;
         const token = localStorage.getItem("authToken");
-
 
         try {
             const response = await fetch(`/api/artworks/${artworkData.artwork_id}/likes`, {
@@ -29,8 +27,9 @@ function ArtworkInfo({ artworkData, likes, favorites }) {
                 }
             });
 
-            const likesData = await response.json();
-            console.log(likesData);
+            const { likesData } = await response.json();
+            // Update state
+            setLikes([...likes, likesData]);
             
         } catch (err) {
             console.error(err);

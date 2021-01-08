@@ -159,12 +159,13 @@ async function postUserArtworkLike(req, res, next) {
     const userId = req.user._id;
 
     try {
-        await db.query(SQL`
+        const likes = await db.query(SQL`
             INSERT INTO artwork_like(artwork_id, user_id)
             VALUES (${artworkId}, ${userId})
+            RETURNING artwork_like.like_id, artwork_like.user_id
         `);
 
-        res.status(201).json({ message: "New Like added." });
+        res.status(201).json({ likesData: likes.rows[0] });
 
     } catch (err) {
         next(err);
