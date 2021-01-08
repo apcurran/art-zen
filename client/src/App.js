@@ -8,6 +8,7 @@ import About from "./components/views/about/About";
 import Discover from "./components/views/discover/Discover";
 import ArtworkView from "./components/views/artwork-view/ArtworkView";
 import UserProfile from "./components/views/user-profile/UserProfile";
+import Signup from "./components/views/signup/Signup";
 import Footer from "./components/layout/footer/Footer";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Switch>
           <Route path="/artworks/users/:id" component={UserProfile} />
           <Route path="/artworks/:id" component={ArtworkView} />
+          <Route path="/users/signup" component={Signup} />
           <Route path="/about" component={About} />
           <Route path="/" component={Discover} />
         </Switch>
