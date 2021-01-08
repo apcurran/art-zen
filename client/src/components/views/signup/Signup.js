@@ -10,17 +10,22 @@ function Signup() {
     async function handleSubmit(event) {
         event.preventDefault();
 
-        await fetch("/api/auth/signup", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                username,
-                email,
-                password
-            })
-        });
+        try {
+            await fetch("/api/auth/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username,
+                    email,
+                    password
+                })
+            });
+            
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     return (
