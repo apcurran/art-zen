@@ -26,13 +26,14 @@ function LogIn() {
                     password
                 })
             });
-            const { accessToken } = await response.json();
-            // Save token
+            const { accessToken, userId } = await response.json();
+            // Save token and user id
             localStorage.setItem("authToken", accessToken);
+            localStorage.setItem("userId", userId);
             // Update Auth Context
             setIsLoggedIn(true);
-            // Push user to Discover page after successful log in
-            history.push("/");
+            // Push user to User Profile page after successful log in
+            history.push(`/artworks/users/${userId}`);
             
         } catch (err) {
             console.error(err);
