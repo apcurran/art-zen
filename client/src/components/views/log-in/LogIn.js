@@ -10,7 +10,7 @@ function Login() {
         event.preventDefault();
 
         try {
-            await fetch("/api/auth/signup", {
+            await fetch("/api/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
