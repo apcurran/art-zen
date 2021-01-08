@@ -1,15 +1,17 @@
 import { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 import { AuthContext } from "../../../contexts/AuthContext";
 
 function SignedInLinks() {
     const { setIsLoggedIn } = useContext(AuthContext);
+    const history = useHistory();
 
     function handleLogOut() {
         localStorage.removeItem("authToken");
 
         setIsLoggedIn(false);
+        history.push("/");
     }
 
     return (
