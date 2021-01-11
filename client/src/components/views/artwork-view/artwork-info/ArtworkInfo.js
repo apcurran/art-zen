@@ -1,41 +1,10 @@
-import { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Image, Transformation } from "cloudinary-react";
 
-import { AuthContext } from "../../../../contexts/AuthContext";
 import "./ArtworkInfo.css";
 import formatDate from "../../../../utils/format-date";
 
-function ArtworkInfo({ artworkData, likes, setLikes, favorites }) {
-    const { isLoggedIn } = useContext(AuthContext);
-    const history = useHistory();
-
-    async function updateLikes() {
-        // Checked logged in first
-        if (!isLoggedIn) {
-            return history.push("/auth/log-in");
-        }
-
-        const token = localStorage.getItem("authToken");
-
-        try {
-            const response = await fetch(`/api/artworks/${artworkData.artwork_id}/likes`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                }
-            });
-
-            const { likesData } = await response.json();
-            // Update state
-            setLikes([...likes, likesData]);
-            
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
+function ArtworkInfo({ artworkData, likes, updateLikes, favorites }) {
     return (
         <section className="artwork-view__info">
             <figure className="artwork-view__info__fig">

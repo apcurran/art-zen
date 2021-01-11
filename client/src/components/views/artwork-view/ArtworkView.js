@@ -1,13 +1,16 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useState, useEffect, useContext } from "react";
+import { useParams, useHistory } from "react-router";
 
 import "./ArtworkView.css";
+import { AuthContext } from "../../../contexts/AuthContext";
 import ArtworkInfo from "./artwork-info/ArtworkInfo";
 import ArtworkComments from "./artwork-comments/ArtworkComments";
 
 function ArtworkView() {
     const { id } = useParams();
-    
+    const { isLoggedIn } = useContext(AuthContext);
+    const history = useHistory();
+    // State
     const [artworkData, setArtworkData] = useState({
         artwork_id: 0,
         user_id: 0,
@@ -43,9 +46,38 @@ function ArtworkView() {
             .catch(err => console.error(err));
     }, [id]);
 
+    // ArtworkInfo comp behaviors
+    async function updateLikes() {
+        // Checked logged in first
+        if (!isLoggedIn) {
+            return history.push("/auth/log-in");
+        }
+
+        const token = localStorage.getItem("authToken");
+
+        try {
+            const response = await fetch(`/api/artworks/${artworkData.artwork_id}/likes`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            const { likesData } = await response.json();
+            // Update state
+            setLikes([...likes, likesData]);
+            
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    // ArtworkComments comp behaviors
+
     return (
         <main className="artwork-view">
-            <ArtworkInfo artworkData={artworkData} likes={likes} setLikes={setLikes} favorites={favorites} />
+            <ArtworkInfo artworkData={artworkData} likes={likes} updateLikes={updateLikes} setLikes={setLikes} favorites={favorites} />
             <ArtworkComments comments={comments} />
         </main>
     );

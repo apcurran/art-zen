@@ -8,6 +8,7 @@ import "./LogIn.css";
 function LogIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
     const { setIsLoggedIn } = useContext(AuthContext);
     const history = useHistory();
@@ -26,14 +27,23 @@ function LogIn() {
                     password
                 })
             });
-            const { accessToken, userId } = await response.json();
+            const data = await response.json();
+
+            // Check for errors
+            if (data.hasOwnProperty("error")) {
+                console.error(data);
+
+                setError(data.error);
+                return;
+            }
+
             // Save token and user id
-            localStorage.setItem("authToken", accessToken);
-            localStorage.setItem("userId", userId);
+            localStorage.setItem("authToken", data.accessToken);
+            localStorage.setItem("userId", data.userId);
             // Update Auth Context
             setIsLoggedIn(true);
             // Push user to User Profile page after successful log in
-            history.push(`/artworks/users/${userId}`);
+            history.push(`/artworks/users/${data.userId}`);
             
         } catch (err) {
             console.error(err);
@@ -44,6 +54,7 @@ function LogIn() {
         <main className="auth login">
             <h1 className="auth__title">Log In</h1>
             <form onSubmit={handleSubmit} className="auth__form">
+                {error ? <p className="error">{error}</p> : null}
                 <div className="auth__form__group">
                     <label htmlFor="email" className="auth__form__label">Email</label>
                     <input onChange={(event) => setEmail(event.target.value)} type="email" name="email" id="email" className="auth__form__input" required/>
