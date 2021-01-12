@@ -3,6 +3,7 @@ import { useParams, useHistory } from "react-router";
 
 import "./ArtworkView.css";
 import { AuthContext } from "../../../contexts/AuthContext";
+import checkUserIdInArr from "../../../utils/check-user-id-in-arr";
 import ArtworkInfo from "./artwork-info/ArtworkInfo";
 import ArtworkComments from "./artwork-comments/ArtworkComments";
 
@@ -54,13 +55,28 @@ function ArtworkView() {
         }
 
         const token = localStorage.getItem("authToken");
+        // Convert str to num type before using
+        const userId = Number(localStorage.getItem("userId"));
 
+        const hasUserLikedArtwork = checkUserIdInArr(userId, likes);
+
+        if (!hasUserLikedArtwork) {
+            addLike(id, token);
+        } else {
+            debugger;
+            
+            const likeId = getLikeId(userId, likes);
+            removeLike(id, likeId, token);
+        }
+    }
+
+    async function addLike(artworkId, authToken) {
         try {
-            const response = await fetch(`/api/artworks/${artworkData.artwork_id}/likes`, {
+            const response = await fetch(`/api/artworks/${artworkId}/likes`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
+                    "Authorization": `Bearer ${authToken}`
                 }
             });
 
@@ -73,11 +89,36 @@ function ArtworkView() {
         }
     }
 
+    async function removeLike(artworkId, likeId, authToken) {
+        try {
+            const response = await fetch(`/api/artworks/${artworkId}/likes/${likeId}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${authToken}`
+                }
+            });
+
+            await response.json();
+            // Update state
+            
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    function getLikeId(userId, likesArr) {
+        const liked = likesArr.filter(obj => obj.user_id === userId);
+
+        return liked[0].like_id;
+    }
+
     // ArtworkComments comp behaviors
 
     return (
         <main className="artwork-view">
-            <ArtworkInfo artworkData={artworkData} likes={likes} updateLikes={updateLikes} setLikes={setLikes} favorites={favorites} />
+            <ArtworkInfo artworkData={artworkData} likes={likes} updateLikes={updateLikes} favorites={favorites} />
             <ArtworkComments comments={comments} />
         </main>
     );

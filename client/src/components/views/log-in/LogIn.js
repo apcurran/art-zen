@@ -27,15 +27,15 @@ function LogIn() {
                     password
                 })
             });
-            const data = await response.json();
 
             // Check for errors
-            if (data.hasOwnProperty("error")) {
-                console.error(data);
+            if (!response.ok) {
+                const serverErrMsg = await response.json();
 
-                setError(data.error);
-                return;
+                throw Error(serverErrMsg.error);
             }
+
+            const data = await response.json();
 
             // Save token and user id
             localStorage.setItem("authToken", data.accessToken);
@@ -46,7 +46,7 @@ function LogIn() {
             history.push(`/artworks/users/${data.userId}`);
             
         } catch (err) {
-            console.error(err);
+            setError(err.message);
         }
     }
 

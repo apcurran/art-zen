@@ -84,6 +84,7 @@ async function getUserArtwork(req, res, next) {
 async function getUserArtworks(req, res, next) {
     try {
         const { userId } = req.params;
+        // TODO: Fix this query to return user info separately, as it fails when the user doesn't have any artwork added yet. Returns an empty array causing an error on the front-end. 
         const { rows } = await db.query(SQL`
             SELECT
                 artwork.artwork_id, artwork.user_id, artwork.img_url AS artwork_img_url,
@@ -99,6 +100,10 @@ async function getUserArtworks(req, res, next) {
             WHERE artwork.user_id = ${userId}
             ORDER BY artwork.created_at DESC
         `);
+
+        if (rows.length === 0) {
+            res.status(200).json({ message: "No user artworks yet." });
+        }
 
         const formattedFinalObj = combineUserArtworksDataToObj(rows);
 

@@ -6,12 +6,13 @@ function SignUp() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
     async function handleSubmit(event) {
         event.preventDefault();
 
         try {
-            await fetch("/api/auth/signup", {
+            const response = await fetch("/api/auth/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -22,9 +23,15 @@ function SignUp() {
                     password
                 })
             });
+
+            if (!response.ok) {
+                const serverErrMsg = await response.json();
+
+                throw Error(serverErrMsg.error);
+            }
             
         } catch (err) {
-            console.error(err);
+            setError(err.message);
         }
     }
 
@@ -32,6 +39,7 @@ function SignUp() {
         <main className="auth signup">
             <h1 className="auth__title">Create a New Account</h1>
             <form onSubmit={handleSubmit} className="auth__form">
+                {error ? <p className="error">{error}</p> : null}
                 <div className="auth__form__group">
                     <label htmlFor="username" className="auth__form__label">Username</label>
                     <input onChange={(event) => setUsername(event.target.value)} type="text" name="username" id="username" className="auth__form__input" required/>
