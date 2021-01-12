@@ -120,11 +120,33 @@ function ArtworkView() {
     }
 
     // ArtworkComments comp behaviors //
+    async function handleCommentSubmit(event) {
+        event.preventDefault();
+
+        const artworkId = id;
+        const token = localStorage.getItem("authToken");
+
+        try {
+            const response = await fetch(`/api/artworks/${artworkId}/comments`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            // Update state
+            
+            
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
     return (
         <main className="artwork-view">
             <ArtworkInfo artworkData={artworkData} likes={likes} updateLikes={updateLikes} favorites={favorites} />
-            <ArtworkComments comments={comments} isLoggedIn={isLoggedIn} setCommentText={setCommentText} />
+            <ArtworkComments comments={comments} isLoggedIn={isLoggedIn} setCommentText={setCommentText} handleCommentSubmit={handleCommentSubmit} />
         </main>
     );
 }

@@ -164,13 +164,13 @@ async function postUserArtworkLike(req, res, next) {
     const userId = req.user._id;
 
     try {
-        const likes = await db.query(SQL`
+        const addedLike = await db.query(SQL`
             INSERT INTO artwork_like(artwork_id, user_id)
             VALUES (${artworkId}, ${userId})
             RETURNING artwork_like.like_id, artwork_like.user_id
         `);
 
-        res.status(201).json({ likesData: likes.rows[0] });
+        res.status(201).json({ likesData: addedLike.rows[0] });
 
     } catch (err) {
         next(err);
@@ -191,12 +191,13 @@ async function postUserArtworkComment(req, res, next) {
     const { text } = req.body;
 
     try {
-        await db.query(SQL`
+        const addedComment = await db.query(SQL`
             INSERT INTO artwork_comment(artwork_id, user_id, text)
             VALUES (${artworkId}, ${userId}, ${text})
+            RETURNING artwork_comment.comment_id, artwork_comment.user_id, artwork_comment.text, artwork_comment.created_at AS comment_created_at
         `);
     
-        res.status(201).json({ message: "New comment created." });
+        res.status(201).json({ commentData: addedComment.rows[0] });
         
     } catch (err) {
         next(err);
