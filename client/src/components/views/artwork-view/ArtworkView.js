@@ -13,14 +13,14 @@ function ArtworkView() {
     const history = useHistory();
     // State
     const [artworkData, setArtworkData] = useState({
-        artwork_id: 0,
-        user_id: 0,
+        artworkId: 0,
+        userId: 0,
         title: "",
         description: "",
-        img_url: "",
-        artwork_created_at: "",
+        imgUrl: "",
+        artworkCreatedAt: "",
         username: "",
-        avatar_img_url: ""
+        avatarImgUrl: ""
     });
     const [likes, setLikes] = useState([]);
     const [favorites, setFavorites] = useState([]);
@@ -31,14 +31,14 @@ function ArtworkView() {
             .then(response => response.json())
             .then(data => {
                 setArtworkData({
-                    artwork_id: data.artwork_id,
-                    user_id: data.user_id,
+                    artworkId: data.artwork_id,
+                    userId: data.user_id,
                     title: data.title,
                     description: data.description,
-                    img_url: data.img_url,
-                    artwork_created_at: data.artwork_created_at,
+                    imgUrl: data.img_url,
+                    artworkCreatedAt: data.artwork_created_at,
                     username: data.username,
-                    avatar_img_url: data.avatar_img_url
+                    avatarImgUrl: data.avatar_img_url
                 });
                 setLikes(data.likes);
                 setFavorites(data.favorites);
