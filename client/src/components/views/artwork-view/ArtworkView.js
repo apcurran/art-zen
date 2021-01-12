@@ -9,7 +9,7 @@ import ArtworkComments from "./artwork-comments/ArtworkComments";
 
 function ArtworkView() {
     const { id } = useParams();
-    const { isLoggedIn } = useContext(AuthContext);
+    const { isLoggedIn, userId } = useContext(AuthContext);
     const history = useHistory();
     // State
     const [artworkData, setArtworkData] = useState({
@@ -57,14 +57,14 @@ function ArtworkView() {
         }
 
         const token = localStorage.getItem("authToken");
-        const userId = Number(localStorage.getItem("userId"));
+        const currUserId = Number(userId);
 
-        const hasUserLikedArtwork = checkUserIdInArr(userId, likes);
+        const hasUserLikedArtwork = checkUserIdInArr(currUserId, likes);
 
         if (!hasUserLikedArtwork) {
             addLike(id, token);
         } else {
-            const likeId = getLikeId(userId, likes);
+            const likeId = getLikeId(currUserId, likes);
             
             removeLike(id, likeId, token);
         }

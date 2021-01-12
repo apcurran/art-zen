@@ -13,11 +13,15 @@ import LogIn from "./components/views/log-in/LogIn";
 import Footer from "./components/layout/footer/Footer";
 
 function App() {
-  const { setIsLoggedIn } = useContext(AuthContext);
+  const { setIsLoggedIn, setUserId } = useContext(AuthContext);
 
   useEffect(() => {
     // Run auth check on app startup
     localStorage.authToken ? setIsLoggedIn(true) : setIsLoggedIn(false);
+
+    const userId = localStorage.getItem("userId");
+
+    userId ? setUserId(userId) : setUserId(0);
   }, [setIsLoggedIn]);
 
   return (

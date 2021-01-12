@@ -196,6 +196,9 @@ async function postUserArtworkComment(req, res, next) {
             VALUES (${artworkId}, ${userId}, ${text})
             RETURNING artwork_comment.comment_id, artwork_comment.user_id, artwork_comment.text, artwork_comment.created_at AS comment_created_at
         `);
+
+        // TODO: query to find user info for username and avatar img and combine into a new obj with comment data to output to front-end
+        
     
         res.status(201).json({ commentData: addedComment.rows[0] });
         
