@@ -132,11 +132,15 @@ function ArtworkView() {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
-                }
+                },
+                body: JSON.stringify({
+                    text: commentText
+                })
             });
 
+            const commentData = await response.json();
             // Update state
-            
+            setComments([...comments, commentData]);
             
         } catch (err) {
             console.error(err);
