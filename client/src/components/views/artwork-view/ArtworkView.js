@@ -47,7 +47,7 @@ function ArtworkView() {
             .catch(err => console.error(err));
     }, [id]);
 
-    // ArtworkInfo comp behaviors
+    // ArtworkInfo comp behaviors //
     async function updateLikes() {
         // Checked logged in first
         if (!isLoggedIn) {
@@ -63,9 +63,8 @@ function ArtworkView() {
         if (!hasUserLikedArtwork) {
             addLike(id, token);
         } else {
-            debugger;
-            
             const likeId = getLikeId(userId, likes);
+            
             removeLike(id, likeId, token);
         }
     }
@@ -112,13 +111,14 @@ function ArtworkView() {
         }
     }
 
+    // Helper func
     function getLikeId(userId, likesArr) {
         const liked = likesArr.filter(obj => obj.user_id === userId);
 
         return liked[0].like_id;
     }
 
-    // ArtworkComments comp behaviors
+    // ArtworkComments comp behaviors //
 
     return (
         <main className="artwork-view">
