@@ -1,0 +1,22 @@
+.artwork-view__comments__form {
+    margin-bottom: 2rem;
+}
+
+.artwork-view__comments__form__group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.artwork-view__comments__form__label {
+    margin-bottom: .5rem;
+}
+
+.artwork-view__comments__form__textarea {
+    padding: .5rem 1rem;
+    line-height: 1.6;
+    background-color: var(--dark-grey);
+    color: #fff;
+    border: 1px solid var(--supporting-txt-clr);
+    resize: none;
+}

@@ -24,7 +24,9 @@ function ArtworkView() {
     });
     const [likes, setLikes] = useState([]);
     const [favorites, setFavorites] = useState([]);
+    // User Comments state
     const [comments, setComments] = useState([]);
+    const [commentText, setCommentText] = useState("");
 
     useEffect(() => {
         fetch(`/api/artworks/${id}`)
@@ -122,7 +124,7 @@ function ArtworkView() {
     return (
         <main className="artwork-view">
             <ArtworkInfo artworkData={artworkData} likes={likes} updateLikes={updateLikes} favorites={favorites} />
-            <ArtworkComments comments={comments} />
+            <ArtworkComments comments={comments} isLoggedIn={isLoggedIn} />
         </main>
     );
 }

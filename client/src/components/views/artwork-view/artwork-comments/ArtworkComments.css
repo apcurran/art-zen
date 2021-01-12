@@ -28,6 +28,8 @@
     background-color: var(--dark-grey);
 }
 
-.artwork-view__comments__user__logged-out__desc span {
+.artwork-view__comments__user__logged-out__desc__link {
+    text-decoration: none;
+    color: inherit;
     font-weight: 700;
 }

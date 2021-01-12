@@ -21,7 +21,7 @@ function UserProfileInfo({ profileData, totalCreations, totalFollowers }) {
                         </p>
                     </div>
                     <div className="user-profile__info-sect--right">
-                        <button className="user-profile__info__follow-btn">Follow</button>
+                        <button className="user-profile__info__follow-btn cta-btn">Follow</button>
                     </div>
                 </div>
                 <p className="user-profile__info__bio">{profileData.bioDesc}</p>
