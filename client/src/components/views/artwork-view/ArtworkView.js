@@ -55,7 +55,6 @@ function ArtworkView() {
         }
 
         const token = localStorage.getItem("authToken");
-        // Convert str to num type before using
         const userId = Number(localStorage.getItem("userId"));
 
         const hasUserLikedArtwork = checkUserIdInArr(userId, likes);
