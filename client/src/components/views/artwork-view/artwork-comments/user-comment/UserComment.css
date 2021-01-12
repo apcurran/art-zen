@@ -18,3 +18,7 @@
 .comment-segment__info__date {
     color: var(--supporting-txt-clr);
 }
+
+.comment-segment__info__desc {
+    white-space: pre-wrap;
+}
