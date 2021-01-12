@@ -99,9 +99,13 @@ function ArtworkView() {
                 }
             });
 
+            // Delete from db
             await response.json();
-            // Update state
+
+            // Update local state
+            const updatedLikes = likes.filter(likeObj => likeObj.like_id !== likeId);
             
+            setLikes(updatedLikes);
 
         } catch (err) {
             console.error(err);
