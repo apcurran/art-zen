@@ -84,30 +84,30 @@ async function getUserArtwork(req, res, next) {
 async function getUserArtworks(req, res, next) {
     try {
         const { userId } = req.params;
-        // TODO: Fix this query to return user info separately, as it fails when the user doesn't have any artwork added yet. Returns an empty array causing an error on the front-end. 
-        const { rows } = await db.query(SQL`
+        const userData = db.query(SQL`
             SELECT
-                artwork.artwork_id, artwork.user_id, artwork.img_url AS artwork_img_url,
                 app_user.username, app_user.avatar_img_url, app_user.bio_description,
                 (
                     SELECT CAST(COUNT(follower.follower_user_id) AS int)
                     FROM follower
                     WHERE follower.account_user_id = ${userId}
                 ) AS total_followers
+            FROM app_user
+            WHERE app_user.user_id = ${userId}
+        `);
+        const artworkData = db.query(SQL`
+            SELECT
+                artwork.artwork_id, artwork.user_id, artwork.img_url AS artwork_img_url
             FROM artwork
-            INNER JOIN app_user
-                ON artwork.user_id = app_user.user_id
             WHERE artwork.user_id = ${userId}
             ORDER BY artwork.created_at DESC
         `);
 
-        if (rows.length === 0) {
-            res.status(200).json({ message: "No user artworks yet." });
-        }
+        const groupedData = await Promise.all([userData, artworkData]);
+        const resolvedUserData = groupedData[0].rows[0];
+        const resolvedArtworkData = groupedData[1].rows;
 
-        const formattedFinalObj = combineUserArtworksDataToObj(rows);
-
-        res.status(200).json(formattedFinalObj);
+        res.status(200).json({ userData: resolvedUserData, artworkData: resolvedArtworkData });
 
     } catch (err) {
         next(err);

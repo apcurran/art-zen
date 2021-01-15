@@ -21,12 +21,12 @@ function UserProfile() {
             .then(response => response.json())
             .then(data => {
                 setProfileData({
-                    username: data.username,
-                    avatarImg: data.avatar_img_url,
-                    bioDesc: data.bio_description
+                    username: data.userData.username,
+                    avatarImg: data.userData.avatar_img_url,
+                    bioDesc: data.userData.bio_description
                 });
-                setTotalFollowers(data.total_followers);
-                setArtworks(data.artworks);
+                setTotalFollowers(data.userData.total_followers);
+                setArtworks(data.artworkData);
             })
             .catch(err => console.error(err));
     }, [id]);
