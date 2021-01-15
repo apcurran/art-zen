@@ -140,9 +140,9 @@ function ArtworkView() {
 
             // Entire comments data array back
             const { commentsData } = await response.json();
+
             // Update state
             setComments(commentsData);
-
             // Clear form input
             setCommentText("");
             
