@@ -40,7 +40,7 @@ CREATE TABLE artwork_comment(
     user_id INT NOT NULL,
     FOREIGN KEY(user_id) REFERENCES app_user(user_id) ON DELETE CASCADE,
     text VARCHAR(500) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE artwork_favorite(

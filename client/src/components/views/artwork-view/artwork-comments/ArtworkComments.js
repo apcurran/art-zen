@@ -5,7 +5,7 @@ import UserAvatarDefault from "./user-avatar-default/UserAvatarDefault";
 import UserComment from "./user-comment/UserComment";
 import UserCommentForm from "./user-comment-form/UserCommentForm";
 
-function ArtworkComments({ comments, isLoggedIn, setCommentText, handleCommentSubmit }) {
+function ArtworkComments({ comments, isLoggedIn, commentText, setCommentText, handleCommentSubmit }) {
     return (
         <div className="artwork-view__comments-section">
             <section className="artwork-view__comments-total">
@@ -15,7 +15,7 @@ function ArtworkComments({ comments, isLoggedIn, setCommentText, handleCommentSu
             </section>
             <section className="artwork-view__comments">
                 {isLoggedIn ? (
-                    <UserCommentForm setCommentText={setCommentText} handleCommentSubmit={handleCommentSubmit} />
+                    <UserCommentForm commentText={commentText} setCommentText={setCommentText} handleCommentSubmit={handleCommentSubmit} />
                 ) : (
                     <div className="artwork-view__comments__user__logged-out">
                         <UserAvatarDefault />

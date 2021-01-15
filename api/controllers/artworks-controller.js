@@ -191,31 +191,28 @@ async function postUserArtworkComment(req, res, next) {
     const { text } = req.body;
 
     try {
-        const addedComment = await db.query(SQL`
+        await db.query(SQL`
             INSERT INTO artwork_comment(artwork_id, user_id, text)
             VALUES (${artworkId}, ${userId}, ${text})
-            RETURNING artwork_comment.comment_id, artwork_comment.user_id, artwork_comment.text, artwork_comment.created_at AS comment_created_at
         `);
-        const commentData = addedComment.rows[0];
 
-        // TODO: query to find user info for username and avatar img and combine into a new obj with comment data to output to front-end
-        const userInfo = await db.query(SQL`
-            SELECT app_user.username, app_user.avatar_img_url 
-            FROM app_user
-            WHERE app_user.user_id = ${userId}
-        `);
-        const userData = userInfo.rows[0];
-
-        const newCommentObj = {
-            comment_id: commentData.comment_id,
-            user_id: userId,
-            text: commentData.text,
-            comment_created_at: commentData.comment_created_at,
-            comment_username: userData.username,
-            comment_avatar_img: userData.avatar_img_url
-        };
+        const commentsDataArr = (await db.query(SQL`
+            SELECT artwork_comment.comment_id, artwork_comment.user_id, artwork_comment.text, artwork_comment.created_at AS comment_created_at,
+                (
+                    SELECT app_user.username
+                    FROM app_user
+                    WHERE app_user.user_id = artwork_comment.user_id
+                ) AS comment_username,
+                (
+                    SELECT app_user.avatar_img_url
+                    FROM app_user
+                    WHERE app_user.user_id = artwork_comment.user_id
+                ) AS comment_avatar_img
+            FROM artwork_comment
+            WHERE artwork_comment.artwork_id = ${artworkId}
+        `)).rows;
     
-        res.status(201).json({ newComment: newCommentObj });
+        res.status(201).json({ commentsData: commentsDataArr });
         
     } catch (err) {
         next(err);

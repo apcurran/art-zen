@@ -138,9 +138,13 @@ function ArtworkView() {
                 })
             });
 
-            const commentData = await response.json();
+            // Entire comments data array back
+            const { commentsData } = await response.json();
             // Update state
-            setComments([...comments, commentData]);
+            setComments(commentsData);
+
+            // Clear form input
+            setCommentText("");
             
         } catch (err) {
             console.error(err);
@@ -150,7 +154,7 @@ function ArtworkView() {
     return (
         <main className="artwork-view">
             <ArtworkInfo artworkData={artworkData} likes={likes} updateLikes={updateLikes} favorites={favorites} />
-            <ArtworkComments comments={comments} isLoggedIn={isLoggedIn} setCommentText={setCommentText} handleCommentSubmit={handleCommentSubmit} />
+            <ArtworkComments comments={comments} isLoggedIn={isLoggedIn} commentText={commentText} setCommentText={setCommentText} handleCommentSubmit={handleCommentSubmit} />
         </main>
     );
 }
