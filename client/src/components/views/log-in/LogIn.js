@@ -10,7 +10,7 @@ function LogIn() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    const { setIsLoggedIn } = useContext(AuthContext);
+    const { setIsLoggedIn, setUserId } = useContext(AuthContext);
     const history = useHistory();
 
     async function handleSubmit(event) {
@@ -42,6 +42,7 @@ function LogIn() {
             localStorage.setItem("userId", data.userId);
             // Update Auth Context
             setIsLoggedIn(true);
+            setUserId(data.userId);
             // Push user to User Profile page after successful log in
             history.push(`/artworks/users/${data.userId}`);
             
