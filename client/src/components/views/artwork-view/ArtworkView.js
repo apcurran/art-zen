@@ -57,7 +57,7 @@ function ArtworkView() {
         }
 
         const token = localStorage.getItem("authToken");
-        const currUserId = Number(userId);
+        const currUserId = userId;
 
         const hasUserLikedArtwork = checkUserIdInArr(currUserId, likes);
 
@@ -154,7 +154,7 @@ function ArtworkView() {
     return (
         <main className="artwork-view">
             <ArtworkInfo artworkData={artworkData} likes={likes} updateLikes={updateLikes} favorites={favorites} />
-            <ArtworkComments comments={comments} isLoggedIn={isLoggedIn} commentText={commentText} setCommentText={setCommentText} handleCommentSubmit={handleCommentSubmit} />
+            <ArtworkComments comments={comments} isLoggedIn={isLoggedIn} userId={userId} commentText={commentText} setCommentText={setCommentText} handleCommentSubmit={handleCommentSubmit} />
         </main>
     );
 }

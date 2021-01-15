@@ -19,7 +19,7 @@ function App() {
     // Run auth check on app startup
     localStorage.authToken ? setIsLoggedIn(true) : setIsLoggedIn(false);
 
-    const userId = localStorage.getItem("userId");
+    const userId = Number(localStorage.getItem("userId"));
 
     userId ? setUserId(userId) : setUserId(0);
   }, [setIsLoggedIn, setUserId]);

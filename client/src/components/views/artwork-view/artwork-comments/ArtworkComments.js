@@ -5,7 +5,7 @@ import UserAvatarDefault from "./user-avatar-default/UserAvatarDefault";
 import UserComment from "./user-comment/UserComment";
 import UserCommentForm from "./user-comment-form/UserCommentForm";
 
-function ArtworkComments({ comments, isLoggedIn, commentText, setCommentText, handleCommentSubmit }) {
+function ArtworkComments({ comments, isLoggedIn, userId, commentText, setCommentText, handleCommentSubmit }) {
     return (
         <div className="artwork-view__comments-section">
             <section className="artwork-view__comments-total">
@@ -25,7 +25,7 @@ function ArtworkComments({ comments, isLoggedIn, commentText, setCommentText, ha
                     </div>
                 )}
                 {comments.map(comment => (
-                    <UserComment comment={comment} key={comment.comment_id} />
+                    <UserComment userId={userId} comment={comment} key={comment.comment_id} />
                 ))}
             </section>
         </div>
