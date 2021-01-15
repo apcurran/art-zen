@@ -256,6 +256,23 @@ async function deleteUserArtworkLike(req, res, next) {
     }
 }
 
+async function deleteUserComment(req, res, next) {
+    const { commentId } = req.params;
+    const userId = req.user._id;
+
+    try {
+        await db.query(SQL`
+            DELETE FROM artwork_comment
+            WHERE (artwork_comment.comment_id = ${commentId}) AND (artwork_comment.user_id = ${userId})
+        `);
+
+        res.status(200).json({ message: "Deleted artwork comment." });
+
+    } catch (err) {
+        next(err);
+    }
+}
+
 async function deleteUserArtworkFavorite(req, res, next) {
     const { favoriteId } = req.params;
     const userId = req.user._id;
@@ -300,6 +317,7 @@ module.exports = {
     postUserArtworkComment,
     postUserArtworkFavorite,
     deleteUserArtworkLike,
+    deleteUserComment,
     deleteUserArtworkFavorite,
     deleteUserArtwork
 };

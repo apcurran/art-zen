@@ -24,6 +24,8 @@ router.post("/:artworkId/favorites", verifyAuth, artworksController.postUserArtw
 router.post("/", verifyAuth, artworksController.postUserArtwork); // tested
 // DELETE artwork like
 router.delete("/:artworkId/likes/:likeId", verifyAuth, artworksController.deleteUserArtworkLike); // tested
+// DELETE artwork comment
+router.delete("/:artworkId/comments/:commentId", verifyAuth, artworksController.deleteUserComment);
 // DELETE artwork favorite
 router.delete("/:artworkId/favorites/:favoriteId", verifyAuth, artworksController.deleteUserArtworkFavorite); // tested
 // DELETE artwork
