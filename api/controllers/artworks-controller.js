@@ -191,11 +191,13 @@ async function postUserArtworkComment(req, res, next) {
     const { text } = req.body;
 
     try {
+        // Insert new comment
         await db.query(SQL`
             INSERT INTO artwork_comment(artwork_id, user_id, text)
             VALUES (${artworkId}, ${userId}, ${text})
         `);
 
+        // Retrieve all comments for artwork page
         const commentsDataArr = (await db.query(SQL`
             SELECT artwork_comment.comment_id, artwork_comment.user_id, artwork_comment.text, artwork_comment.created_at AS comment_created_at,
                 (

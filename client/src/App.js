@@ -22,7 +22,7 @@ function App() {
     const userId = localStorage.getItem("userId");
 
     userId ? setUserId(userId) : setUserId(0);
-  }, [setIsLoggedIn]);
+  }, [setIsLoggedIn, setUserId]);
 
   return (
     <Router>
