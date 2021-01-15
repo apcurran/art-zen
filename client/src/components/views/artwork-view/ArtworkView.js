@@ -151,6 +151,12 @@ function ArtworkView() {
         }
     }
 
+    async function handleRemoveComment(event) {
+        event.preventDefault();
+
+        const artworkId = id;
+    }
+
     return (
         <main className="artwork-view">
             <ArtworkInfo artworkData={artworkData} likes={likes} updateLikes={updateLikes} favorites={favorites} />

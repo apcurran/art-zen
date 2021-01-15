@@ -5,7 +5,6 @@ const SQL = require("sql-template-strings");
 
 const { userArtworkValidation, userArtworkCommentValidation } = require("../validation/artworks-validation");
 const { combineDataToObj } = require("../../utils/combine-data-to-obj");
-const { combineUserArtworksDataToObj } = require("../../utils/combine-user-artworks-data-to-obj");
 
 // GET controllers
 // Various artists sorted by most recent
