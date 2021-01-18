@@ -152,12 +152,11 @@ function ArtworkView() {
     }
 
     async function handleRemoveComment(commentId) {
-        console.log(`Comment id is, ${commentId}`);
-
         const artworkId = id;
         const token = localStorage.getItem("authToken");
 
         try {
+            // Delete from db
             await fetch(`/api/artworks/${artworkId}/comments/${commentId}`, {
                 method: "DELETE",
                 headers: {

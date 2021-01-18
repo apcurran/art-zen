@@ -20,5 +20,25 @@
 }
 
 .comment-segment__info__desc {
+    margin-bottom: .5rem;
     white-space: pre-wrap;
+}
+
+.comment-segment__info__delete-btn {
+    padding: .25rem 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.trash-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    stroke: #D1D5DB;
+    opacity: .8;
+    transition: opacity 120ms ease;
+}
+
+.comment-segment__info__delete-btn:hover .trash-icon {
+    opacity: 1;
 }
