@@ -125,7 +125,7 @@ async function getSearch(req, res, next) {
                OR LOWER(genre) LIKE LOWER(TRIM(${revisedWildcardQuery}))
         `);
 
-        res.send(rows);
+        res.status(200).json(rows);
 
     } catch (err) {
         next(err);
