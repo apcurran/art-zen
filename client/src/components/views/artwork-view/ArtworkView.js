@@ -23,11 +23,13 @@ function ArtworkView() {
         avatarImgUrl: ""
     });
     const [likes, setLikes] = useState([]);
+    const [currUserHasLiked, setCurrUserHasLiked] = useState(false);
     const [favorites, setFavorites] = useState([]);
     // User Comments state
     const [comments, setComments] = useState([]);
     const [commentText, setCommentText] = useState("");
 
+    // Init data fetch
     useEffect(() => {
         fetch(`/api/artworks/${id}`)
             .then(response => response.json())
@@ -47,7 +49,14 @@ function ArtworkView() {
                 setComments(data.comments);
             })
             .catch(err => console.error(err));
-    }, [id]);
+    }, [id, userId]);
+
+    // Check if currently logged in user has liked artwork or not
+    useEffect(() => {
+        const hasUserLiked = checkUserIdInArr(userId, likes);
+
+        setCurrUserHasLiked(hasUserLiked);
+    }, [userId, likes]);
 
     // ArtworkInfo comp behaviors //
     async function updateLikes() {
@@ -59,9 +68,7 @@ function ArtworkView() {
         const token = localStorage.getItem("authToken");
         const currUserId = userId;
 
-        const hasUserLikedArtwork = checkUserIdInArr(currUserId, likes);
-
-        if (!hasUserLikedArtwork) {
+        if (!currUserHasLiked) {
             addLike(id, token);
         } else {
             const likeId = getLikeId(currUserId, likes);
