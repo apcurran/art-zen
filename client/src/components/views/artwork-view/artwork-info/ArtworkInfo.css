@@ -10,6 +10,7 @@
 
 .artwork-view__info__by {
     margin-right: .5rem;
+    color: var(--supporting-txt-clr);
 }
 
 .artwork-view__info__author {

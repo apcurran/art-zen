@@ -8,7 +8,7 @@ function About() {
         <main className="main-about">
             <section className="main-about__section">
                 <figure className="main-about__section__fig">
-                    <img src={ArtMuseumIllustration} alt="Illustration of a man staring at art in a museum." className="main-about__section__fig__img"/>
+                    <img src={ArtMuseumIllustration} alt="Illustration of a man staring at art in a museum." width="1046" height="639" className="main-about__section__fig__img"/>
                 </figure>
                 <div className="main-about__section__content">
                     <h2 className="main-about__section__title">
@@ -29,12 +29,12 @@ function About() {
                     </p>
                 </div>
                 <figure className="main-about__section__fig">
-                    <img src={SharingArticlesIllustration} alt="" className="main-about__section__fig__img"/>
+                    <img src={SharingArticlesIllustration} alt="Man and a woman text artwork to each other." width="989" height="766" className="main-about__section__fig__img"/>
                 </figure>
             </section>
             <section className="main-about__section">
                 <figure className="main-about__section__fig">
-                    <img src={MonsterArtistIllustration} alt="" className="main-about__section__fig__img"/>
+                    <img src={MonsterArtistIllustration} alt="Monster with a mustache displays artwork with orange circles." width="738" height="401" className="main-about__section__fig__img"/>
                 </figure>
                 <div className="main-about__section__content">
                     <h2 className="main-about__section__title">
