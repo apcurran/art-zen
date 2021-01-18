@@ -184,7 +184,7 @@ function ArtworkView() {
 
     return (
         <main className="artwork-view">
-            <ArtworkInfo artworkData={artworkData} likes={likes} updateLikes={updateLikes} favorites={favorites} />
+            <ArtworkInfo artworkData={artworkData} likes={likes} updateLikes={updateLikes} currUserHasLiked={currUserHasLiked} favorites={favorites} />
             <ArtworkComments comments={comments} isLoggedIn={isLoggedIn} userId={userId} commentText={commentText} setCommentText={setCommentText} handleCommentSubmit={handleCommentSubmit} handleRemoveComment={handleRemoveComment} />
         </main>
     );

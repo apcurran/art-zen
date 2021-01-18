@@ -4,7 +4,7 @@ import { Image, Transformation } from "cloudinary-react";
 import "./ArtworkInfo.css";
 import formatDate from "../../../../utils/format-date";
 
-function ArtworkInfo({ artworkData, likes, updateLikes, favorites }) {
+function ArtworkInfo({ artworkData, likes, updateLikes, currUserHasLiked, favorites }) {
     return (
         <section className="artwork-view__info">
             <figure className="artwork-view__info__fig">
@@ -22,7 +22,7 @@ function ArtworkInfo({ artworkData, likes, updateLikes, favorites }) {
             <Link to={{pathname: `/artworks/users/${artworkData.userId}`}} className="artwork-view__info__author">{artworkData.username}</Link>
             <div className="artwork-view__info__social-data">
                 <div onClick={updateLikes} className="artwork-view__info__social-data__container">
-                    <svg className="like-heart-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    <svg className={currUserHasLiked ? "like-heart-icon--full like-heart-icon" : "like-heart-icon"} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
                     <span className="artwork-view__info__social-data__totals">{likes.length} Likes</span>
                 </div>
                 <div className="artwork-view__info__social-data__container">

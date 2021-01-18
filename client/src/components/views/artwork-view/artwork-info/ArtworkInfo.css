@@ -44,6 +44,16 @@
     height: 1.5rem;
 }
 
+/* Dynamic state-based icon statuses */
+.like-heart-icon--full {
+    fill: #fff;
+}
+
+.favorite-star-icon--full {
+    fill: #fff;
+}
+/* End dynamic icon statuses */
+
 .artwork-view__info__social-data__totals:first-of-type {
     margin-right: 1.5rem;
 }
