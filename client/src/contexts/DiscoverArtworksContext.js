@@ -3,7 +3,6 @@ import { useState, createContext, useEffect } from "react";
 export const DiscoverArtworksContext = createContext();
 
 function DiscoverArtworksContextProvider(props) {
-
     const [artworks, setArtworks] = useState([]);
 
     useEffect(() => {
