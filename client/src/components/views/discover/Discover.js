@@ -1,17 +1,11 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
 
 import "./Discover.css";
 import GridArtwork from "./grid-artwork/GridArtwork";
+import { DiscoverArtworksContext } from "../../../contexts/DiscoverArtworksContext";
 
 function Discover() {
-    const [artworks, setArtworks] = useState([]);
-
-    useEffect(() => {
-        fetch("/api/artworks")
-            .then(response => response.json())
-            .then(data => setArtworks(data))
-            .catch(err => console.error(err));
-    }, []);
+    const { artworks } = useContext(DiscoverArtworksContext);
 
     return (
         <div className="discover">
