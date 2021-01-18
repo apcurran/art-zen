@@ -20,8 +20,11 @@
 }
 
 .comment-segment__info__desc {
-    margin-bottom: .5rem;
     white-space: pre-wrap;
+}
+
+.comment-segment__info__delete-btn {
+    margin-top: .5rem;
 }
 
 .comment-segment__info__delete-btn {
