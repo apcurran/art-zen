@@ -151,16 +151,35 @@ function ArtworkView() {
         }
     }
 
-    async function handleRemoveComment(event) {
-        event.preventDefault();
+    async function handleRemoveComment(commentId) {
+        console.log(`Comment id is, ${commentId}`);
 
         const artworkId = id;
+        const token = localStorage.getItem("authToken");
+
+        try {
+            await fetch(`/api/artworks/${artworkId}/comments/${commentId}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            // Delete from local state
+            const updatedComments = comments.filter(comment => comment.comment_id !== commentId);
+
+            setComments(updatedComments);
+
+        } catch (err) {
+            console.error(err);
+        }
+
     }
 
     return (
         <main className="artwork-view">
             <ArtworkInfo artworkData={artworkData} likes={likes} updateLikes={updateLikes} favorites={favorites} />
-            <ArtworkComments comments={comments} isLoggedIn={isLoggedIn} userId={userId} commentText={commentText} setCommentText={setCommentText} handleCommentSubmit={handleCommentSubmit} />
+            <ArtworkComments comments={comments} isLoggedIn={isLoggedIn} userId={userId} commentText={commentText} setCommentText={setCommentText} handleCommentSubmit={handleCommentSubmit} handleRemoveComment={handleRemoveComment} />
         </main>
     );
 }

@@ -3,7 +3,7 @@ import UserAvatarDefault from "../user-avatar-default/UserAvatarDefault";
 import UserAvatar from "../user-avatar/UserAvatar";
 import formatDate from "../../../../../utils/format-date";
 
-function UserComment({ userId, comment }) {
+function UserComment({ userId, comment, handleRemoveComment, commentId }) {
     return (
         <div className="comment-segment">
             {comment.comment_avatar_img ? (
@@ -16,7 +16,7 @@ function UserComment({ userId, comment }) {
                 <span className="comment-segment__info__date">{formatDate(comment.comment_created_at)}</span>
                 <p className="comment-segment__info__desc">{comment.text}</p>
                 {comment.user_id === userId ? (
-                    <button>Delete Comment</button>
+                    <button onClick={() => handleRemoveComment(commentId)}>Delete Comment</button>
                 ) : null}
             </div>
         </div>
