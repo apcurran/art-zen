@@ -23,7 +23,7 @@ function SignedInLinks() {
                 <NavLink to="/about" className="nav__link">About</NavLink>
             </li>
             <li className="nav__item">
-                <button onClick={handleLogOut}>Log Out</button>
+                <button onClick={handleLogOut} className="log-out-btn">Log Out</button>
             </li>
         </ul>
     );

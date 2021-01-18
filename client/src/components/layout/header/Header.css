@@ -31,6 +31,12 @@
     font-size: 1.0625rem;
 }
 
+.log-out-btn {
+    border: none;
+    background: none;
+    color: #fff;
+}
+
 .search-form {
     width: 25rem;
 }
