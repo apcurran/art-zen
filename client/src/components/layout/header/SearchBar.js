@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import { DiscoverArtworksContext } from "../../../contexts/DiscoverArtworksContext";
 
 function SearchBar() {
     const { setArtworks } = useContext(DiscoverArtworksContext);
     const [searchText, setSearchText] = useState("");
+    const history = useHistory();
 
     async function handleSearchSubmit(event) {
         event.preventDefault();
@@ -14,6 +16,7 @@ function SearchBar() {
             const searchResultsData = await response.json();
 
             setArtworks(searchResultsData);
+            history.push("/");
 
         } catch (err) {
             console.error(err);
