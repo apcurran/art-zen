@@ -8,6 +8,7 @@ import About from "./components/views/about/About";
 import Discover from "./components/views/discover/Discover";
 import ArtworkView from "./components/views/artwork-view/ArtworkView";
 import UserProfile from "./components/views/user-profile/UserProfile";
+import Dashboard from "./components/views/dashboard/Dashboard";
 import SignUp from "./components/views/sign-up/SignUp";
 import LogIn from "./components/views/log-in/LogIn";
 import Footer from "./components/layout/footer/Footer";
@@ -34,6 +35,7 @@ function App() {
           <Route path="/auth/sign-up" component={SignUp} />
           <Route path="/auth/log-in" component={LogIn} />
           <Route path="/about" component={About} />
+          <Route path="/dashboard" component={Dashboard} />
           <Route path="/" component={Discover} />
         </Switch>
         <Footer />
