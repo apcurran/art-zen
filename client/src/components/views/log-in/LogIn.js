@@ -53,8 +53,10 @@ function LogIn() {
 
     return (
         <main className="auth login">
-            <h1 className="auth__title">Log In</h1>
             <form onSubmit={handleSubmit} className="auth__form">
+                <div className="title--highlight-wrapper">
+                    <h1 className="auth__title title--highlight">Log In</h1>
+                </div>
                 {error ? <p className="error">{error}</p> : null}
                 <div className="auth__form__group">
                     <label htmlFor="email" className="auth__form__label">Email</label>
@@ -64,7 +66,7 @@ function LogIn() {
                     <label htmlFor="password" className="auth__form__label">Password</label>
                     <input onChange={(event) => setPassword(event.target.value)} type="password" name="password" id="password" className="auth__form__input" required/>
                 </div>
-                <button type="submit" className="auth__form__submit-btn">Submit</button>
+                <button type="submit" className="auth__form__submit-btn cta-btn">Submit</button>
             </form>
         </main>
     );
