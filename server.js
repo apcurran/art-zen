@@ -19,6 +19,7 @@ if (process.env.NODE_ENV === "development") {
 
 // Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // API routers
 app.use("/api/auth", authRouter);

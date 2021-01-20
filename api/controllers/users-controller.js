@@ -43,31 +43,36 @@ async function postUserFollower(req, res, next) {
 
 // PATCH controller
 async function patchUser(req, res, next) {
-    try {
-        await userPatchValidation(req.body);
+    const { bioDesc } = req.body;
+    console.log(req.file);
 
-    } catch (err) {
-        return res.status(400).json({ error: err.details[0].message });
-    }
+    res.end();
 
-    const userId = req.user._id;
-    // Data now valid
-    const { bio_description, avatar_img_url } = req.body;
+    // try {
+    //     await userPatchValidation(req.body);
 
-    try {
-        await db.query(SQL`
-            UPDATE app_user
-            SET
-                bio_description = COALESCE(${bio_description}, bio_description),
-                avatar_img_url = COALESCE(${avatar_img_url}, avatar_img_url)
-            WHERE app_user.user_id = ${userId}
-        `);
+    // } catch (err) {
+    //     return res.status(400).json({ error: err.details[0].message });
+    // }
 
-        res.status(200).json({ message: "User updated." });
+    // const userId = req.user._id;
+    // // Data now valid
+    // const { bio_description, avatar_img_url } = req.body;
 
-    } catch (err) {
-        next(err);
-    }
+    // try {
+    //     await db.query(SQL`
+    //         UPDATE app_user
+    //         SET
+    //             bio_description = COALESCE(${bio_description}, bio_description),
+    //             avatar_img_url = COALESCE(${avatar_img_url}, avatar_img_url)
+    //         WHERE app_user.user_id = ${userId}
+    //     `);
+
+    //     res.status(200).json({ message: "User updated." });
+
+    // } catch (err) {
+    //     next(err);
+    // }
 }
 
 // DELETE controllers
