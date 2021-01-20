@@ -23,7 +23,8 @@
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.2",
     "pg": "^8.5.1",
-    "sql-template-strings": "^2.2.2"
+    "sql-template-strings": "^2.2.2",
+    "streamifier": "^0.1.1"
   },
   "devDependencies": {
     "faker": "^5.1.0",

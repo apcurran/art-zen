@@ -2,7 +2,9 @@
 
 const db = require("../../db/index");
 const SQL = require("sql-template-strings");
+const streamifier = require("streamifier");
 
+const { cloudinary } = require("../../utils/cloudinary");
 const { userPatchValidation } = require("../validation/users-validation");
 
 // GET controller
@@ -43,22 +45,41 @@ async function postUserFollower(req, res, next) {
 
 // PATCH controller
 async function patchUser(req, res, next) {
+    try {
+        await userPatchValidation(req.body);
+        
+    } catch (err) {
+        return res.status(400).json({ error: err.details[0].message });
+    }
+    
+    // Data now valid
+    const userId = req.user._id;
     const { bioDesc } = req.body;
-    console.log(req.file);
 
-    res.end();
+    const streamUpload = (req) => {
+        return new Promise((resolve, reject) => {
+            const stream = cloudinary.uploader.upload_stream(
+                {
+                    folder: "art-zen-app"
+                },
+                (error, result) => {
+                    if (result) {
+                        resolve(result);
+                    } else {
+                        reject(error);
+                    }
+                }
+            );
 
-    // try {
-    //     await userPatchValidation(req.body);
+            streamifier.createReadStream(req.file.buffer).pipe(stream);
+        });
+    };
 
-    // } catch (err) {
-    //     return res.status(400).json({ error: err.details[0].message });
-    // }
+    const result = await streamUpload(req);
+    console.log(result);
 
-    // const userId = req.user._id;
-    // // Data now valid
-    // const { bio_description, avatar_img_url } = req.body;
-
+    res.send(result);
+    
     // try {
     //     await db.query(SQL`
     //         UPDATE app_user

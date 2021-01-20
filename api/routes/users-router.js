@@ -4,7 +4,6 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const fileUpload = multer();
-const cloudinary = require("cloudinary").v2;
 
 const usersController = require("../controllers/users-controller");
 const verifyAuth = require("../middleware/verify-auth");
