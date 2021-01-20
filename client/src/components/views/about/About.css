@@ -39,6 +39,7 @@
 
 .wave-svg--top {
     margin-top: -1px;
+    padding: 0;
     transform: rotate(180deg);
     color: var(--ultra-light-grey);
 }
