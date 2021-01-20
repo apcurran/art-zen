@@ -52,15 +52,12 @@ async function patchUser(req, res, next) {
         return res.status(400).json({ error: err.details[0].message });
     }
     
-    // Data now valid
-    const userId = req.user._id;
-    const { bioDesc } = req.body;
-
+    
     const streamUpload = (req) => {
         return new Promise((resolve, reject) => {
             const stream = cloudinary.uploader.upload_stream(
                 {
-                    folder: "art-zen-app"
+                    folder: "art-zen-app/user-avatars"
                 },
                 (error, result) => {
                     if (result) {
@@ -69,31 +66,31 @@ async function patchUser(req, res, next) {
                         reject(error);
                     }
                 }
-            );
+                );
+                
+                streamifier.createReadStream(req.file.buffer).pipe(stream);
+            });
+        };
+        
+        
+    try {
+        const { bioDesc } = req.body;
+        const avatarImgUrl = (await streamUpload(req)).secure_url;
+        const userId = req.user._id;
 
-            streamifier.createReadStream(req.file.buffer).pipe(stream);
-        });
-    };
+        await db.query(SQL`
+            UPDATE app_user
+            SET
+                bio_description = COALESCE(${bioDesc}, bio_description),
+                avatar_img_url = COALESCE(${avatarImgUrl}, avatar_img_url)
+            WHERE app_user.user_id = ${userId}
+        `);
 
-    const result = await streamUpload(req);
-    console.log(result);
+        res.status(200).json({ message: "User updated." });
 
-    res.send(result);
-    
-    // try {
-    //     await db.query(SQL`
-    //         UPDATE app_user
-    //         SET
-    //             bio_description = COALESCE(${bio_description}, bio_description),
-    //             avatar_img_url = COALESCE(${avatar_img_url}, avatar_img_url)
-    //         WHERE app_user.user_id = ${userId}
-    //     `);
-
-    //     res.status(200).json({ message: "User updated." });
-
-    // } catch (err) {
-    //     next(err);
-    // }
+    } catch (err) {
+        next(err);
+    }
 }
 
 // DELETE controllers
