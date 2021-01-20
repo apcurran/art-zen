@@ -5,7 +5,25 @@ const SQL = require("sql-template-strings");
 
 const { userPatchValidation } = require("../validation/users-validation");
 
-// POST controllers
+// GET controller
+async function getUserInfo(req, res, next) {
+    const { userId } = req.params;
+    
+    try {
+        const userInfo = (await db.query(SQL`
+            SELECT app_user.username, app_user.bio_description, app_user.avatar_img_url
+            FROM app_user
+            WHERE app_user.user_id = ${userId}
+        `)).rows[0];
+
+        res.status(200).json(userInfo);
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+// POST controller
 async function postUserFollower(req, res, next) {
     const { userId } = req.params;
     const followerId = req.user._id;
@@ -87,6 +105,7 @@ async function deleteUser(req, res, next) {
 }
 
 module.exports = {
+    getUserInfo,
     postUserFollower,
     patchUser,
     deleteUserFollower,

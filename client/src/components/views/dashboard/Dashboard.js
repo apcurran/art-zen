@@ -1,7 +1,4 @@
-import { useContext } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-
-import { AuthContext } from "../../../contexts/AuthContext";
 
 import "./Dashboard.css";
 import DashboardNav from "./dashboard-nav/DashboardNav";
@@ -9,7 +6,7 @@ import UserInfo from "./user-info/UserInfo";
 import MyArtwork from "./my-artwork/MyArtwork";
 
 function Dashboard() {
-    const { isLoggedIn } = useContext(AuthContext);
+    const isLoggedIn = localStorage.getItem("authToken");
 
     // Route guard
     if (!isLoggedIn) return <Redirect to="/auth/log-in" />

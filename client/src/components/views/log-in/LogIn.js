@@ -43,8 +43,8 @@ function LogIn() {
             // Update Auth Context
             setIsLoggedIn(true);
             setUserId(data.userId);
-            // Push user to User Profile page after successful log in
-            history.push(`/artworks/users/${data.userId}`);
+            // Push user to Dashboard page after successful log in
+            history.push("/dashboard");
             
         } catch (err) {
             setError(err.message);

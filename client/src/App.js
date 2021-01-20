@@ -18,10 +18,12 @@ function App() {
 
   useEffect(() => {
     // Run auth check on app startup
+    // Set log in status for Auth Context
     localStorage.authToken ? setIsLoggedIn(true) : setIsLoggedIn(false);
 
     const userId = Number(localStorage.getItem("userId"));
 
+    // Set user id for Auth Context
     userId ? setUserId(userId) : setUserId(0);
   }, [setIsLoggedIn, setUserId]);
 
