@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 import "./DashboardNav.css";
 
-function DashboardNav() {
+function DashboardNav({ userId }) {
     return (
         <nav className="dashboard-nav">
             <ul className="dashboard-nav__list">
@@ -10,7 +10,7 @@ function DashboardNav() {
                     <NavLink to="/dashboard/user-info" className="dashboard-nav__link">Edit User Info</NavLink>
                 </li>
                 <li className="dashboard-nav__item">
-                    <NavLink to="/dashboard/my-artwork" className="dashboard-nav-link">My Artwork</NavLink>
+                    <NavLink to={`/dashboard/artworks/users/${userId}`} className="dashboard-nav-link">Artworks Grid</NavLink>
                 </li>
             </ul>
         </nav>

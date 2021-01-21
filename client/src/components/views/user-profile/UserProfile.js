@@ -2,11 +2,15 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import "./UserProfile.css";
+
 import UserProfileInfo from "./user-profile-info/UserProfileInfo";
 import UserProfileArtworksGrid from "./user-profile-artworks-grid/UserProfileArtworksGrid";
 
-function UserProfile() {
+function UserProfile({ contextUserId }) {
     const { id } = useParams();
+    // TODO: NOT working, React gives an undefined val for contextUserId.
+    const canUserDeleteArtwork = contextUserId === Number(id) ? true : false;
+    console.log(canUserDeleteArtwork);
 
     const [profileData, setProfileData] = useState({
         username: "",
@@ -34,7 +38,7 @@ function UserProfile() {
     return (
         <main className="user-profile-main">
             <UserProfileInfo profileData={profileData} totalCreations={artworks.length} totalFollowers={totalFollowers} />
-            <UserProfileArtworksGrid artworks={artworks} />
+            <UserProfileArtworksGrid artworks={artworks} canUserDeleteArtwork={canUserDeleteArtwork} />
         </main>
     );
 }
