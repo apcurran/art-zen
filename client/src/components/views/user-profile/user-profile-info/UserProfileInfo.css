@@ -30,6 +30,7 @@
     height: 7rem;
     margin-right: 1rem;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .user-profile__info-sect__inner-container {
