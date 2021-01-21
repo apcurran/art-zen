@@ -10,7 +10,7 @@ function DashboardNav({ userId }) {
                     <NavLink to="/dashboard/user-info" className="dashboard-nav__link">Edit User Info</NavLink>
                 </li>
                 <li className="dashboard-nav__item">
-                    <NavLink to={`/dashboard/artworks/users/${userId}`} className="dashboard-nav-link">Artworks Grid</NavLink>
+                    <NavLink to={`/dashboard/artworks/users/${userId}`} className="dashboard-nav__link">Artworks Grid</NavLink>
                 </li>
             </ul>
         </nav>

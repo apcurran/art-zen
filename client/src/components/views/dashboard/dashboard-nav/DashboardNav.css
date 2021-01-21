@@ -1,0 +1,14 @@
+.dashboard-nav__list {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    list-style: none;
+}
+
+.dashboard-nav__link {
+    color: #fff;
+}
+
+.dashboard-nav__link.active {
+    color: var(--brand-orange);
+}

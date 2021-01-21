@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 
+import "./UserInfo.css";
 import { AuthContext } from "../../../../contexts/AuthContext";
 
 function UserInfo() {
@@ -55,17 +56,17 @@ function UserInfo() {
 
     return (
         <main>
-            <h1>Welcome back, {username}!</h1>
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
-                <div className="form-group">
-                    <label htmlFor="bioDesc">Bio Description:</label>
-                    <textarea value={bioDesc} onChange={(event) => setBioDesc(event.target.value)} id="bioDesc" name="bioDesc" cols="30" rows="10"></textarea>
+            <h2 className="dashboard-user-info-title">Welcome back, {username}!</h2>
+            <form onSubmit={handleSubmit} encType="multipart/form-data" className="dashboard-user-info">
+                <div className="dashboard-user-info__form-group">
+                    <label className="dashboard-user-info__label" htmlFor="bioDesc">Bio Description:</label>
+                    <textarea className="dashboard-user-info__textarea" value={bioDesc} onChange={(event) => setBioDesc(event.target.value)} id="bioDesc" name="bioDesc" cols="30" rows="10"></textarea>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="avatarImg">Avatar Img:</label>
-                    <input onChange={handleFileChange} type="file" name="avatarImg" id="avatarImg"/>
+                <div className="dashboard-user-info__form-group">
+                    <label className="dashboard-user-info__label" htmlFor="avatarImg">Avatar Img:</label>
+                    <input className="dashboard-user-info__input dashboard-user-info__input--file" onChange={handleFileChange} type="file" name="avatarImg" id="avatarImg"/>
                 </div>
-                <button type="submit">Update</button>
+                <button type="submit" className="cta-btn">Update</button>
             </form>
         </main>
     );
