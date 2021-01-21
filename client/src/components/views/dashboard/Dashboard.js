@@ -10,7 +10,6 @@ import ArtworkFavorites from "./artwork-favorites/ArtworkFavorites";
 
 function Dashboard() {
     const { userId } = useContext(AuthContext);
-    console.log(userId);
     const isLoggedIn = localStorage.getItem("authToken");
 
     // Route guard

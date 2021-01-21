@@ -3,7 +3,7 @@ import { Image, Transformation } from "cloudinary-react";
 
 import "./UserProfileArtwork.css";
 
-function UserProfileArtwork({ artwork, canUserDeleteArtwork, artworkId }) {
+function UserProfileArtwork({ artwork, canUserDeleteArtwork, deleteArtwork, artworkId }) {
     return (
         <div className="">
             <Link to={{pathname: `/artworks/${artwork.artwork_id}`}} className="">
@@ -16,7 +16,7 @@ function UserProfileArtwork({ artwork, canUserDeleteArtwork, artworkId }) {
                 </Image>
             </Link>
             {canUserDeleteArtwork ? (
-                <button>Delete</button>
+                <button onClick={() => deleteArtwork(artworkId)}>Delete</button>
             ) : null}
         </div>
     );

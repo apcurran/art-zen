@@ -33,10 +33,32 @@ function UserProfile({ contextUserId }) {
             .catch(err => console.error(err));
     }, [id]);
 
+    async function deleteArtwork(artworkId) {
+        const token = localStorage.getItem("authToken");
+
+        try {
+            const response = await fetch(`/api/artworks/${artworkId}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            const message = await response.json();
+            console.log(message);
+            // Now delete from DOM
+            const updatedArtworks = artworks.filter(artwork => artwork.artwork_id !== artworkId);
+
+            setArtworks(updatedArtworks);
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     return (
         <main className="user-profile-main">
             <UserProfileInfo profileData={profileData} totalCreations={artworks.length} totalFollowers={totalFollowers} />
-            <UserProfileArtworksGrid artworks={artworks} canUserDeleteArtwork={canUserDeleteArtwork} />
+            <UserProfileArtworksGrid artworks={artworks} canUserDeleteArtwork={canUserDeleteArtwork} deleteArtwork={deleteArtwork} />
         </main>
     );
 }
