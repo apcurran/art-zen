@@ -8,9 +8,7 @@ import UserProfileArtworksGrid from "./user-profile-artworks-grid/UserProfileArt
 
 function UserProfile({ contextUserId }) {
     const { id } = useParams();
-    // TODO: NOT working, React gives an undefined val for contextUserId.
     const canUserDeleteArtwork = contextUserId === Number(id) ? true : false;
-    console.log(canUserDeleteArtwork);
 
     const [profileData, setProfileData] = useState({
         username: "",
