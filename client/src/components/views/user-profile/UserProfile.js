@@ -56,8 +56,8 @@ function UserProfile({ contextUserId }) {
     }
 
     return (
-        <main className="user-profile-main">
-            <UserProfileInfo profileData={profileData} totalCreations={artworks.length} totalFollowers={totalFollowers} />
+        <main className={canUserDeleteArtwork ? "user-profile-main--dashboard" : "user-profile-main"}>
+            <UserProfileInfo profileData={profileData} totalCreations={artworks.length} totalFollowers={totalFollowers} canUserDeleteArtwork={canUserDeleteArtwork} />
             <UserProfileArtworksGrid artworks={artworks} canUserDeleteArtwork={canUserDeleteArtwork} deleteArtwork={deleteArtwork} />
         </main>
     );
