@@ -75,7 +75,8 @@ async function patchUser(req, res, next) {
         
     try {
         const { bioDesc } = req.body;
-        const avatarImgUrl = (await streamUpload(req)).secure_url;
+        // If user did not send a new img to replace avatar img with, keep the old one.
+        const avatarImgUrl = req.file ? (await streamUpload(req)).secure_url : null;
         const userId = req.user._id;
 
         await db.query(SQL`

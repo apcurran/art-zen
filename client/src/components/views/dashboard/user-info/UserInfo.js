@@ -41,6 +41,8 @@ function UserInfo() {
                 },
                 body: formData
             });
+            const message = await response.json();
+            console.log(message);
 
         } catch (err) {
             console.error(err);
