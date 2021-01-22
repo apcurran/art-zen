@@ -25,6 +25,7 @@ function ArtworkView() {
     const [likes, setLikes] = useState([]);
     const [currUserHasLiked, setCurrUserHasLiked] = useState(false);
     const [favorites, setFavorites] = useState([]);
+    const [currUserHasFavorited, setCurrUserHasFavorited] = useState(false);
     // User Comments state
     const [comments, setComments] = useState([]);
     const [commentText, setCommentText] = useState("");
@@ -51,12 +52,19 @@ function ArtworkView() {
             .catch(err => console.error(err));
     }, [id, userId]);
 
-    // Check if currently logged in user has liked artwork or not
     useEffect(() => {
+        // Check if currently logged in user has liked artwork or not
         const hasUserLiked = checkUserIdInArr(userId, likes);
 
         setCurrUserHasLiked(hasUserLiked);
     }, [userId, likes]);
+    
+    useEffect(() => {
+        // Check if curr user has favorited artwork
+        const hasUserFavorited = checkUserIdInArr(userId, favorites);
+
+        setCurrUserHasFavorited(hasUserFavorited);
+    }, [userId, favorites]);
 
     // ArtworkInfo comp behaviors //
     async function updateLikes() {
@@ -119,11 +127,76 @@ function ArtworkView() {
         }
     }
 
-    // Helper func
+    // Helper funcs
     function getLikeId(userId, likesArr) {
         const liked = likesArr.filter(obj => obj.user_id === userId);
 
         return liked[0].like_id;
+    }
+
+    function getFavId(userId, favsArr) {
+        const favorited = favsArr.filter(obj => obj.user_id === userId);
+
+        return favorited[0].favorite_id;
+    }
+
+    // Artwork Favorites //
+    async function updateFavorites() {
+        // Checked logged in first
+        if (!isLoggedIn) {
+            return history.push("/auth/log-in");
+        }
+
+        const token = localStorage.getItem("authToken");
+        const currUserId = userId;
+
+        if (!currUserHasFavorited) {
+            addFavorite(id, token);
+        } else {
+            const favoriteId = getFavId(currUserId, favorites);
+            
+            removeFavorite(id, favoriteId, token);
+        }
+    }
+
+    async function addFavorite(artworkId, authToken) {
+        try {
+            const response = await fetch(`/api/artworks/${artworkId}/favorites`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${authToken}`
+                }
+            });
+
+            const { favoriteData } = await response.json();
+            // Update state
+            setFavorites([...favorites, favoriteData]);
+            
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async function removeFavorite(artworkId, favoriteId, authToken) {
+        try {
+            const response = await fetch(`/api/artworks/${artworkId}/favorites/${favoriteId}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${authToken}`
+                }
+            });
+
+            // Delete from db
+            await response.json();
+
+            // Update local state
+            const updatedfavorites = favorites.filter(favoriteObj => favoriteObj.favorite_id !== favoriteId);
+            
+            setFavorites(updatedfavorites);
+
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     // ArtworkComments comp behaviors //
@@ -184,7 +257,7 @@ function ArtworkView() {
 
     return (
         <main className="artwork-view">
-            <ArtworkInfo artworkData={artworkData} likes={likes} updateLikes={updateLikes} currUserHasLiked={currUserHasLiked} favorites={favorites} />
+            <ArtworkInfo artworkData={artworkData} likes={likes} updateLikes={updateLikes} currUserHasLiked={currUserHasLiked} favorites={favorites} updateFavorites={updateFavorites} />
             <ArtworkComments comments={comments} isLoggedIn={isLoggedIn} userId={userId} commentText={commentText} setCommentText={setCommentText} handleCommentSubmit={handleCommentSubmit} handleRemoveComment={handleRemoveComment} />
         </main>
     );

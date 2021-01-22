@@ -52,7 +52,6 @@ async function patchUser(req, res, next) {
         return res.status(400).json({ error: err.details[0].message });
     }
     
-    
     const streamUpload = (req) => {
         return new Promise((resolve, reject) => {
             const stream = cloudinary.uploader.upload_stream(

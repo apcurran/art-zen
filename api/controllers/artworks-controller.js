@@ -132,6 +132,25 @@ async function getSearch(req, res, next) {
     }
 }
 
+async function getUserFavorites(req, res, next) {
+    const userId = req.user._id;
+
+    try {
+        const favorites = (await db.query(SQL`
+            SELECT artwork.artwork_id, artwork.img_url, artwork.title
+            FROM artwork
+            INNER JOIN artwork_favorite
+                ON artwork.artwork_id = artwork_favorite.artwork_id
+            WHERE artwork_favorite.user_id = ${userId}
+        `)).rows;
+
+        res.status(200).json({ favoritesData: favorites });
+
+    } catch (err) {
+        next(err);
+    }
+}
+
 // POST controllers
 async function postUserArtwork(req, res, next) {
     try {
@@ -225,12 +244,13 @@ async function postUserArtworkFavorite(req, res, next) {
     const userId = req.user._id;
 
     try {
-        await db.query(SQL`
+        const addedFavorite = (await db.query(SQL`
             INSERT INTO artwork_favorite(artwork_id, user_id)
             VALUES (${artworkId}, ${userId})
-        `);
+            RETURNING artwork_favorite.favorite_id, artwork_favorite.user_id
+        `)).rows[0];
 
-        res.status(201).json({ message: "New favorite added." });
+        res.status(201).json({ favoriteData: addedFavorite });
 
     } catch (err) {
         next(err);
@@ -311,6 +331,7 @@ module.exports = {
     getUserArtwork,
     getUserArtworks,
     getSearch,
+    getUserFavorites,
     postUserArtwork,
     postUserArtworkLike,
     postUserArtworkComment,

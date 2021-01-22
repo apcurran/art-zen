@@ -6,6 +6,8 @@ const router = express.Router();
 const artworksController = require("../controllers/artworks-controller");
 const verifyAuth = require("../middleware/verify-auth");
 
+// GET all user favorites
+router.get("/users/:userid/favorites", verifyAuth, artworksController.getUserFavorites);
 // GET specific user artworks based on user id
 router.get("/users/:userId", artworksController.getUserArtworks); // tested
 // GET search results for artwork title or genre

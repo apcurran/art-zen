@@ -23,6 +23,7 @@ function Dashboard() {
                 <Route path="/dashboard/user-info" component={UserInfo} />
                 {/* Pass props to route component */}
                 <Route path="/dashboard/artworks/users/:id" render={() => <UserProfile contextUserId={userId} />} />
+                <Route path="/dashboard/favorites" component={ArtworkFavorites} />
             </Switch>
         </main>
     );
