@@ -21,8 +21,8 @@ function Dashboard() {
             <h1>Dashboard</h1>
             <DashboardNav userId={userId} />
             <Switch>
+                {/* Pass props to route components */}
                 <Route path="/dashboard/user-info" render={() => <UserInfo userId={userId} token={token} />} />
-                {/* Pass props to route component */}
                 <Route path="/dashboard/artworks/users/:id" render={() => <UserProfile contextUserId={userId} />} />
                 <Route path="/dashboard/favorites" render={() => <ArtworkFavorites userId={userId} token={token} />} />
             </Switch>
