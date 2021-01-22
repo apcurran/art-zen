@@ -17,7 +17,8 @@ function UserInfo({ userId, token }) {
             .then(data => {
                 setUsername(data.username);
                 setBioDesc(data.bio_description);
-            });
+            })
+            .catch(err => console.error(err));
     }, [userId, token]);
 
     // Form

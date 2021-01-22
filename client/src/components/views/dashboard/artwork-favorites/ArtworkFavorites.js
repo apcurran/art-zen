@@ -12,7 +12,8 @@ function ArtworkFavorites({ userId, token }) {
             }
         })
             .then(response => response.json())
-            .then(data => console.log(data));
+            .then(data => setFavoritesData(data))
+            .catch(err => console.error(err));
     }, [userId, token]);
 
     return (
