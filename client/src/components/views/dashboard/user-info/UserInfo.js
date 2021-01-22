@@ -1,15 +1,11 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 
 import "./UserInfo.css";
-import { AuthContext } from "../../../../contexts/AuthContext";
 
-function UserInfo() {
+function UserInfo({ userId, token }) {
     const [username, setUsername] = useState("");
     const [bioDesc, setBioDesc] = useState("");
     const [selectedImgFile, setSelectedImgFile] = useState(null);
-
-    const { userId } = useContext(AuthContext);
-    const token = localStorage.getItem("authToken"); 
 
     useEffect(() => {
         fetch(`/api/users/${userId}`, {

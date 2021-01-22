@@ -11,6 +11,7 @@ import ArtworkFavorites from "./artwork-favorites/ArtworkFavorites";
 function Dashboard() {
     const { userId } = useContext(AuthContext);
     const isLoggedIn = localStorage.getItem("authToken");
+    const token = isLoggedIn;
 
     // Route guard
     if (!isLoggedIn) return <Redirect to="/auth/log-in" />
@@ -20,10 +21,10 @@ function Dashboard() {
             <h1>Dashboard</h1>
             <DashboardNav userId={userId} />
             <Switch>
-                <Route path="/dashboard/user-info" component={UserInfo} />
+                <Route path="/dashboard/user-info" render={() => <UserInfo userId={userId} token={token} />} />
                 {/* Pass props to route component */}
                 <Route path="/dashboard/artworks/users/:id" render={() => <UserProfile contextUserId={userId} />} />
-                <Route path="/dashboard/favorites" component={ArtworkFavorites} />
+                <Route path="/dashboard/favorites" render={() => <ArtworkFavorites userId={userId} token={token} />} />
             </Switch>
         </main>
     );
