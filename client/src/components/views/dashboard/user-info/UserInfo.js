@@ -52,7 +52,7 @@ function UserInfo({ userId, token }) {
     }
 
     return (
-        <main>
+        <section>
             <h2 className="dashboard-user-info-title">Welcome back, {username}!</h2>
             <form onSubmit={handleSubmit} encType="multipart/form-data" className="dashboard-user-info">
                 <div className="dashboard-user-info__form-group">
@@ -65,7 +65,7 @@ function UserInfo({ userId, token }) {
                 </div>
                 <button type="submit" className="cta-btn">Update</button>
             </form>
-        </main>
+        </section>
     );
 }
 
