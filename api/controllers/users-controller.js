@@ -69,7 +69,7 @@ async function patchUser(req, res, next) {
                 
                 streamifier.createReadStream(req.file.buffer).pipe(stream);
             });
-        };
+    };
         
         
     try {

@@ -42,7 +42,7 @@ function UserInfo({ userId, token }) {
             });
             const responseMsg = (await response.json()).message;
 
-            // Set user message for 5 seconds
+            // Set user message for 7 seconds
             setMessage(responseMsg);
             setTimeout(() => setMessage(""), 7000);
 

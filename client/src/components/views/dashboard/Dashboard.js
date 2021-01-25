@@ -6,6 +6,7 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import DashboardNav from "./dashboard-nav/DashboardNav";
 import UserInfo from "./user-info/UserInfo";
 import UserProfile from "../../../components/views/user-profile/UserProfile";
+import AddArtwork from "./add-artwork/AddArtwork";
 import ArtworkFavorites from "./artwork-favorites/ArtworkFavorites";
 
 function Dashboard() {
@@ -24,6 +25,7 @@ function Dashboard() {
                 {/* Pass props to route components */}
                 <Route path="/dashboard/user-info" render={() => <UserInfo userId={userId} token={token} />} />
                 <Route path="/dashboard/artworks/users/:id" render={() => <UserProfile contextUserId={userId} />} />
+                <Route path="/dashboard/artworks/users/:id" render={() => <AddArtwork token={token} />} />
                 <Route path="/dashboard/favorites" render={() => <ArtworkFavorites userId={userId} token={token} />} />
             </Switch>
         </main>
