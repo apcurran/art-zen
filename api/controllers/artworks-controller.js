@@ -2,7 +2,9 @@
 
 const db = require("../../db/index");
 const SQL = require("sql-template-strings");
+const streamifier = require("streamifier");
 
+const { cloudinary } = require("../../utils/cloudinary");
 const { userArtworkValidation, userArtworkCommentValidation } = require("../validation/artworks-validation");
 const { combineDataToObj } = require("../../utils/combine-data-to-obj");
 
@@ -162,14 +164,34 @@ async function postUserArtwork(req, res, next) {
         return res.status(400).json({ error: err.details[0].message });
     }
 
+    const streamUpload = (req) => {
+        return new Promise((resolve, reject) => {
+            const stream = cloudinary.uploader.upload_stream(
+                {
+                    folder: "art-zen-app"
+                },
+                (error, result) => {
+                    if (result) {
+                        resolve(result);
+                    } else {
+                        reject(error);
+                    }
+                }
+            );
+
+            streamifier.createReadStream(req.file.buffer).pipe(stream);
+        });
+    }
+
     try {
         const userId = req.user._id;
+        const artworkImgUrl = (await streamUpload(req)).public_id;
         // Data is now valid
-        const { title, description, genre, img_url } = req.body;
+        const { title, description, genre } = req.body;
 
         await db.query(SQL`
             INSERT INTO artwork(user_id, title, description, genre, img_url)
-            VALUES (${userId}, ${title}, ${description}, ${genre}, ${img_url})
+            VALUES (${userId}, ${title}, ${description}, ${genre}, ${artworkImgUrl})
         `);
 
         res.status(201).json({ message: "New artwork created." });

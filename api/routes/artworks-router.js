@@ -3,6 +3,9 @@
 const express = require("express");
 const router = express.Router();
 
+const multer = require("multer");
+const fileUpload = multer();
+
 const artworksController = require("../controllers/artworks-controller");
 const verifyAuth = require("../middleware/verify-auth");
 
@@ -23,7 +26,7 @@ router.post("/:artworkId/comments", verifyAuth, artworksController.postUserArtwo
 // POST new artwork favorite
 router.post("/:artworkId/favorites", verifyAuth, artworksController.postUserArtworkFavorite); // tested
 // POST new artwork
-router.post("/", verifyAuth, artworksController.postUserArtwork); // tested
+router.post("/", verifyAuth, fileUpload.single("artworkImg"), artworksController.postUserArtwork); // tested
 // DELETE artwork like
 router.delete("/:artworkId/likes/:likeId", verifyAuth, artworksController.deleteUserArtworkLike); // tested
 // DELETE artwork comment

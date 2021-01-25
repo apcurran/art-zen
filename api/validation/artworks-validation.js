@@ -15,9 +15,6 @@ function userArtworkValidation(data) {
         genre: Joi
                 .string()
                 .max(20)
-                .required(),
-        img_url: Joi
-                .string()
                 .required()
     });
 

@@ -2,8 +2,8 @@
 
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
 
+const multer = require("multer");
 const fileUpload = multer();
 
 const usersController = require("../controllers/users-controller");
