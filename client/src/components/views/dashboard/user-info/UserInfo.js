@@ -42,7 +42,9 @@ function UserInfo({ userId, token }) {
             });
             const responseMsg = (await response.json()).message;
 
+            // Set user message for 5 seconds
             setMessage(responseMsg);
+            setTimeout(() => setMessage(""), 7000);
 
         } catch (err) {
             console.error(err);
