@@ -5,10 +5,10 @@ import "./UserProfileArtwork.css";
 
 function UserProfileArtwork({ artwork, canUserDeleteArtwork, deleteArtwork, artworkId }) {
     return (
-        <div className="">
-            <Link to={{pathname: `/artworks/${artwork.artwork_id}`}} className="">
+        <article className="user-profile__artworks-grid__article">
+            <Link to={{pathname: `/artworks/${artwork.artwork_id}`}} className="user-profile__artworks-grid__article__link">
                 <Image
-                    className=""
+                    className="user-profile__artworks-grid__article__link__img"
                     cloudName="dev-project"
                     publicId={artwork.artwork_img_url}
                 >
@@ -18,7 +18,7 @@ function UserProfileArtwork({ artwork, canUserDeleteArtwork, deleteArtwork, artw
             {canUserDeleteArtwork ? (
                 <button onClick={() => deleteArtwork(artworkId)}>Delete</button>
             ) : null}
-        </div>
+        </article>
     );
 }
 

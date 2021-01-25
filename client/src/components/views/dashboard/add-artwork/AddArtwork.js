@@ -7,6 +7,7 @@ function AddArtwork({ token }) {
     const [genre, setGenre] = useState("");
     const [description, setDescription] = useState("");
     const [selectedImgFile, setSelectedImgFile] = useState(null);
+    const [message, setMessage] = useState("");
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -25,8 +26,10 @@ function AddArtwork({ token }) {
                 },
                 body: formData
             });
-            const responseMsg = await response.json();
-            console.log(responseMsg);
+            const responseMsg = (await response.json()).message;
+
+            setMessage(responseMsg);
+            setTimeout(() => setMessage(""), 7000);
 
         } catch (err) {
             console.error(err);
@@ -54,6 +57,9 @@ function AddArtwork({ token }) {
                     <input onChange={(event) => setSelectedImgFile(event.target.files[0])} type="file" name="artworkImg" id="artwork-img" className="add-artwork-form__input add-artwork-form__input--file"/>
                 </div>
                 <button type="submit" className="add-artwork-form__submit-btn cta-btn">Upload</button>
+                {message ? (
+                    <p className="add-artwork-form__message msg">{message}</p>
+                ) : null}
             </form>
         </div>
     );
