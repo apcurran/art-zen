@@ -58,13 +58,13 @@ function UserInfo({ userId, token }) {
     return (
         <section>
             <h2 className="dashboard-user-info-title">Welcome back, {username}!</h2>
-            <form onSubmit={handleSubmit} encType="multipart/form-data" className="dashboard-user-info">
-                <div className="dashboard-user-info__form-group">
-                    <label className="dashboard-user-info__label" htmlFor="bioDesc">Bio Description</label>
-                    <textarea className="dashboard-user-info__textarea" value={bioDesc} onChange={(event) => setBioDesc(event.target.value)} id="bioDesc" name="bioDesc" cols="30" rows="10"></textarea>
+            <form onSubmit={handleSubmit} encType="multipart/form-data" className="dashboard-user-info dashboard-form">
+                <div className="dashboard-user-info__form-group dashboard-form__group">
+                    <label className="dashboard-user-info__label dashboard-form__label" htmlFor="bioDesc">Bio Description</label>
+                    <textarea className="dashboard-user-info__textarea dashboard-form__textarea" value={bioDesc} onChange={(event) => setBioDesc(event.target.value)} id="bioDesc" name="bioDesc" cols="30" rows="10"></textarea>
                 </div>
-                <div className="dashboard-user-info__form-group">
-                    <label className="dashboard-user-info__label" htmlFor="avatarImg">Upload Avatar Img</label>
+                <div className="dashboard-user-info__form-group dashboard-form__group">
+                    <label className="dashboard-user-info__label dashboard-form__label" htmlFor="avatarImg">Upload Avatar Img</label>
                     <input className="dashboard-user-info__input dashboard-user-info__input--file" onChange={handleFileChange} type="file" name="avatarImg" id="avatarImg"/>
                 </div>
                 <button type="submit" className="dashboard-user-info__submit-btn cta-btn">Update</button>

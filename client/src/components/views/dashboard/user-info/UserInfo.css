@@ -1,24 +1,5 @@
-.dashboard-user-info {
-    max-width: 40rem;
-}
-
 .dashboard-user-info-title {
     margin-bottom: 1rem;
-}
-
-.dashboard-user-info__form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1.5rem;
-}
-
-.dashboard-user-info__label {
-    margin-bottom: .5rem;
-}
-
-.dashboard-user-info__textarea {
-    padding: .75rem 1rem;
-    line-height: 1.6;
 }
 
 .dashboard-user-info__submit-btn {
