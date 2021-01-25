@@ -18,13 +18,34 @@ function ArtworkFavorites({ userId, token }) {
             .catch(err => console.error(err));
     }, [userId, token]);
 
+    async function deleteFavorite(artworkId, favoriteId) {
+        try {
+            const response = await fetch(`/api/artworks/${artworkId}/favorites/${favoriteId}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            const message = await response.json();
+
+            // Update local state
+            const updatedFavs = favoritesData.filter(favorite => favorite.favorite_id !== Number(favoriteId));
+
+            setFavoritesData(updatedFavs);
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     return (
         <section className="dashboard__favorites">
             {favoritesData.map(favorite => (
-                <article className="dashboard__favorites__article">
+                <article className="dashboard__favorites__article" key={favorite.favorite_id}>
                     <Link to={{pathname: `/artworks/${favorite.artwork_id}`}} className="dashboard__favorites__article__title-link">
                         <h2 className="dashboard__favorites__article__title">{favorite.title}</h2>
                     </Link>
+                    <button onClick={() => deleteFavorite(favorite.artwork_id, favorite.favorite_id)} className="dashboard__favorites__article__delete-btn">Delete Favorite</button>
                     <figure className="dashboard__favorites__article__fig">
                         <Image
                             className="dashboard__favorites__article__fig__img"
