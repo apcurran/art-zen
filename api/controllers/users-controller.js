@@ -65,12 +65,11 @@ async function patchUser(req, res, next) {
                         reject(error);
                     }
                 }
-                );
-                
-                streamifier.createReadStream(req.file.buffer).pipe(stream);
-            });
+            );
+            
+            streamifier.createReadStream(req.file.buffer).pipe(stream);
+        });
     };
-        
         
     try {
         const { bioDesc } = req.body;
