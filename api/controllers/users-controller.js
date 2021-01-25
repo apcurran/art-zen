@@ -2,9 +2,8 @@
 
 const db = require("../../db/index");
 const SQL = require("sql-template-strings");
-const streamifier = require("streamifier");
 
-const { cloudinary } = require("../../utils/cloudinary");
+const { streamUploadToCloudinary } = require("../../utils/stream-upload-to-cloudinary");
 const { userPatchValidation } = require("../validation/users-validation");
 
 // GET controller
@@ -51,30 +50,11 @@ async function patchUser(req, res, next) {
     } catch (err) {
         return res.status(400).json({ error: err.details[0].message });
     }
-    
-    const streamUpload = (req) => {
-        return new Promise((resolve, reject) => {
-            const stream = cloudinary.uploader.upload_stream(
-                {
-                    folder: "art-zen-app/user-avatars"
-                },
-                (error, result) => {
-                    if (result) {
-                        resolve(result);
-                    } else {
-                        reject(error);
-                    }
-                }
-            );
-            
-            streamifier.createReadStream(req.file.buffer).pipe(stream);
-        });
-    };
         
     try {
         const { bioDesc } = req.body;
         // If user did not send a new img to replace avatar img with, keep the old one.
-        const avatarImgUrl = req.file ? (await streamUpload(req)).secure_url : null;
+        const avatarImgUrl = req.file ? (await streamUploadToCloudinary(req, "art-zen-app/user-avatars")).secure_url : null;
         const userId = req.user._id;
 
         await db.query(SQL`
