@@ -41,13 +41,24 @@ p {
   grid-auto-rows: auto 1fr auto;
 }
 
-/* Base err msg styling */
+/* Base msg and err styling */
+.msg,
 .error {
   margin-bottom: 1rem;
   padding: .5rem;
+  font-weight: 700;
+}
+
+/* Msg styling */
+.msg {
+  background-color: #0c4a6e;
+  color: #bae6fd;
+}
+
+/* Err styling */
+.error {
   background-color: #fecaca;
   color: #b91c1c;
-  font-weight: 700;
 }
 
 /* Base cta btn styling */

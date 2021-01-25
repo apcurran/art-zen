@@ -1,0 +1,14 @@
+.dashboard__favorites__article {
+    margin-bottom: 2rem;
+}
+
+.dashboard__favorites__article__delete-btn {
+    padding: .5rem .75rem;
+    background: none;
+    border: 1px solid var(--ultra-light-grey);
+    border-radius: 4px;
+    color: var(--ultra-light-grey);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    cursor: pointer;
+}

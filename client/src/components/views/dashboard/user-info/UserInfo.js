@@ -6,6 +6,7 @@ function UserInfo({ userId, token }) {
     const [username, setUsername] = useState("");
     const [bioDesc, setBioDesc] = useState("");
     const [selectedImgFile, setSelectedImgFile] = useState(null);
+    const [message, setMessage] = useState("");
 
     useEffect(() => {
         fetch(`/api/users/${userId}`, {
@@ -39,8 +40,9 @@ function UserInfo({ userId, token }) {
                 },
                 body: formData
             });
-            const message = await response.json();
-            console.log(message);
+            const responseMsg = (await response.json()).message;
+
+            setMessage(responseMsg);
 
         } catch (err) {
             console.error(err);
@@ -63,7 +65,10 @@ function UserInfo({ userId, token }) {
                     <label className="dashboard-user-info__label" htmlFor="avatarImg">Upload Avatar Img</label>
                     <input className="dashboard-user-info__input dashboard-user-info__input--file" onChange={handleFileChange} type="file" name="avatarImg" id="avatarImg"/>
                 </div>
-                <button type="submit" className="cta-btn">Update</button>
+                <button type="submit" className="dashboard-user-info__submit-btn cta-btn">Update</button>
+                {message ? (
+                    <p className="dashboard-user-info__response-msg msg">{message}</p>
+                ) : null}
             </form>
         </section>
     );

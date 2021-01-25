@@ -86,7 +86,7 @@ async function patchUser(req, res, next) {
             WHERE app_user.user_id = ${userId}
         `);
 
-        res.status(200).json({ message: "User updated." });
+        res.status(200).json({ message: "User info updated." });
 
     } catch (err) {
         next(err);
