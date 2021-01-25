@@ -164,6 +164,7 @@ async function postUserArtwork(req, res, next) {
         return res.status(400).json({ error: err.details[0].message });
     }
 
+    // TODO: Refactor this func to utils func and re-use in users-controller
     const streamUpload = (req) => {
         return new Promise((resolve, reject) => {
             const stream = cloudinary.uploader.upload_stream(
