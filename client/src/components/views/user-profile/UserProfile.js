@@ -1,12 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 
 import "./UserProfile.css";
 
 import UserProfileInfo from "./user-profile-info/UserProfileInfo";
 import UserProfileArtworksGrid from "./user-profile-artworks-grid/UserProfileArtworksGrid";
+import { DiscoverArtworksContext } from "../../../contexts/DiscoverArtworksContext";
 
 function UserProfile({ contextUserId }) {
+    const { artworks, setArtworks } = useContext(DiscoverArtworksContext);
+
     const { id } = useParams();
     const canUserDeleteArtwork = contextUserId === Number(id) ? true : false;
 
@@ -16,7 +19,7 @@ function UserProfile({ contextUserId }) {
         bioDesc: ""
     });
     const [totalFollowers, setTotalFollowers] = useState(0);
-    const [artworks, setArtworks] = useState([]);
+    const [userArtworks, setUserArtworks] = useState([]);
 
     useEffect(() => {
         fetch(`/api/artworks/users/${id}`)
@@ -28,7 +31,7 @@ function UserProfile({ contextUserId }) {
                     bioDesc: data.userData.bio_description
                 });
                 setTotalFollowers(data.userData.total_followers);
-                setArtworks(data.artworkData);
+                setUserArtworks(data.artworkData);
             })
             .catch(err => console.error(err));
     }, [id]);
@@ -37,18 +40,23 @@ function UserProfile({ contextUserId }) {
         const token = localStorage.getItem("authToken");
 
         try {
-            const response = await fetch(`/api/artworks/${artworkId}`, {
+            // Delete from db
+            await fetch(`/api/artworks/${artworkId}`, {
                 method: "DELETE",
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             });
-            const message = await response.json();
-            console.log(message);
-            // Now delete from DOM
-            const updatedArtworks = artworks.filter(artwork => artwork.artwork_id !== artworkId);
 
-            setArtworks(updatedArtworks);
+            // Remove from local component DOM
+            const updatedArtworks = userArtworks.filter(artwork => artwork.artwork_id !== artworkId);
+
+            setUserArtworks(updatedArtworks);
+
+            // Update global context state
+            const updatedContextArtworks = artworks.filter(artwork => artwork.artwork_id !== artworkId);
+
+            setArtworks(updatedContextArtworks);
 
         } catch (err) {
             console.error(err);
@@ -57,8 +65,8 @@ function UserProfile({ contextUserId }) {
 
     return (
         <main className={canUserDeleteArtwork ? "user-profile-main--dashboard" : "user-profile-main"}>
-            <UserProfileInfo profileData={profileData} totalCreations={artworks.length} totalFollowers={totalFollowers} canUserDeleteArtwork={canUserDeleteArtwork} />
-            <UserProfileArtworksGrid artworks={artworks} canUserDeleteArtwork={canUserDeleteArtwork} deleteArtwork={deleteArtwork} />
+            <UserProfileInfo profileData={profileData} totalCreations={userArtworks.length} totalFollowers={totalFollowers} canUserDeleteArtwork={canUserDeleteArtwork} />
+            <UserProfileArtworksGrid artworks={userArtworks} canUserDeleteArtwork={canUserDeleteArtwork} deleteArtwork={deleteArtwork} />
         </main>
     );
 }
