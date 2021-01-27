@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 
 import "./AddArtwork.css";
 import { DiscoverArtworksContext } from "../../../../contexts/DiscoverArtworksContext";
+import Loader from "../../../../components/loader/Loader";
 
 function AddArtwork({ token }) {
     const { artworks, setArtworks } = useContext(DiscoverArtworksContext);
@@ -11,9 +12,12 @@ function AddArtwork({ token }) {
     const [description, setDescription] = useState("");
     const [selectedImgFile, setSelectedImgFile] = useState(null);
     const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
 
     async function handleSubmit(event) {
         event.preventDefault();
+
+        setLoading(true);
 
         let formData = new FormData();
         formData.append("title", title);
@@ -30,11 +34,13 @@ function AddArtwork({ token }) {
                 body: formData
             });
             const { addedArtwork } = await response.json();
-            // Set Global Context State
-            setArtworks([addedArtwork, ...artworks]);
 
+            setLoading(false);
             setMessage("Your new artwork was successfully uploaded!");
             setTimeout(() => setMessage(""), 7000);
+
+            // Set Global Context State
+            setArtworks([addedArtwork, ...artworks]);
 
         } catch (err) {
             console.error(err);
@@ -62,6 +68,7 @@ function AddArtwork({ token }) {
                     <input onChange={(event) => setSelectedImgFile(event.target.files[0])} type="file" name="artworkImg" id="artwork-img" className="add-artwork-form__input add-artwork-form__input--file"/>
                 </div>
                 <button type="submit" className="add-artwork-form__submit-btn cta-btn">Upload</button>
+                {loading ? <Loader /> : null}
                 {message ? (
                     <p className="add-artwork-form__message msg">{message}</p>
                 ) : null}
