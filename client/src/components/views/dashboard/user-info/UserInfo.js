@@ -2,11 +2,15 @@ import { useState, useEffect } from "react";
 
 import "./UserInfo.css";
 
+import Loader from "../../../loader/Loader";
+import testUtils from "react-dom/test-utils";
+
 function UserInfo({ userId, token }) {
     const [username, setUsername] = useState("");
     const [bioDesc, setBioDesc] = useState("");
     const [selectedImgFile, setSelectedImgFile] = useState(null);
     const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         fetch(`/api/users/${userId}`, {
@@ -26,6 +30,8 @@ function UserInfo({ userId, token }) {
     async function handleSubmit(event) {
         event.preventDefault();
 
+        setLoading(true);
+
         let formData = new FormData();
         formData.append("bioDesc", bioDesc);
         formData.append("avatarImg", selectedImgFile);
@@ -42,11 +48,14 @@ function UserInfo({ userId, token }) {
             });
             const responseMsg = (await response.json()).message;
 
+            setLoading(false);
             // Set user message for 7 seconds
             setMessage(responseMsg);
             setTimeout(() => setMessage(""), 7000);
 
         } catch (err) {
+            setLoading(false);
+
             console.error(err);
         }
     }
@@ -68,6 +77,7 @@ function UserInfo({ userId, token }) {
                     <input className="dashboard-user-info__input dashboard-user-info__input--file" onChange={handleFileChange} type="file" name="avatarImg" id="avatarImg"/>
                 </div>
                 <button type="submit" className="dashboard-user-info__submit-btn cta-btn">Update</button>
+                {loading ? <Loader /> : null}
                 {message ? (
                     <p className="dashboard-user-info__response-msg msg">{message}</p>
                 ) : null}

@@ -43,6 +43,8 @@ function AddArtwork({ token }) {
             setArtworks([addedArtwork, ...artworks]);
 
         } catch (err) {
+            setLoading(false);
+
             console.error(err);
         }
     }
