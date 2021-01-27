@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import "./AddArtwork.css";
+import { DiscoverArtworksContext } from "../../../../contexts/DiscoverArtworksContext";
 
 function AddArtwork({ token }) {
+    const { artworks, setArtworks } = useContext(DiscoverArtworksContext);
+
     const [title, setTitle] = useState("");
     const [genre, setGenre] = useState("");
     const [description, setDescription] = useState("");
@@ -26,9 +29,11 @@ function AddArtwork({ token }) {
                 },
                 body: formData
             });
-            const responseMsg = (await response.json()).message;
+            const { addedArtwork } = await response.json();
+            // Set Global Context State
+            setArtworks([addedArtwork, ...artworks]);
 
-            setMessage(responseMsg);
+            setMessage("Your new artwork was successfully uploaded!");
             setTimeout(() => setMessage(""), 7000);
 
         } catch (err) {

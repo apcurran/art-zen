@@ -169,12 +169,13 @@ async function postUserArtwork(req, res, next) {
         // Data is now valid
         const { title, description, genre } = req.body;
 
-        await db.query(SQL`
+        const addedArtwork = (await db.query(SQL`
             INSERT INTO artwork(user_id, title, description, genre, img_url)
             VALUES (${userId}, ${title}, ${description}, ${genre}, ${artworkImgUrl})
-        `);
+            RETURNING artwork.artwork_id, artwork.img_url
+        `)).rows[0];
 
-        res.status(201).json({ message: "New artwork created." });
+        res.status(201).json({ addedArtwork });
 
     } catch (err) {
         next(err);
