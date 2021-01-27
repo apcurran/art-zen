@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import "./UserInfo.css";
 
 import Loader from "../../../loader/Loader";
-import testUtils from "react-dom/test-utils";
 
 function UserInfo({ userId, token }) {
     const [username, setUsername] = useState("");
