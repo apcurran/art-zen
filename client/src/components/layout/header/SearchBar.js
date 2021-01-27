@@ -25,7 +25,7 @@ function SearchBar() {
 
     return (
         <form onSubmit={handleSearchSubmit} className="search-form">
-            <input value={searchText} onChange={(event) => setSearchText(event.target.value)} type="text" className="search-form__input" placeholder="Search for artworks..."/>
+            <input value={searchText} onChange={(event) => setSearchText(event.target.value)} type="text" className="search-form__input" aria-label="Search for artworks" placeholder="Search for artworks..."/>
         </form>
     );
 }
