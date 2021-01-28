@@ -14,7 +14,7 @@ import LogIn from "./components/views/log-in/LogIn";
 import Footer from "./components/layout/footer/Footer";
 
 function App() {
-  const { setIsLoggedIn, setUserId } = useContext(AuthContext);
+  const { setIsLoggedIn, setUserId, userId } = useContext(AuthContext);
 
   useEffect(() => {
     // Run auth check on app startup
@@ -32,7 +32,7 @@ function App() {
       <div className="App">
         <Header />
         <Switch>
-          <Route path="/artworks/users/:id" component={UserProfile} />
+          <Route path="/artworks/users/:id" render={() => <UserProfile contextUserId={userId} />} />
           <Route path="/artworks/:id" component={ArtworkView} />
           <Route path="/auth/sign-up" component={SignUp} />
           <Route path="/auth/log-in" component={LogIn} />

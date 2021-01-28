@@ -63,9 +63,29 @@ function UserProfile({ contextUserId }) {
         }
     }
 
+    // Follow functionality
+    async function handleAddCurrFollower() {
+        const token = localStorage.getItem("authToken");
+        const artistId = id;
+
+        try {
+            const response = await fetch(`/api/users/${artistId}/followers`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            const { message } = await response.json();
+            console.log(message);
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     return (
         <main className={canUserDeleteArtwork ? "user-profile-main--dashboard" : "user-profile-main"}>
-            <UserProfileInfo profileData={profileData} totalCreations={userArtworks.length} totalFollowers={totalFollowers} canUserDeleteArtwork={canUserDeleteArtwork} />
+            <UserProfileInfo profileData={profileData} totalCreations={userArtworks.length} totalFollowers={totalFollowers} canUserDeleteArtwork={canUserDeleteArtwork} handleAddCurrFollower={handleAddCurrFollower} />
             <UserProfileArtworksGrid artworks={userArtworks} canUserDeleteArtwork={canUserDeleteArtwork} deleteArtwork={deleteArtwork} />
         </main>
     );
