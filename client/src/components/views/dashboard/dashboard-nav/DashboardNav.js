@@ -7,6 +7,9 @@ function DashboardNav({ userId }) {
         <nav className="dashboard-nav">
             <ul className="dashboard-nav__list">
                 <li className="dashboard-nav__item">
+                    <NavLink to="/dashboard/subscriptions" className="dashboard-nav__link">Subscriptions</NavLink>
+                </li>
+                <li className="dashboard-nav__item">
                     <NavLink to="/dashboard/user-info" className="dashboard-nav__link">Edit User Info</NavLink>
                 </li>
                 <li className="dashboard-nav__item">

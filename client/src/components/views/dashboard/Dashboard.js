@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import "./Dashboard.css";
 import { AuthContext } from "../../../contexts/AuthContext";
 import DashboardNav from "./dashboard-nav/DashboardNav";
+import Subscriptions from "./subscriptions/Subscriptions";
 import UserInfo from "./user-info/UserInfo";
 import UserProfile from "../../../components/views/user-profile/UserProfile";
 import AddArtwork from "./add-artwork/AddArtwork";
@@ -23,6 +24,7 @@ function Dashboard() {
             <DashboardNav userId={userId} />
             <Switch>
                 {/* Pass props to route components */}
+                <Route path="/dashboard/subscriptions" render={() => <Subscriptions userId={userId} token={token} />} />
                 <Route path="/dashboard/user-info" render={() => <UserInfo userId={userId} token={token} />} />
                 <Route path="/dashboard/artworks/users/:id" render={() => <UserProfile contextUserId={userId} />} />
                 <Route path="/dashboard/add-artwork" render={() => <AddArtwork token={token} />} />
