@@ -19,7 +19,7 @@ CREATE TABLE artwork(
 );
 
 CREATE TABLE follower(
-    follower_user_id INT NOT NULL UNIQUE,
+    follower_user_id INT NOT NULL,
     FOREIGN KEY(follower_user_id) REFERENCES app_user(user_id) ON DELETE CASCADE,
     account_user_id INT NOT NULL,
     FOREIGN KEY(account_user_id) REFERENCES app_user(user_id) ON DELETE CASCADE

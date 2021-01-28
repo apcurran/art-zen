@@ -9,6 +9,8 @@ const fileUpload = multer();
 const usersController = require("../controllers/users-controller");
 const verifyAuth = require("../middleware/verify-auth");
 
+// GET subscriptions artworks
+router.get("/:userId/subscriptions", verifyAuth, usersController.getSubscriptions);
 // POST new account follower
 router.post("/:userId/followers", verifyAuth, usersController.postUserFollower); // tested
 // GET user info

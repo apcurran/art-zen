@@ -24,6 +24,24 @@ async function getUserInfo(req, res, next) {
     }
 }
 
+// GET user subscriptions
+async function getSubscriptions(req, res, next) {
+    const { userId } = req.params;
+
+    try {
+        const subscriptionsArtworks = (await db.query(SQL`
+            SELECT follower.account_user_id
+            FROM follower
+            WHERE follower.follower_user_id = ${userId}
+        `)).rows;
+
+        res.status(200).json(subscriptionsArtworks);
+        
+    } catch (err) {
+        next(err);
+    }
+}
+
 // POST controller
 async function postUserFollower(req, res, next) {
     const { userId } = req.params;
@@ -108,6 +126,7 @@ async function deleteUser(req, res, next) {
 
 module.exports = {
     getUserInfo,
+    getSubscriptions,
     postUserFollower,
     patchUser,
     deleteUserFollower,
