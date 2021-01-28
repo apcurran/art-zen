@@ -30,13 +30,17 @@ async function getSubscriptions(req, res, next) {
 
     try {
         const subscriptionsArtworks = (await db.query(SQL`
-            SELECT follower.account_user_id
-            FROM follower
+            SELECT
+                artwork.artwork_id, artwork.user_id, artwork.title, artwork.img_url, artwork.genre, artwork.created_at,
+                app_user.username
+            FROM artwork
+            INNER JOIN follower ON artwork.user_id = follower.account_user_id
+            INNER JOIN app_user ON follower.account_user_id = app_user.user_id
             WHERE follower.follower_user_id = ${userId}
         `)).rows;
 
-        res.status(200).json(subscriptionsArtworks);
-        
+        res.status(200).json({ subscriptionsArtworks });
+
     } catch (err) {
         next(err);
     }
