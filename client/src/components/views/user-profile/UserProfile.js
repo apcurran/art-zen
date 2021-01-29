@@ -102,8 +102,9 @@ function UserProfile({ contextUserId }) {
                     "Authorization": `Bearer ${token}`
                 }
             });
-            const { message } = await response.json();
-            console.log(message);
+            const { addedFollower } = await response.json();
+
+            setFollowers([...followers, addedFollower]);
     
         } catch (err) {
             console.error(err);

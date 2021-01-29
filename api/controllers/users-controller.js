@@ -52,12 +52,13 @@ async function postUserFollower(req, res, next) {
     const followerId = req.user._id;
 
     try {
-        await db.query(SQL`
+        const addedFollower = (await db.query(SQL`
             INSERT INTO follower(follower_user_id, account_user_id)
             VALUES (${followerId}, ${userId})
-        `);
+            RETURNING follower.follower_user_id
+        `)).rows[0];
     
-        res.status(201).json({ message: "New follower added." });
+        res.status(201).json({ addedFollower });
         
     } catch (err) {
         next(err);
