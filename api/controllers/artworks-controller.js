@@ -86,14 +86,14 @@ async function getUserArtworks(req, res, next) {
         const { userId } = req.params;
         const userData = db.query(SQL`
             SELECT
-                app_user.username, app_user.avatar_img_url, app_user.bio_description,
-                (
-                    SELECT CAST(COUNT(follower.follower_user_id) AS int)
-                    FROM follower
-                    WHERE follower.account_user_id = ${userId}
-                ) AS total_followers
+                app_user.username, app_user.avatar_img_url, app_user.bio_description
             FROM app_user
             WHERE app_user.user_id = ${userId}
+        `);
+        const followerData = db.query(SQL`
+            SELECT follower.follower_user_id
+            FROM follower
+            WHERE follower.account_user_id = ${userId}
         `);
         const artworkData = db.query(SQL`
             SELECT
@@ -103,11 +103,12 @@ async function getUserArtworks(req, res, next) {
             ORDER BY artwork.created_at DESC
         `);
 
-        const groupedData = await Promise.all([userData, artworkData]);
+        const groupedData = await Promise.all([userData, followerData, artworkData]);
         const resolvedUserData = groupedData[0].rows[0];
-        const resolvedArtworkData = groupedData[1].rows;
+        const resolvedFollowerData = groupedData[1].rows;
+        const resolvedArtworkData = groupedData[2].rows;
 
-        res.status(200).json({ userData: resolvedUserData, artworkData: resolvedArtworkData });
+        res.status(200).json({ userData: resolvedUserData, followerData: resolvedFollowerData, artworkData: resolvedArtworkData });
 
     } catch (err) {
         next(err);
