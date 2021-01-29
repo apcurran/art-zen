@@ -5,7 +5,7 @@ import { AuthContext } from "./contexts/AuthContext";
 
 import Header from "./components/layout/header/Header";
 import Footer from "./components/layout/footer/Footer";
-import Loader from "./components/loader/Loader";
+import GlobalLoader from "./components/loader/GlobalLoader";
 
 const About = lazy(() => import("./components/views/about/About"));
 const Discover = lazy(() => import("./components/views/discover/Discover"));
@@ -33,7 +33,7 @@ function App() {
     <Router>
       <div className="App">
         <Header />
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<GlobalLoader />}>
           <Switch>
             <Route path="/artworks/users/:id" render={() => <UserProfile contextUserId={userId} />} />
             <Route path="/artworks/:id" component={ArtworkView} />
