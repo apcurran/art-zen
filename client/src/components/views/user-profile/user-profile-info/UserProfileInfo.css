@@ -55,3 +55,7 @@
 .user-profile__info__bio {
     max-width: 75ch;
 }
+
+.user-profile__info__follow-btn--activated {
+    opacity: .6;
+}

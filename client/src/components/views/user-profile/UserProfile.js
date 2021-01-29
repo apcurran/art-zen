@@ -7,7 +7,6 @@ import UserProfileInfo from "./user-profile-info/UserProfileInfo";
 import UserProfileArtworksGrid from "./user-profile-artworks-grid/UserProfileArtworksGrid";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { DiscoverArtworksContext } from "../../../contexts/DiscoverArtworksContext";
-import checkUserIdInArr from "../../../utils/check-user-id-in-arr";
 
 function UserProfile({ contextUserId }) {
     const { isLoggedIn, userId } = useContext(AuthContext);
@@ -30,7 +29,6 @@ function UserProfile({ contextUserId }) {
         fetch(`/api/artworks/users/${id}`)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 setProfileData({
                     username: data.userData.username,
                     avatarImg: data.userData.avatar_img_url,
@@ -44,7 +42,6 @@ function UserProfile({ contextUserId }) {
 
     useEffect(() => {
         const hasUserFollowed = followers.some(followerObj => followerObj.follower_user_id === userId);
-        console.log("User has followed", hasUserFollowed);
 
         setIsFollowing(hasUserFollowed);
     }, [userId, followers]);
@@ -113,30 +110,27 @@ function UserProfile({ contextUserId }) {
 
     async function removeFollower(artistId, userId, token) {
         try {
-            const response = await fetch(`/api/users/${artistId}/followers/${userId}`, {
+            // Remove from db
+            await fetch(`/api/users/${artistId}/followers/${userId}`, {
                 method: "DELETE",
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             });
-            const message = await response.json();
-            console.log(message);
+
+            // Remove from local state
+            const updatedFollowers = followers.filter(follower => follower.follower_user_id !== userId);
+
+            setFollowers(updatedFollowers);
 
         } catch (err) {
             console.error(err);
         }
     }
 
-    // Helper func
-    function getFollowerId(userId, followersArr) {
-        const followed = followersArr.filter(obj => obj.follower_user_id === userId);
-
-        return followed[0].follower_user_id;
-    }
-
     return (
         <main className={canUserDeleteArtwork ? "user-profile-main--dashboard" : "user-profile-main"}>
-            <UserProfileInfo profileData={profileData} totalCreations={userArtworks.length} totalFollowers={followers.length} canUserDeleteArtwork={canUserDeleteArtwork} handleUpdateFollowers={handleUpdateFollowers} />
+            <UserProfileInfo profileData={profileData} totalCreations={userArtworks.length} totalFollowers={followers.length} canUserDeleteArtwork={canUserDeleteArtwork} handleUpdateFollowers={handleUpdateFollowers} isFollowing={isFollowing} />
             <UserProfileArtworksGrid artworks={userArtworks} canUserDeleteArtwork={canUserDeleteArtwork} deleteArtwork={deleteArtwork} />
         </main>
     );
