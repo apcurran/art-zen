@@ -64,7 +64,7 @@ function UserProfile({ contextUserId }) {
     }
 
     // Follow functionality
-    async function handleAddCurrFollower() {
+    async function handleUpdateFollowers() {
         const token = localStorage.getItem("authToken");
         const artistId = id;
 
@@ -85,7 +85,7 @@ function UserProfile({ contextUserId }) {
 
     return (
         <main className={canUserDeleteArtwork ? "user-profile-main--dashboard" : "user-profile-main"}>
-            <UserProfileInfo profileData={profileData} totalCreations={userArtworks.length} totalFollowers={totalFollowers} canUserDeleteArtwork={canUserDeleteArtwork} handleAddCurrFollower={handleAddCurrFollower} />
+            <UserProfileInfo profileData={profileData} totalCreations={userArtworks.length} totalFollowers={totalFollowers} canUserDeleteArtwork={canUserDeleteArtwork} handleUpdateFollowers={handleUpdateFollowers} />
             <UserProfileArtworksGrid artworks={userArtworks} canUserDeleteArtwork={canUserDeleteArtwork} deleteArtwork={deleteArtwork} />
         </main>
     );

@@ -1,6 +1,6 @@
 import "./UserProfileInfo.css";
 
-function UserProfileInfo({ profileData, totalCreations, totalFollowers, canUserDeleteArtwork, handleAddCurrFollower }) {
+function UserProfileInfo({ profileData, totalCreations, totalFollowers, canUserDeleteArtwork, handleUpdateFollowers }) {
     return (
         <section className="user-profile__info">
             {profileData.avatarImg ? (
@@ -22,7 +22,7 @@ function UserProfileInfo({ profileData, totalCreations, totalFollowers, canUserD
                     </div>
                     <div className="user-profile__info-sect--right">
                         {canUserDeleteArtwork ? null : (
-                            <button onClick={handleAddCurrFollower} className="user-profile__info__follow-btn cta-btn">Follow</button>
+                            <button onClick={handleUpdateFollowers} className="user-profile__info__follow-btn cta-btn">Follow</button>
                         )}
                     </div>
                 </div>
