@@ -1,3 +1,7 @@
 .user-profile__artworks-grid__article__link__img {
     width: 100%;
 }
+
+.user-profile__artworks-grid__article__delete-btn {
+    margin-top: .5rem;
+}
