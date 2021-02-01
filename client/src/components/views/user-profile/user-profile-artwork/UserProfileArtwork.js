@@ -16,7 +16,7 @@ function UserProfileArtwork({ artwork, canUserDeleteArtwork, deleteArtwork, artw
                 </Image>
             </Link>
             {canUserDeleteArtwork ? (
-                <button onClick={() => deleteArtwork(artworkId)}>Delete</button>
+                <button onClick={() => deleteArtwork(artworkId)} className="user-profile__artworks-grid__article__delete-btn cta-btn">Delete</button>
             ) : null}
         </article>
     );

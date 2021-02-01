@@ -6,8 +6,8 @@ import formatDate from "../../../../utils/format-date";
 
 function SubscriptionCard({ artwork }) {
     return (
-        <article className="subscriptions-grid__card">
-            <Link to={{pathname: `/artworks/${artwork.artwork_id}`}}>
+        <Link to={{pathname: `/artworks/${artwork.artwork_id}`}} className="subscriptions-grid__card-link-container">
+            <article className="subscriptions-grid__card">
                 <figure className="subscriptions-grid__card__fig">
                     <Image
                         className="subscriptions-grid__card__fig__img"
@@ -18,11 +18,11 @@ function SubscriptionCard({ artwork }) {
                         <Transformation quality="auto" fetchFormat="auto" />
                     </Image>
                 </figure>
-            </Link>
-            <h3 className="subscriptions-grid__card__title">{artwork.title}</h3>
-            <span className="subscriptions-grid__card__genre-chip">{artwork.genre}</span>
-            <p className="subscriptions-grid__card__user-desc">Posted by {artwork.username} on {formatDate(artwork.created_at)}</p>
-        </article>
+                <h3 className="subscriptions-grid__card__title">{artwork.title}</h3>
+                <span className="subscriptions-grid__card__genre-chip">{artwork.genre}</span>
+                <p className="subscriptions-grid__card__user-desc">Posted by {artwork.username} on {formatDate(artwork.created_at)}</p>
+            </article>
+        </Link>
     );
 }
 
