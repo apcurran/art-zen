@@ -5,6 +5,10 @@
     width: var(--wrapper-width);
 }
 
+.dashboard-main__title {
+    margin-bottom: .5rem;
+}
+
 .dashboard-form {
     max-width: 40rem;
 }
@@ -22,10 +26,12 @@
 .dashboard-form__input {
     padding: .5rem .75rem;
     border-radius: 4px;
+    border: none;
 }
 
 .dashboard-form__textarea {
     padding: .75rem 1rem;
     line-height: 1.6;
+    border: none;
     border-radius: 4px;
 }

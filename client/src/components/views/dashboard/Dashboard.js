@@ -20,7 +20,7 @@ function Dashboard() {
 
     return (
         <main className="dashboard-main">
-            <h1>Dashboard</h1>
+            <h1 className="dashboard-main__title">Dashboard</h1>
             <DashboardNav userId={userId} />
             <Switch>
                 {/* Pass props to route components */}

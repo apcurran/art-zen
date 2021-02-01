@@ -1,5 +1,18 @@
 .dashboard__favorites__article {
-    margin-bottom: 2rem;
+    margin-bottom: 6rem;
+}
+
+.dashboard__favorites__article-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.dashboard__favorites__article__title {
+    margin-bottom: 1rem;
+}
+
+.dashboard__favorites__article__fig {
+    margin-bottom: .25rem;
 }
 
 .dashboard__favorites__article__delete-btn {
