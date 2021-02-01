@@ -19,7 +19,6 @@ function Subscriptions({ userId, token }) {
 
     return (
         <div>
-            <h2>Subscriptions</h2>
             <section className="subscriptions-grid">
                 {subscripArtworks.map(artwork => (
                     <SubscriptionCard artwork={artwork} key={artwork.artwork_id} />
