@@ -2,7 +2,7 @@ import "./Loader.css";
 
 function GlobalLoader() {
     return (
-        <p className="loading-icon global-loader">Loading...</p>
+        <div className="loading-icon global-loader">Loading...</div>
     );
 }
 

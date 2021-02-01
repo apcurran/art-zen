@@ -2,7 +2,7 @@ import "./Loader.css";
 
 function Loader() {
     return (
-        <p className="loading-icon">Loading...</p>
+        <div className="loading-icon"></div>
     );
 }
 
