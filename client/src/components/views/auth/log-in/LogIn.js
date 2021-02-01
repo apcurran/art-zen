@@ -1,9 +1,9 @@
 import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 
-import { AuthContext } from "../../../contexts/AuthContext";
+import { AuthContext } from "../../../../contexts/AuthContext";
 
-import "./LogIn.css";
+import "../Auth.css";
 
 function LogIn() {
     const [email, setEmail] = useState("");

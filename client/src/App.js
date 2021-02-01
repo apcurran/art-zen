@@ -12,8 +12,8 @@ const Discover = lazy(() => import("./components/views/discover/Discover"));
 const ArtworkView = lazy(() => import("./components/views/artwork-view/ArtworkView"));
 const UserProfile = lazy(() => import("./components/views/user-profile/UserProfile"));
 const Dashboard = lazy(() => import("./components/views/dashboard/Dashboard"));
-const LogIn = lazy(() => import("./components/views/log-in/LogIn"));
-const SignUp = lazy(() => import("./components/views/sign-up/SignUp"));
+const LogIn = lazy(() => import("./components/views/auth/log-in/LogIn"));
+const SignUp = lazy(() => import("./components/views/auth/sign-up/SignUp"));
 
 function App() {
   const { setIsLoggedIn, setUserId, userId } = useContext(AuthContext);
