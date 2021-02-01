@@ -57,5 +57,6 @@
 }
 
 .user-profile__info__follow-btn--activated {
-    opacity: .6;
+    opacity: .9;
+    background-color: var(--supporting-txt-clr);
 }

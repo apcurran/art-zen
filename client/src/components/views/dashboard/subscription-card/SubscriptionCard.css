@@ -25,3 +25,7 @@
     border-radius: 500px;
     font-size: var(--small-fz);
 }
+
+.subscriptions-grid__card__user-desc__user-link {
+    color: var(--brand-orange);
+}
