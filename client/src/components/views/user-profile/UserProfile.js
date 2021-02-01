@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, useRouteMatch } from "react-router-dom";
 
 import "./UserProfile.css";
 
@@ -12,6 +12,7 @@ function UserProfile({ contextUserId }) {
     const { isLoggedIn, userId } = useContext(AuthContext);
     const { artworks, setArtworks } = useContext(DiscoverArtworksContext);
     const history = useHistory();
+    const match = useRouteMatch("/artworks/users/:id");
 
     const { id } = useParams();
     const canUserDeleteArtwork = contextUserId === Number(id) ? true : false;
@@ -129,7 +130,7 @@ function UserProfile({ contextUserId }) {
     }
 
     return (
-        <main className={canUserDeleteArtwork ? "user-profile-main--dashboard" : "user-profile-main"}>
+        <main className={match ? "user-profile-main" : "user-profile-main--dashboard"}>
             <UserProfileInfo profileData={profileData} totalCreations={userArtworks.length} totalFollowers={followers.length} canUserDeleteArtwork={canUserDeleteArtwork} handleUpdateFollowers={handleUpdateFollowers} isFollowing={isFollowing} />
             <UserProfileArtworksGrid artworks={userArtworks} canUserDeleteArtwork={canUserDeleteArtwork} deleteArtwork={deleteArtwork} />
         </main>
