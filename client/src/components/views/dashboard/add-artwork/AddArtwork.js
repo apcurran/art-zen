@@ -55,11 +55,11 @@ function AddArtwork({ token }) {
             <form onSubmit={handleSubmit} encType="multipart/form-data" className="add-artwork-form dashboard-form">
                 <div className="add-artwork-form__form-group dashboard-form__group">
                     <label htmlFor="title" className="add-artwork-form__label dashboard-form__label">Artwork Title</label>
-                    <input onChange={(event) => setTitle(event.target.value)} value={title} type="text" id="title" className="add-artwork-form__input dashboard-form__input"/>
+                    <input onChange={(event) => setTitle(event.target.value)} value={title} type="text" id="title" className="add-artwork-form__input dashboard-form__input input--short"/>
                 </div>
                 <div className="add-artwork-form__form-group dashboard-form__group">
                     <label htmlFor="genre" className="add-artwork-form__label dashboard-form__label">Artwork Genre</label>
-                    <select onChange={(event) => setGenre(event.target.value)} value={genre} type="text" id="genre" className="add-artwork-form__input dashboard-form__input">
+                    <select onChange={(event) => setGenre(event.target.value)} value={genre} type="text" id="genre" className="add-artwork-form__input dashboard-form__input input--short">
                         <option value="fantasy">Fantasy</option>
                         <option value="landscape">Landscape</option>
                         <option value="realism">Realism</option>

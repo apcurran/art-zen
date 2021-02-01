@@ -112,3 +112,8 @@ p {
   z-index: -2;
   transform: rotate(2deg);
 }
+
+/* Inputs */
+.input--short {
+  max-width: 50%;
+}

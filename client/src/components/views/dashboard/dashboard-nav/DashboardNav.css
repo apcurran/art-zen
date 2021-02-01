@@ -1,11 +1,14 @@
 .dashboard-nav__list {
-    display: flex;
+    display: inline-flex;
     gap: 1.5rem;
     margin-bottom: 3rem;
+    padding-bottom: .5rem;
     list-style: none;
+    border-bottom: 1px solid var(--supporting-txt-clr);
 }
 
 .dashboard-nav__link {
+    text-decoration: none;
     color: #fff;
 }
 
