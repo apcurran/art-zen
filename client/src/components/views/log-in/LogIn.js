@@ -44,7 +44,7 @@ function LogIn() {
             setIsLoggedIn(true);
             setUserId(data.userId);
             // Push user to Dashboard page after successful log in
-            history.push("/dashboard");
+            history.push("/dashboard/subscriptions");
             
         } catch (err) {
             setError(err.message);

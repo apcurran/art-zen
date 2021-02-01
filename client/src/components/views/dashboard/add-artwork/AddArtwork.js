@@ -8,7 +8,7 @@ function AddArtwork({ token }) {
     const { artworks, setArtworks } = useContext(DiscoverArtworksContext);
 
     const [title, setTitle] = useState("");
-    const [genre, setGenre] = useState("");
+    const [genre, setGenre] = useState("fantasy");
     const [description, setDescription] = useState("");
     const [selectedImgFile, setSelectedImgFile] = useState(null);
     const [message, setMessage] = useState("");
@@ -51,7 +51,7 @@ function AddArtwork({ token }) {
 
     return (
         <div>
-            <h2>Add New Artwork</h2>
+            <h2 className="add-artwork-title">Add New Artwork</h2>
             <form onSubmit={handleSubmit} encType="multipart/form-data" className="add-artwork-form dashboard-form">
                 <div className="add-artwork-form__form-group dashboard-form__group">
                     <label htmlFor="title" className="add-artwork-form__label dashboard-form__label">Artwork Title</label>
@@ -59,7 +59,16 @@ function AddArtwork({ token }) {
                 </div>
                 <div className="add-artwork-form__form-group dashboard-form__group">
                     <label htmlFor="genre" className="add-artwork-form__label dashboard-form__label">Artwork Genre</label>
-                    <input onChange={(event) => setGenre(event.target.value)} value={genre} type="text" id="genre" className="add-artwork-form__input dashboard-form__input"/>
+                    <select onChange={(event) => setGenre(event.target.value)} value={genre} type="text" id="genre" className="add-artwork-form__input dashboard-form__input">
+                        <option value="fantasy">Fantasy</option>
+                        <option value="landscape">Landscape</option>
+                        <option value="realism">Realism</option>
+                        <option value="sci-fi">Sci-Fi</option>
+                        <option value="anime">Anime</option>
+                        <option value="horror">Horror</option>
+                        <option value="modern">Modern</option>
+                        <option value="portrait">Portrait</option>
+                    </select>
                 </div>
                 <div className="add-artwork-form__form-group dashboard-form__group">
                     <label htmlFor="description" className="add-artwork-form__label dashboard-form__label">Artwork Description</label>

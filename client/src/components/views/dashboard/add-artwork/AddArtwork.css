@@ -1,3 +1,8 @@
+.add-artwork-title {
+    margin-bottom: 1.25rem;
+    font-size: var(--heading-med-fz);
+}
+
 .add-artwork-form__submit-btn {
     margin-bottom: 1rem;
 }
