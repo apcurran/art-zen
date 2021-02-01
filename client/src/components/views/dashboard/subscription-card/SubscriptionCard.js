@@ -19,7 +19,7 @@ function SubscriptionCard({ artwork }) {
                     </Image>
                 </figure>
                 <h3 className="subscriptions-grid__card__title">{artwork.title}</h3>
-                <span className="subscriptions-grid__card__genre-chip">{artwork.genre}</span>
+                <span className="subscriptions-grid__card__genre-chip chip">{artwork.genre}</span>
                 <p className="subscriptions-grid__card__user-desc">Posted by <Link to={{pathname: `/artworks/users/${artwork.user_id}`}} className="subscriptions-grid__card__user-desc__user-link">{artwork.username}</Link> on {formatDate(artwork.created_at)}</p>
             </article>
         </Link>

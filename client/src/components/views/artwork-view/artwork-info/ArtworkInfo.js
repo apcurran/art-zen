@@ -20,6 +20,9 @@ function ArtworkInfo({ artworkData, likes, updateLikes, currUserHasLiked, favori
             <h1 className="artwork-view__info__title">{artworkData.title}</h1>
             <span className="artwork-view__info__by">by</span>
             <Link to={{pathname: `/artworks/users/${artworkData.userId}`}} className="artwork-view__info__author">{artworkData.username}</Link>
+            <div>
+                <span className="chip">{artworkData.genre}</span>
+            </div>
             <div className="artwork-view__info__social-data">
                 <div onClick={updateLikes} className="artwork-view__info__social-data__container">
                     <svg className={currUserHasLiked ? "like-heart-icon--full like-heart-icon" : "like-heart-icon"} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>

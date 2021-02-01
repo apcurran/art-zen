@@ -43,7 +43,8 @@ function ArtworkView() {
                     imgUrl: data.img_url,
                     artworkCreatedAt: data.artwork_created_at,
                     username: data.username,
-                    avatarImgUrl: data.avatar_img_url
+                    avatarImgUrl: data.avatar_img_url,
+                    genre: data.genre
                 });
                 setLikes(data.likes);
                 setFavorites(data.favorites);
