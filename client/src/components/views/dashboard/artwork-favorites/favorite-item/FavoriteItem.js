@@ -13,6 +13,7 @@ function FavoriteItem({ favorite, deleteFavorite }) {
                         cloudName="dev-project"
                         publicId={favorite.img_url}
                         height="375"
+                        width="auto"
                         decoding="async"
                     >
                         <Transformation quality="auto" fetchFormat="auto" />

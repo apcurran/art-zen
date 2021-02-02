@@ -15,6 +15,13 @@
     margin-bottom: .25rem;
 }
 
+.dashboard__favorites__article__fig__img {
+    max-width: 50rem;
+    width: 100%;
+    height: 25rem;
+    object-fit: cover;
+}
+
 .dashboard__favorites__article__delete-btn {
     padding: .5rem .75rem;
     background: none;
@@ -24,4 +31,18 @@
     text-transform: uppercase;
     letter-spacing: .08em;
     cursor: pointer;
+}
+
+@media screen and (max-width: 34em) {
+    .dashboard__favorites__article__fig__img {
+        height: 18rem;
+    }
+
+    .dashboard__favorites__article__title {
+        font-size: var(--heading-sm-fz);
+    }
+
+    .dashboard__favorites__article__delete-btn {
+        font-size: var(--small-fz);
+    }
 }
