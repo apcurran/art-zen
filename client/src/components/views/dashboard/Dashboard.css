@@ -35,3 +35,9 @@
     border: none;
     border-radius: 4px;
 }
+
+@media screen and (max-width: 36em) {
+    .dashboard-main {
+        padding: 0;
+    }
+}

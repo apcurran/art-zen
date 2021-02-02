@@ -4,3 +4,16 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
 }
+
+@media screen and (max-width: 75em) {
+    .user-profile__artworks-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 47em) {
+    .user-profile__artworks-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem
+    }
+}
