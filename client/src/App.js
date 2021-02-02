@@ -1,17 +1,19 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, lazy, Suspense } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { AuthContext } from "./contexts/AuthContext";
 
 import Header from "./components/layout/header/Header";
 import Footer from "./components/layout/footer/Footer";
-import About from "./components/views/about/About";
-import Discover from "./components/views/discover/Discover";
-import ArtworkView from "./components/views/artwork-view/ArtworkView";
-import UserProfile from "./components/views/user-profile/UserProfile";
-import Dashboard from "./components/views/dashboard/Dashboard";
-import LogIn from "./components/views/auth/log-in/LogIn";
-import SignUp from "./components/views/auth/sign-up/SignUp";
+import GlobalLoader from "./components/loader/GlobalLoader";
+
+const About = lazy(() => import("./components/views/about/About"));
+const Discover = lazy(() => import("./components/views/discover/Discover"));
+const ArtworkView = lazy(() => import("./components/views/artwork-view/ArtworkView"));
+const UserProfile = lazy(() => import("./components/views/user-profile/UserProfile"));
+const Dashboard = lazy(() => import("./components/views/dashboard/Dashboard"));
+const LogIn = lazy(() => import("./components/views/auth/log-in/LogIn"));
+const SignUp = lazy(() => import("./components/views/auth/sign-up/SignUp"));
 
 function App() {
   const { setIsLoggedIn, setUserId, userId } = useContext(AuthContext);
@@ -31,15 +33,17 @@ function App() {
     <Router>
       <div className="App">
         <Header />
-        <Switch>
-          <Route path="/artworks/users/:id" render={() => <UserProfile contextUserId={userId} />} />
-          <Route path="/artworks/:id" component={ArtworkView} />
-          <Route path="/auth/sign-up" component={SignUp} />
-          <Route path="/auth/log-in" component={LogIn} />
-          <Route path="/about" component={About} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/" component={Discover} />
-        </Switch>
+        <Suspense fallback={<GlobalLoader />}>
+          <Switch>
+            <Route path="/artworks/users/:id" render={() => <UserProfile contextUserId={userId} />} />
+            <Route path="/artworks/:id" component={ArtworkView} />
+            <Route path="/auth/sign-up" component={SignUp} />
+            <Route path="/auth/log-in" component={LogIn} />
+            <Route path="/about" component={About} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/" component={Discover} />
+          </Switch>
+        </Suspense>
         <Footer />
       </div>
     </Router>
