@@ -6,8 +6,9 @@ import { AuthContext } from "./contexts/AuthContext";
 import Header from "./components/layout/header/Header";
 import Footer from "./components/layout/footer/Footer";
 import GlobalLoader from "./components/loader/GlobalLoader";
+import About from "./components/views/about/About";
 
-const About = lazy(() => import("./components/views/about/About"));
+// const About = lazy(() => import("./components/views/about/About"));
 const Discover = lazy(() => import("./components/views/discover/Discover"));
 const ArtworkView = lazy(() => import("./components/views/artwork-view/ArtworkView"));
 const UserProfile = lazy(() => import("./components/views/user-profile/UserProfile"));
