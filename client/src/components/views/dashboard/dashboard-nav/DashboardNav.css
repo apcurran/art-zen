@@ -15,3 +15,15 @@
 .dashboard-nav__link.active {
     color: var(--brand-orange);
 }
+
+@media screen and (max-width: 43em) {
+    .dashboard-nav__list {
+        gap: 1rem;
+    }
+}
+
+@media screen and (max-width: 36.25em) {
+    .dashboard-nav__list {
+        flex-direction: column;
+    }
+}

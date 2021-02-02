@@ -14,6 +14,7 @@ function SubscriptionCard({ artwork }) {
                         cloudName="dev-project"
                         publicId={artwork.img_url}
                         height="450"
+                        width="auto"
                     >
                         <Transformation quality="auto" fetchFormat="auto" />
                     </Image>
