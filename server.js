@@ -13,7 +13,6 @@ const compression = require("compression");
 
 const app = express();
 
-
 if (process.env.NODE_ENV === "development") {
     const morgan = require("morgan");
     
@@ -22,9 +21,9 @@ if (process.env.NODE_ENV === "development") {
 
 // Middleware
 app.use(compression());
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "client", "build")));
 
 // API routers
 app.use("/api/auth", authRouter);
