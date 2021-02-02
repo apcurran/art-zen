@@ -1,4 +1,7 @@
 .user-avatar--default {
+    /* Flex-item properties as a child of parent */
+    flex-shrink: 0;
+
     display: flex;
     justify-content: center;
     align-items: center;

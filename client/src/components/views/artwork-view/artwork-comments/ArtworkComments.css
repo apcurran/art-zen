@@ -33,3 +33,9 @@
     color: inherit;
     font-weight: 700;
 }
+
+@media screen and (max-width: 35em) {
+    .artwork-view__comments__user__logged-out {
+        padding: .825rem 1rem;
+    }
+}

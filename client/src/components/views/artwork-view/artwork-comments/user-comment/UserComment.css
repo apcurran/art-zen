@@ -58,3 +58,9 @@
     font-size: .875rem;
     font-weight: 700;
 }
+
+@media screen and (max-width: 35em) {
+    .comment-segment {
+        padding: .825rem 1rem;
+    } 
+}
