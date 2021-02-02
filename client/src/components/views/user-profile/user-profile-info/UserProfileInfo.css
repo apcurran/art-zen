@@ -60,3 +60,23 @@
     opacity: .9;
     background-color: var(--supporting-txt-clr);
 }
+
+@media screen and (max-width: 35em) {
+    .user-profile__info {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 26em) {
+    .user-profile__info-sect__inner-container {
+        flex-direction: column;
+    }
+
+    .user-profile__info-sect--right {
+        margin-bottom: .5rem;
+    }
+
+    .user-profile__info-sect {
+        margin-bottom: 2rem;
+    }
+}
