@@ -40,7 +40,8 @@
 }
 
 .search-form {
-    width: 25rem;
+    max-width: 25rem;
+    width: 100%;
 }
 
 .search-form__input {
@@ -56,4 +57,15 @@
 
 .search-form__input::placeholder {
     color: #6b7280;
+}
+
+@media screen and (max-width: 68em) {
+    .nav {
+        flex-direction: column;
+    }
+
+    .nav__logo-link,
+    .search-form {
+        margin-bottom: 1rem;
+    }
 }

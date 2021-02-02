@@ -2,3 +2,9 @@
     margin-bottom: 3rem;
     text-align: center;
 }
+
+@media screen and (max-width: 26em) {
+    .discover__title {
+        font-size: var(--heading-lg-fz);
+    }
+}
