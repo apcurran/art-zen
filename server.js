@@ -9,8 +9,10 @@ const authRouter = require("./api/routes/auth-router");
 const usersRouter = require("./api/routes/users-router");
 const artworksRouter = require("./api/routes/artworks-router");
 const compression = require("compression");
+const helmet = require("helmet");
 
 const app = express();
+
 
 if (process.env.NODE_ENV === "development") {
     const morgan = require("morgan");
@@ -18,9 +20,10 @@ if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
 }
 
+// Middleware
+app.use(helmet());
 app.use(compression());
 
-// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
