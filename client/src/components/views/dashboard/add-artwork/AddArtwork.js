@@ -55,7 +55,7 @@ function AddArtwork({ token }) {
             <form onSubmit={handleSubmit} encType="multipart/form-data" className="add-artwork-form dashboard-form">
                 <div className="add-artwork-form__form-group dashboard-form__group">
                     <label htmlFor="title" className="add-artwork-form__label dashboard-form__label">Artwork Title</label>
-                    <input onChange={(event) => setTitle(event.target.value)} value={title} type="text" id="title" className="add-artwork-form__input dashboard-form__input input--short"/>
+                    <input onChange={(event) => setTitle(event.target.value)} value={title} type="text" id="title" className="add-artwork-form__input dashboard-form__input input--short" required/>
                 </div>
                 <div className="add-artwork-form__form-group dashboard-form__group">
                     <label htmlFor="genre" className="add-artwork-form__label dashboard-form__label">Artwork Genre</label>
@@ -72,11 +72,11 @@ function AddArtwork({ token }) {
                 </div>
                 <div className="add-artwork-form__form-group dashboard-form__group">
                     <label htmlFor="description" className="add-artwork-form__label dashboard-form__label">Artwork Description</label>
-                    <textarea onChange={(event) => setDescription(event.target.value)} value={description} name="description" id="description" cols="30" rows="10" className="add-artwork-form__textarea dashboard-form__textarea"></textarea>
+                    <textarea onChange={(event) => setDescription(event.target.value)} value={description} name="description" id="description" cols="30" rows="10" className="add-artwork-form__textarea dashboard-form__textarea" required></textarea>
                 </div>
                 <div className="add-artwork-form__form-group dashboard-form__group">
                     <label htmlFor="artwork-img" className="add-artwork-form__label dashboard-form__label">Upload Artwork Image</label>
-                    <input onChange={(event) => setSelectedImgFile(event.target.files[0])} type="file" name="artworkImg" id="artwork-img" className="add-artwork-form__input add-artwork-form__input--file"/>
+                    <input onChange={(event) => setSelectedImgFile(event.target.files[0])} type="file" name="artworkImg" id="artwork-img" className="add-artwork-form__input add-artwork-form__input--file" required/>
                 </div>
                 <button type="submit" className="add-artwork-form__submit-btn cta-btn">Upload</button>
                 {loading ? <Loader /> : null}
