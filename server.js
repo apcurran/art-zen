@@ -10,7 +10,6 @@ const authRouter = require("./api/routes/auth-router");
 const usersRouter = require("./api/routes/users-router");
 const artworksRouter = require("./api/routes/artworks-router");
 const compression = require("compression");
-const helmet = require("helmet");
 
 const app = express();
 
@@ -22,7 +21,6 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // Middleware
-// app.use(helmet());
 app.use(compression());
 
 app.use(express.json());
