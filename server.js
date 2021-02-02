@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 5000;
 const authRouter = require("./api/routes/auth-router");
 const usersRouter = require("./api/routes/users-router");
 const artworksRouter = require("./api/routes/artworks-router");
+const compression = require("compression");
 
 const app = express();
 
@@ -16,6 +17,8 @@ if (process.env.NODE_ENV === "development") {
     
     app.use(morgan("dev"));
 }
+
+app.use(compression());
 
 // Middleware
 app.use(express.json());
