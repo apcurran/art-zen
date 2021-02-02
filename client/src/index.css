@@ -77,6 +77,12 @@ p {
   text-transform: uppercase;
   letter-spacing: .08rem;
   cursor: pointer;
+
+  transition: opacity 110ms ease;
+}
+
+.cta-btn:hover {
+  opacity: .75;
 }
 
 .title--highlight-wrapper {
