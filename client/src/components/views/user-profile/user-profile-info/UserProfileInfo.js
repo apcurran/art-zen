@@ -17,7 +17,7 @@ function UserProfileInfo({ profileData, totalCreations, totalFollowers, canUserD
                     <div className="user-profile__info-sect--left">
                         <h2 className="user-profile__info-sect__username">{profileData.username}</h2>
                         <p className="user-profile__info-sect__totals">
-                            <span>{totalCreations}</span> Creation(s) <span>{totalFollowers}</span> Follower(s)
+                            <span>{totalCreations}</span>  {totalCreations === 1 ? "Creation" : "Creations"} <span>{totalFollowers}</span> {totalFollowers === 1 ? "Follower" : "Followers"}
                         </p>
                     </div>
                     <div className="user-profile__info-sect--right">
