@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // Middleware
-app.use(helmet());
+// app.use(helmet());
 app.use(compression());
 
 app.use(express.json());
