@@ -18,6 +18,7 @@
 
 .main-about__section__content {
     max-width: 50ch;
+    width: var(--wrapper-width);
 }
 
 .main-about__section__title {
@@ -25,7 +26,8 @@
 }
 
 .main-about__section__fig {
-    width: 40rem;
+    max-width: 40rem;
+    width: var(--wrapper-width);
 }
 
 .main-about__section__fig__img {
@@ -47,4 +49,10 @@
 .wave-svg--bottom {
     transform: rotate(0deg);
     color: var(--ultra-light-grey);
+}
+
+@media screen and (max-width: 81.25em) {
+    .main-about__section {
+        flex-direction: column;
+    }
 }
