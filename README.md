@@ -27,3 +27,13 @@
 - Ability to follow a specific user whose work you enjoy
 
 - Image uploads utilize Cloudinary as a fast, third-party image CDN
+
+![Discover page](./readme-imgs/discover.jpg)
+
+![About page](./readme-imgs/about.jpg)
+
+![Artwork page](./readme-imgs/artwork-view.jpg)
+
+![Dashboard subscriptions page](./readme-imgs/dashboard-subscriptions.jpg)
+
+![Dashboard artwork upload page](./readme-imgs/dashboard-upload-artwork.png)
