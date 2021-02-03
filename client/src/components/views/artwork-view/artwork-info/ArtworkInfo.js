@@ -13,6 +13,7 @@ function ArtworkInfo({ artworkData, likes, updateLikes, currUserHasLiked, favori
                     cloudName="dev-project"
                     publicId={artworkData.imgUrl}
                     height="525"
+                    decoding="async"
                 >
                     <Transformation quality="auto" fetchFormat="auto" />
                 </Image>

@@ -11,6 +11,7 @@ function UserProfileArtwork({ artwork, canUserDeleteArtwork, deleteArtwork, artw
                     className="user-profile__artworks-grid__article__link__img"
                     cloudName="dev-project"
                     publicId={artwork.artwork_img_url}
+                    decoding="async"
                 >
                     <Transformation quality="auto" fetchFormat="auto" height="375" width="auto" crop="scale" />
                 </Image>

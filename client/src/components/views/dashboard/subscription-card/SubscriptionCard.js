@@ -15,6 +15,7 @@ function SubscriptionCard({ artwork }) {
                         publicId={artwork.img_url}
                         height="450"
                         width="auto"
+                        decoding="async"
                     >
                         <Transformation quality="auto" fetchFormat="auto" />
                     </Image>
