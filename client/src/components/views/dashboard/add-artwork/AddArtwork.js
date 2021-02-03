@@ -13,6 +13,7 @@ function AddArtwork({ token }) {
     const [selectedImgFile, setSelectedImgFile] = useState(null);
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -33,6 +34,14 @@ function AddArtwork({ token }) {
                 },
                 body: formData
             });
+
+            // Check for errors
+            if (!response.ok) {
+                const serverErrMsg = await response.json();
+
+                throw Error(serverErrMsg.error);
+            }
+
             const { addedArtwork } = await response.json();
 
             setLoading(false);
@@ -44,8 +53,7 @@ function AddArtwork({ token }) {
 
         } catch (err) {
             setLoading(false);
-
-            console.error(err);
+            setError(err);
         }
     }
 
@@ -83,6 +91,7 @@ function AddArtwork({ token }) {
                 {message ? (
                     <p className="add-artwork-form__message msg">{message}</p>
                 ) : null}
+                {error ? <p className="error">{error}</p> : null}
             </form>
         </div>
     );

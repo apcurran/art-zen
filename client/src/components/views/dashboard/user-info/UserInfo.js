@@ -10,6 +10,7 @@ function UserInfo({ userId, token }) {
     const [selectedImgFile, setSelectedImgFile] = useState(null);
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         fetch(`/api/users/${userId}`, {
@@ -22,7 +23,7 @@ function UserInfo({ userId, token }) {
                 setUsername(data.username);
                 setBioDesc(data.bio_description);
             })
-            .catch(err => console.error(err));
+            .catch(err => setError(err.message));
     }, [userId, token]);
 
     // Form
@@ -45,6 +46,14 @@ function UserInfo({ userId, token }) {
                 },
                 body: formData
             });
+
+            // Check for errors
+            if (!response.ok) {
+                const serverErrMsg = await response.json();
+
+                throw Error(serverErrMsg.error);
+            }
+
             const responseMsg = (await response.json()).message;
 
             setLoading(false);
@@ -54,8 +63,7 @@ function UserInfo({ userId, token }) {
 
         } catch (err) {
             setLoading(false);
-
-            console.error(err);
+            setError(err);
         }
     }
 
@@ -80,6 +88,7 @@ function UserInfo({ userId, token }) {
                 {message ? (
                     <p className="dashboard-user-info__response-msg msg">{message}</p>
                 ) : null}
+                {error ? <p className="error">{error}</p> : null}
             </form>
         </section>
     );
