@@ -1,0 +1,11 @@
+.not-found {
+    margin: 0 auto;
+    padding: 0 .875rem;
+    max-width: var(--wrapper-max-width);
+    width: var(--wrapper-width);
+}
+
+.not-found__title,
+.not-found__fig {
+    margin-bottom: 4rem;
+}

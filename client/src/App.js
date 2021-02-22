@@ -14,6 +14,7 @@ const UserProfile = lazy(() => import("./components/views/user-profile/UserProfi
 const Dashboard = lazy(() => import("./components/views/dashboard/Dashboard"));
 const LogIn = lazy(() => import("./components/views/auth/log-in/LogIn"));
 const SignUp = lazy(() => import("./components/views/auth/sign-up/SignUp"));
+const NotFound = lazy(() => import("./components/views/not-found/NotFound"));
 
 function App() {
   const { setIsLoggedIn, setUserId, userId } = useContext(AuthContext);
@@ -41,7 +42,8 @@ function App() {
             <Route path="/auth/log-in" component={LogIn} />
             <Route path="/about" component={About} />
             <Route path="/dashboard" component={Dashboard} />
-            <Route path="/" component={Discover} />
+            <Route path="/" exact component={Discover} />
+            <Route component={NotFound} />
           </Switch>
         </Suspense>
         <Footer />
