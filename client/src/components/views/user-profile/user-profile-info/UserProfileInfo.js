@@ -22,7 +22,9 @@ function UserProfileInfo({ profileData, totalCreations, totalFollowers, canUserD
                     </div>
                     <div className="user-profile__info-sect--right">
                         {canUserDeleteArtwork ? null : (
-                            <button onClick={handleUpdateFollowers} className={isFollowing ? "user-profile__info__follow-btn--activated user-profile__info__follow-btn cta-btn" : "user-profile__info__follow-btn cta-btn"}>Follow</button>
+                            <button onClick={handleUpdateFollowers} className={isFollowing ? "user-profile__info__follow-btn--activated user-profile__info__follow-btn cta-btn" : "user-profile__info__follow-btn cta-btn"}>
+                                {isFollowing ? "Following" : "Follow"}
+                            </button>
                         )}
                     </div>
                 </div>
