@@ -218,20 +218,16 @@ async function postUserArtworkComment(req, res, next) {
 
         // Retrieve all comments for artwork page
         const commentsDataArr = (await db.query(SQL`
-            SELECT artwork_comment.comment_id, artwork_comment.user_id, artwork_comment.text, artwork_comment.created_at AS comment_created_at,
-                (
-                    SELECT app_user.username
-                    FROM app_user
-                    WHERE app_user.user_id = artwork_comment.user_id
-                ) AS comment_username,
-                (
-                    SELECT app_user.avatar_img_url
-                    FROM app_user
-                    WHERE app_user.user_id = artwork_comment.user_id
-                ) AS comment_avatar_img
+            SELECT
+                artwork_comment.comment_id, artwork_comment.user_id, artwork_comment.text, artwork_comment.created_at AS comment_created_at,
+                app_user.username AS comment_username, app_user.avatar_img_url AS comment_avatar_img
             FROM artwork_comment
+            LEFT JOIN app_user
+                ON artwork_comment.user_id = app_user.user_id
             WHERE artwork_comment.artwork_id = ${artworkId}
         `)).rows;
+
+        console.log(commentsDataArr);
     
         res.status(201).json({ commentsData: commentsDataArr });
         
