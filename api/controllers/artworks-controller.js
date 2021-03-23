@@ -226,8 +226,6 @@ async function postUserArtworkComment(req, res, next) {
                 ON artwork_comment.user_id = app_user.user_id
             WHERE artwork_comment.artwork_id = ${artworkId}
         `)).rows;
-
-        console.log(commentsDataArr);
     
         res.status(201).json({ commentsData: commentsDataArr });
         
