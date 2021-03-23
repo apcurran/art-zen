@@ -38,21 +38,32 @@ async function getUserArtwork(req, res, next) {
             WHERE artwork.artwork_id = ${artworkId}
         `);
         // Comment table
-        const commentsData = db.query(SQL`
-            SELECT artwork_comment.comment_id, artwork_comment.user_id, artwork_comment.text, artwork_comment.created_at AS comment_created_at,
-                (
-                    SELECT app_user.username
-                    FROM app_user
-                    WHERE app_user.user_id = artwork_comment.user_id
-                ) AS comment_username,
-                (
-                    SELECT app_user.avatar_img_url
-                    FROM app_user
-                    WHERE app_user.user_id = artwork_comment.user_id
-                ) AS comment_avatar_img
+        // const commentsData = db.query(SQL`
+        //     SELECT artwork_comment.comment_id, artwork_comment.user_id, artwork_comment.text, artwork_comment.created_at AS comment_created_at,
+        //         (
+        //             SELECT app_user.username
+        //             FROM app_user
+        //             WHERE app_user.user_id = artwork_comment.user_id
+        //         ) AS comment_username,
+        //         (
+        //             SELECT app_user.avatar_img_url
+        //             FROM app_user
+        //             WHERE app_user.user_id = artwork_comment.user_id
+        //         ) AS comment_avatar_img
+        //     FROM artwork_comment
+        //     WHERE artwork_comment.artwork_id = ${artworkId}
+        // `);
+        const commentsData = await db.query(SQL`
+            SELECT
+                artwork_comment.comment_id, artwork_comment.user_id, artwork_comment.text, artwork_comment.created_at AS comment_created_at,
+                app_user.username AS comment_username, app_user.avatar_img_url AS comment_avatar_img
             FROM artwork_comment
+            LEFT JOIN app_user
+                ON app_user.user_id = artwork_comment.user_id
             WHERE artwork_comment.artwork_id = ${artworkId}
         `);
+
+        console.log(commentsData.rows);
         // Like table
         const likesData = db.query(SQL`
             SELECT artwork_like.like_id, artwork_like.user_id
@@ -66,15 +77,15 @@ async function getUserArtwork(req, res, next) {
             WHERE artwork_favorite.artwork_id = ${artworkId}
         `);
 
-        const data = await Promise.all([artworkAndUserData, commentsData, likesData, favoritesData]);
-        const resolvedArtworkAndUserData = data[0].rows[0];
-        const resolvedCommentsData = data[1].rows;
-        const resolvedLikesData = data[2].rows;
-        const resolvedFavoritesData = data[3].rows;
+        // const data = await Promise.all([artworkAndUserData, commentsData, likesData, favoritesData]);
+        // const resolvedArtworkAndUserData = data[0].rows[0];
+        // const resolvedCommentsData = data[1].rows;
+        // const resolvedLikesData = data[2].rows;
+        // const resolvedFavoritesData = data[3].rows;
 
-        const formattedFinalObj = combineDataToObj(resolvedArtworkAndUserData, resolvedCommentsData, resolvedLikesData, resolvedFavoritesData);
+        // const formattedFinalObj = combineDataToObj(resolvedArtworkAndUserData, resolvedCommentsData, resolvedLikesData, resolvedFavoritesData);
 
-        res.status(200).json(formattedFinalObj);
+        // res.status(200).json(formattedFinalObj);
 
     } catch (err) {
         next(err);
