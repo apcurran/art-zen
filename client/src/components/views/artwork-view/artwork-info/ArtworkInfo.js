@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Image, Transformation } from "cloudinary-react";
 
 import "./ArtworkInfo.css";
+import Chip from "../../../chip/Chip";
 import formatDate from "../../../../utils/format-date";
 
 function ArtworkInfo({ artworkData, likes, updateLikes, currUserHasLiked, favorites, updateFavorites, currUserHasFavorited }) {
@@ -22,7 +23,7 @@ function ArtworkInfo({ artworkData, likes, updateLikes, currUserHasLiked, favori
             <span className="artwork-view__info__by">by</span>
             <Link to={{pathname: `/artworks/users/${artworkData.userId}`}} className="artwork-view__info__author">{artworkData.username}</Link>
             <div>
-                <span className="chip">{artworkData.genre}</span>
+                <Chip>{artworkData.genre}</Chip>
             </div>
             <div className="artwork-view__info__social-data">
                 <div onClick={updateLikes} className="artwork-view__info__social-data__container">
