@@ -136,4 +136,5 @@ p {
   color: var(--main-bg-clr);
   border-radius: 500px;
   font-size: var(--small-fz);
+  text-transform: capitalize;
 }
