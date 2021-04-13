@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Image, Transformation } from "cloudinary-react";
 
 import "./ArtworkInfo.css";
+
 import Chip from "../../../chip/Chip";
 import formatDate from "../../../../utils/format-date";
 
