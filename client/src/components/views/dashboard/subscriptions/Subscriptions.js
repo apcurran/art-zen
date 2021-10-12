@@ -12,15 +12,15 @@ function Subscriptions({ userId, token }) {
                 "Authorization": `Bearer ${token}`
             }
         })
-            .then(response => response.json())
-            .then(data => setSubscripArtworks(data.subscriptionsArtworks))
-            .catch(err => console.error(err));
+            .then((response) => response.json())
+            .then((data) => setSubscripArtworks(data.subscriptionsArtworks))
+            .catch((err) => console.error(err));
     }, [userId, token]);
 
     return (
         <div>
             <section className="subscriptions-grid">
-                {subscripArtworks.map(artwork => (
+                {subscripArtworks.map((artwork) => (
                     <SubscriptionCard artwork={artwork} key={artwork.artwork_id} />
                 ))}
             </section>

@@ -33,8 +33,8 @@ function ArtworkView() {
     // Init data fetch
     useEffect(() => {
         fetch(`/api/artworks/${id}`)
-            .then(response => response.json())
-            .then(data => {
+            .then((response) => response.json())
+            .then((data) => {
                 setArtworkData({
                     artworkId: data.artwork_id,
                     userId: data.user_id,
@@ -50,7 +50,7 @@ function ArtworkView() {
                 setFavorites(data.favorites);
                 setComments(data.comments);
             })
-            .catch(err => console.error(err));
+            .catch((err) => console.error(err));
     }, [id, userId]);
 
     useEffect(() => {
@@ -119,7 +119,7 @@ function ArtworkView() {
             await response.json();
 
             // Update local state
-            const updatedLikes = likes.filter(likeObj => likeObj.like_id !== likeId);
+            const updatedLikes = likes.filter((likeObj) => likeObj.like_id !== likeId);
             
             setLikes(updatedLikes);
 
@@ -130,13 +130,13 @@ function ArtworkView() {
 
     // Helper funcs
     function getLikeId(userId, likesArr) {
-        const liked = likesArr.filter(obj => obj.user_id === userId);
+        const liked = likesArr.filter((obj) => obj.user_id === userId);
 
         return liked[0].like_id;
     }
 
     function getFavId(userId, favsArr) {
-        const favorited = favsArr.filter(obj => obj.user_id === userId);
+        const favorited = favsArr.filter((obj) => obj.user_id === userId);
 
         return favorited[0].favorite_id;
     }
@@ -191,7 +191,7 @@ function ArtworkView() {
             await response.json();
 
             // Update local state
-            const updatedfavorites = favorites.filter(favoriteObj => favoriteObj.favorite_id !== favoriteId);
+            const updatedfavorites = favorites.filter((favoriteObj) => favoriteObj.favorite_id !== favoriteId);
             
             setFavorites(updatedfavorites);
 
@@ -246,7 +246,7 @@ function ArtworkView() {
             });
 
             // Delete from local state
-            const updatedComments = comments.filter(comment => comment.comment_id !== commentId);
+            const updatedComments = comments.filter((comment) => comment.comment_id !== commentId);
 
             setComments(updatedComments);
 

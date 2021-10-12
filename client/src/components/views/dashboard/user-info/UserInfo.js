@@ -18,12 +18,12 @@ function UserInfo({ userId, token }) {
                 "Authorization": `Bearer ${token}`
             }
         })
-            .then(response => response.json())
-            .then(data => {
+            .then((response) => response.json())
+            .then((data) => {
                 setUsername(data.username);
                 setBioDesc(data.bio_description);
             })
-            .catch(err => setError(err.message));
+            .catch((err) => setError(err.message));
     }, [userId, token]);
 
     // Form

@@ -13,7 +13,7 @@ function Discover() {
                 <h1 className="discover__title title--highlight">Discover New Artists</h1>
             </div>
             <main className="masonry-grid">
-                {artworks.map(artwork => (
+                {artworks.map((artwork) => (
                     <GridArtwork img_url={artwork.img_url} artwork_id={artwork.artwork_id} key={artwork.artwork_id} />
                 ))}
             </main>

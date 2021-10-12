@@ -24,7 +24,7 @@ function ArtworkComments({ comments, isLoggedIn, userId, commentText, setComment
                         </p>
                     </div>
                 )}
-                {comments.map(comment => (
+                {comments.map((comment) => (
                     <UserComment userId={userId} comment={comment} key={comment.comment_id} handleRemoveComment={handleRemoveComment} commentId={comment.comment_id} />
                 ))}
             </section>

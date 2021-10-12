@@ -7,9 +7,9 @@ function DiscoverArtworksContextProvider(props) {
 
     useEffect(() => {
         fetch("/api/artworks")
-            .then(response => response.json())
-            .then(data => setArtworks(data))
-            .catch(err => console.error(err));
+            .then((response) => response.json())
+            .then((data) => setArtworks(data))
+            .catch((err) => console.error(err));
     }, []);
 
     return (

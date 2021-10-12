@@ -16,7 +16,7 @@ function Dashboard() {
     const token = isLoggedIn;
 
     // Route guard
-    if (!isLoggedIn) return <Redirect to="/auth/log-in" />
+    if (!isLoggedIn) return <Redirect to="/auth/log-in" />;
 
     return (
         <main className="dashboard-main">

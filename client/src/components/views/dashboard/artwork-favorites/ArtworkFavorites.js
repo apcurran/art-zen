@@ -12,9 +12,9 @@ function ArtworkFavorites({ userId, token }) {
                 "Authorization": `Bearer ${token}`
             }
         })
-            .then(response => response.json())
-            .then(data => setFavoritesData(data.favoritesData))
-            .catch(err => console.error(err));
+            .then((response) => response.json())
+            .then((data) => setFavoritesData(data.favoritesData))
+            .catch((err) => console.error(err));
     }, [userId, token]);
 
     async function deleteFavorite(artworkId, favoriteId) {
@@ -27,7 +27,7 @@ function ArtworkFavorites({ userId, token }) {
             });
 
             // Update local state
-            const updatedFavs = favoritesData.filter(favorite => favorite.favorite_id !== Number(favoriteId));
+            const updatedFavs = favoritesData.filter((favorite) => favorite.favorite_id !== Number(favoriteId));
 
             setFavoritesData(updatedFavs);
 
@@ -38,7 +38,7 @@ function ArtworkFavorites({ userId, token }) {
 
     return (
         <section className="dashboard__favorites">
-            {favoritesData.map(favorite => (
+            {favoritesData.map((favorite) => (
                 <FavoriteItem favorite={favorite} deleteFavorite={deleteFavorite} key={favorite.favorite_id} />
             ))}
         </section>

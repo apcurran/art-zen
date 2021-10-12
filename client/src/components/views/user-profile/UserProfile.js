@@ -28,8 +28,8 @@ function UserProfile({ contextUserId }) {
 
     useEffect(() => {
         fetch(`/api/artworks/users/${id}`)
-            .then(response => response.json())
-            .then(data => {
+            .then((response) => response.json())
+            .then((data) => {
                 setProfileData({
                     username: data.userData.username,
                     avatarImg: data.userData.avatar_img_url,
@@ -38,11 +38,11 @@ function UserProfile({ contextUserId }) {
                 setFollowers(data.followerData);
                 setUserArtworks(data.artworkData);
             })
-            .catch(err => console.error(err));
+            .catch((err) => console.error(err));
     }, [id]);
 
     useEffect(() => {
-        const hasUserFollowed = followers.some(followerObj => followerObj.follower_user_id === userId);
+        const hasUserFollowed = followers.some((followerObj) => followerObj.follower_user_id === userId);
 
         setIsFollowing(hasUserFollowed);
     }, [userId, followers]);
@@ -60,12 +60,12 @@ function UserProfile({ contextUserId }) {
             });
 
             // Remove from local component DOM
-            const updatedArtworks = userArtworks.filter(artwork => artwork.artwork_id !== artworkId);
+            const updatedArtworks = userArtworks.filter((artwork) => artwork.artwork_id !== artworkId);
 
             setUserArtworks(updatedArtworks);
 
             // Update global context state
-            const updatedContextArtworks = artworks.filter(artwork => artwork.artwork_id !== artworkId);
+            const updatedContextArtworks = artworks.filter((artwork) => artwork.artwork_id !== artworkId);
 
             setArtworks(updatedContextArtworks);
 
@@ -120,7 +120,7 @@ function UserProfile({ contextUserId }) {
             });
 
             // Remove from local state
-            const updatedFollowers = followers.filter(follower => follower.follower_user_id !== userId);
+            const updatedFollowers = followers.filter((follower) => follower.follower_user_id !== userId);
 
             setFollowers(updatedFollowers);
 
