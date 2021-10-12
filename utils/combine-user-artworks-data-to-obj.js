@@ -10,7 +10,7 @@ function combineUserArtworksDataToObj(userArtworksData) {
         total_followers
     } = userArtworksData[0];
 
-    const artworksData = userArtworksData.map(dataObj => {
+    const artworksData = userArtworksData.map((dataObj) => {
         return {
             artwork_id: dataObj.artwork_id,
             artwork_img_url: dataObj.artwork_img_url

@@ -13,7 +13,7 @@ async function getCloudinaryPublicIds() {
                                     .search
                                     .expression("folder:art-zen-app")
                                     .execute();
-    const publicIds = resources.map(file => file.public_id);
+    const publicIds = resources.map((file) => file.public_id);
     
     return publicIds;
 }
