@@ -28,6 +28,7 @@
     "streamifier": "^0.1.1"
   },
   "devDependencies": {
+    "eslint": "^7.17.0",
     "faker": "^5.5.3",
     "morgan": "^1.10.0"
   }
