@@ -17,19 +17,19 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
-    "cloudinary": "^1.25.1",
+    "cloudinary": "^1.27.1",
     "compression": "^1.7.4",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "express": "^4.17.1",
-    "joi": "^17.4.0",
+    "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
-    "multer": "^1.4.2",
-    "pg": "^8.6.0",
+    "multer": "^1.4.3",
+    "pg": "^8.7.1",
     "sql-template-strings": "^2.2.2",
     "streamifier": "^0.1.1"
   },
   "devDependencies": {
-    "eslint": "^7.17.0",
+    "eslint": "^7.32.0",
     "faker": "^5.5.3",
     "morgan": "^1.10.0"
   }
