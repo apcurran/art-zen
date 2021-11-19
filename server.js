@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 const authRouter = require("./api/routes/auth-router");
 const usersRouter = require("./api/routes/users-router");
 const artworksRouter = require("./api/routes/artworks-router");
-const compression = require("compression");
+const shrinkRay = require("shrink-ray-current");
 
 const app = express();
 
@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // Middleware
-app.use(compression());
+app.use(shrinkRay());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "client", "build")));
