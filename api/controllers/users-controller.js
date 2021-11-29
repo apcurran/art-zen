@@ -68,14 +68,7 @@ async function postUserFollower(req, res, next) {
 // PATCH controller
 async function patchUser(req, res, next) {
     try {
-        await userPatchValidation(req.body);
-        
-    } catch (err) {
-        return res.status(400).json({ error: err.details[0].message });
-    }
-        
-    try {
-        const { bioDesc } = req.body;
+        const { bioDesc } = await userPatchValidation(req.body);
         // If user did not send a new img to replace avatar img with, keep the old one.
         const avatarImgUrl = req.file ? (await streamUploadToCloudinary(req, "art-zen-app/user-avatars")).secure_url : null;
         const userId = req.user._id;
@@ -91,6 +84,10 @@ async function patchUser(req, res, next) {
         res.status(200).json({ message: "User info updated." });
 
     } catch (err) {
+        if (err.isJoi) {
+            return res.status(400).json({ error: err.message });
+        }
+
         next(err);
     }
 }
