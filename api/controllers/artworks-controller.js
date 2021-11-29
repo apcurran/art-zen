@@ -193,19 +193,11 @@ async function postUserArtworkLike(req, res, next) {
 }
 
 async function postUserArtworkComment(req, res, next) {
-    try {
-        await userArtworkCommentValidation(req.body);
-
-    } catch (err) {
-        return res.status(400).json({ error: err.details[0].message });
-    }
-
     const userId = req.user._id;
     const { artworkId } = req.params;
-    // Data now valid
-    const { text } = req.body;
-
+    
     try {
+        const { text } = await userArtworkCommentValidation(req.body);
         // Insert new comment
         await db.query(SQL`
             INSERT INTO artwork_comment(artwork_id, user_id, text)
@@ -226,6 +218,10 @@ async function postUserArtworkComment(req, res, next) {
         res.status(201).json({ commentsData: commentsDataArr });
         
     } catch (err) {
+        if (err.isJoi) {
+            return res.status(400).json({ error: err.message });
+        }
+
         next(err);
     }
 }
