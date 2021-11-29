@@ -48,15 +48,8 @@ async function postUserSignup(req, res, next) {
 
 async function postUserLogin(req, res, next) {
     try {
-        await loginValidation(req.body);
-
-    } catch (err) {
-        return res.status(400).json({ error: err.details[0].message });
-    }
-
-    try {
+        const { email, password } = await loginValidation(req.body);
         // Data valid, check for an existing email
-        const { email, password } = req.body;
         const { rows } = await db.query(SQL`
             SELECT app_user.user_id, app_user.password
             FROM app_user
@@ -81,6 +74,10 @@ async function postUserLogin(req, res, next) {
         res.status(200).json({ accessToken: token, userId: user.user_id });
 
     } catch (err) {
+        if (err.isJoi) {
+            return res.status(400).json({ error: err.message });
+        }
+
         next(err);
     }
 }
