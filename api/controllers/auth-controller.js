@@ -10,15 +10,8 @@ const { signupValidation, loginValidation } = require("../validation/auth-valida
 // POST controllers
 async function postUserSignup(req, res, next) {
     try {
-        await signupValidation(req.body);
-
-    } catch (err) {
-        return res.status(400).json({ error: err.details[0].message });
-    }
-
-    try {
+        const { username, email, password } = await signupValidation(req.body);
         // Data is valid, now reject creating an existing user.
-        const { username, email, password } = req.body;
         const emailExists = await db.query(SQL`
             SELECT app_user.user_id
             FROM app_user
@@ -42,6 +35,10 @@ async function postUserSignup(req, res, next) {
         res.status(201).json({ message: "New user created." });
 
     } catch (err) {
+        if (err.isJoi) {
+            return res.status(400).json({ error: err.message });
+        }
+
         next(err);
     }
 }
