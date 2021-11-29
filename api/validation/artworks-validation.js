@@ -6,14 +6,17 @@ function userArtworkValidation(data) {
     const schema = Joi.object({
         title: Joi
                 .string()
+                .trim()
                 .max(100)
                 .required(),
         description: Joi
                 .string()
+                .trim()
                 .max(500)
                 .required(),
         genre: Joi
                 .string()
+                .trim()
                 .max(20)
                 .required()
     });
