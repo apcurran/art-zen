@@ -19,6 +19,8 @@ function AddArtwork({ token }) {
         event.preventDefault();
 
         setLoading(true);
+        // Reset err msg
+        setError("");
 
         let formData = new FormData();
         formData.append("title", title);
@@ -53,7 +55,7 @@ function AddArtwork({ token }) {
 
         } catch (err) {
             setLoading(false);
-            setError(err);
+            setError(err.message);
         }
     }
 

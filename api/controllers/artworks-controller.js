@@ -153,18 +153,10 @@ async function getUserFavorites(req, res, next) {
 // POST controllers
 async function postUserArtwork(req, res, next) {
     try {
-        await userArtworkValidation(req.body);
-
-    } catch (err) {
-        return res.status(400).json({ error: err.details[0].message });
-    }
-
-    try {
         const userId = req.user._id;
         const artworkImgUrl = (await streamUploadToCloudinary(req, "art-zen-app")).public_id;
+        const { title, description, genre } = await userArtworkValidation(req.body);
         // Data is now valid
-        const { title, description, genre } = req.body;
-
         const addedArtwork = (await db.query(SQL`
             INSERT INTO artwork(user_id, title, description, genre, img_url)
             VALUES (${userId}, ${title}, ${description}, ${genre}, ${artworkImgUrl})
@@ -174,6 +166,10 @@ async function postUserArtwork(req, res, next) {
         res.status(201).json({ addedArtwork });
 
     } catch (err) {
+        if (err.isJoi) {
+            return res.status(400).json({ error: err.message });
+        }
+
         next(err);
     }
 }
