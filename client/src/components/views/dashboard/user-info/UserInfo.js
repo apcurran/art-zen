@@ -31,6 +31,8 @@ function UserInfo({ userId, token }) {
         event.preventDefault();
 
         setLoading(true);
+        // Reset err msg
+        setError("");
 
         let formData = new FormData();
         formData.append("bioDesc", bioDesc);

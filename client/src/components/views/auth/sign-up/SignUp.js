@@ -11,6 +11,9 @@ function SignUp() {
     async function handleSubmit(event) {
         event.preventDefault();
 
+        // Reset err msg
+        setError("");
+
         try {
             const response = await fetch("/api/auth/signup", {
                 method: "POST",
