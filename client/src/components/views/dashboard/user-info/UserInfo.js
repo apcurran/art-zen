@@ -63,7 +63,7 @@ function UserInfo({ userId, token }) {
 
         } catch (err) {
             setLoading(false);
-            setError(err);
+            setError(err.message);
         }
     }
 
