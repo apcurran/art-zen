@@ -5,7 +5,7 @@ import formatDate from "../../../../../utils/format-date";
 
 function UserComment({ userId, comment, handleRemoveComment, commentId }) {
     return (
-        <div className="comment-segment">
+        <article className="comment-segment">
             {comment.comment_avatar_img ? (
                 <UserAvatar avatarImg={comment.comment_avatar_img} />
             ) : (
@@ -13,7 +13,7 @@ function UserComment({ userId, comment, handleRemoveComment, commentId }) {
             )}
             <div className="comment-segment__info">
                 <h4 className="comment-segment__info__username">{comment.comment_username}</h4>
-                <span className="comment-segment__info__date">{formatDate(comment.comment_created_at)}</span>
+                <time className="comment-segment__info__date">{formatDate(comment.comment_created_at)}</time>
                 <p className="comment-segment__info__desc">{comment.text}</p>
                 {comment.user_id === userId ? (
                     <button onClick={() => handleRemoveComment(commentId)} className="comment-segment__info__delete-btn">
@@ -22,7 +22,7 @@ function UserComment({ userId, comment, handleRemoveComment, commentId }) {
                     </button>
                 ) : null}
             </div>
-        </div>
+        </article>
     );
 }
 
