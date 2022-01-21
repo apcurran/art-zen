@@ -24,7 +24,9 @@ function SubscriptionCard({ artwork }) {
                 </figure>
                 <h3 className="subscriptions-grid__card__title">{artwork.title}</h3>
                 <Chip passedClass="subscriptions-grid__card__genre-chip">{artwork.genre}</Chip>
-                <p className="subscriptions-grid__card__user-desc">Posted by <Link to={{pathname: `/artworks/users/${artwork.user_id}`}} className="subscriptions-grid__card__user-desc__user-link">{artwork.username}</Link> on {formatDate(artwork.created_at)}</p>
+                <p className="subscriptions-grid__card__user-desc">
+                    Posted by <Link to={{pathname: `/artworks/users/${artwork.user_id}`}} className="subscriptions-grid__card__user-desc__user-link">{artwork.username}</Link> on <time>{formatDate(artwork.created_at)}</time>
+                </p>
             </article>
         </Link>
     );

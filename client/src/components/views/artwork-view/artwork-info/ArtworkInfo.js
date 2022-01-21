@@ -38,7 +38,7 @@ function ArtworkInfo({ artworkData, likes, updateLikes, currUserHasLiked, favori
             </div>
             <p className="artwork-view__info__desc">{artworkData.description}</p>
             {artworkData.artworkCreatedAt ? (
-                <p className="artwork-view__info__date">Published on {formatDate(artworkData.artworkCreatedAt)}</p>
+                <p className="artwork-view__info__date">Published on <time>{formatDate(artworkData.artworkCreatedAt)}</time></p>
             ) : null}
         </section>
     );
