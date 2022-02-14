@@ -131,8 +131,19 @@ function UserProfile({ contextUserId }) {
 
     return (
         <main className={match ? "user-profile-main" : "user-profile-main--dashboard"}>
-            <UserProfileInfo profileData={profileData} totalCreations={userArtworks.length} totalFollowers={followers.length} canUserDeleteArtwork={canUserDeleteArtwork} handleUpdateFollowers={handleUpdateFollowers} isFollowing={isFollowing} />
-            <UserProfileArtworksGrid artworks={userArtworks} canUserDeleteArtwork={canUserDeleteArtwork} deleteArtwork={deleteArtwork} />
+            <UserProfileInfo
+                profileData={profileData}
+                totalCreations={userArtworks.length}
+                totalFollowers={followers.length}
+                canUserDeleteArtwork={canUserDeleteArtwork}
+                handleUpdateFollowers={handleUpdateFollowers}
+                isFollowing={isFollowing}
+            />
+            <UserProfileArtworksGrid
+                artworks={userArtworks}
+                canUserDeleteArtwork={canUserDeleteArtwork}
+                deleteArtwork={deleteArtwork}
+            />
         </main>
     );
 }
