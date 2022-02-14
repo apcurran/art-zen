@@ -20,7 +20,8 @@ function ArtworkView() {
         imgUrl: "",
         artworkCreatedAt: "",
         username: "",
-        avatarImgUrl: ""
+        avatarImgUrl: "",
+        genre: ""
     });
     const [likes, setLikes] = useState([]);
     const [currUserHasLiked, setCurrUserHasLiked] = useState(false);
