@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams, useHistory } from "react-router";
+import { useParams, useNavigate } from "react-router";
 
 import "./ArtworkView.css";
 import { AuthContext } from "../../../contexts/AuthContext";
@@ -10,7 +10,7 @@ import ArtworkComments from "./artwork-comments/ArtworkComments";
 function ArtworkView() {
     const { id } = useParams();
     const { isLoggedIn, userId } = useContext(AuthContext);
-    const history = useHistory();
+    const navigate = useNavigate();
     // State
     const [artworkData, setArtworkData] = useState({
         artworkId: 0,
@@ -72,7 +72,7 @@ function ArtworkView() {
     async function updateLikes() {
         // Checked logged in first
         if (!isLoggedIn) {
-            return history.push("/auth/log-in");
+            return navigate("/auth/log-in");
         }
 
         const token = localStorage.getItem("authToken");
@@ -146,7 +146,7 @@ function ArtworkView() {
     async function updateFavorites() {
         // Checked logged in first
         if (!isLoggedIn) {
-            return history.push("/auth/log-in");
+            return navigate("/auth/log-in");
         }
 
         const token = localStorage.getItem("authToken");
