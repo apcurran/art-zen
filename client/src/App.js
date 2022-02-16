@@ -1,5 +1,5 @@
 import { useContext, useEffect, lazy, Suspense } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { AuthContext } from "./contexts/AuthContext";
 
@@ -33,18 +33,18 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Header />
+        {/* <Header /> */}
         <Suspense fallback={<GlobalLoader />}>
-          <Switch>
-            <Route path="/artworks/users/:id" render={() => <UserProfile contextUserId={userId} />} />
-            <Route path="/artworks/:id" component={ArtworkView} />
-            <Route path="/auth/sign-up" component={SignUp} />
-            <Route path="/auth/log-in" component={LogIn} />
-            <Route path="/about" component={About} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/" exact component={Discover} />
-            <Route component={NotFound} />
-          </Switch>
+          <Routes>
+            <Route path="/artworks/users/:id" element={<UserProfile contextUserId={userId} />} />
+            <Route path="/artworks/:id" element={<ArtworkView />} />
+            <Route path="/auth/sign-up" element={<SignUp />} />
+            <Route path="/auth/log-in" element={<LogIn />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/" element={<Discover />} />
+            <Route element={<NotFound />} />
+          </Routes>
         </Suspense>
         <Footer />
       </div>
