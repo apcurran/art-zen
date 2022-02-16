@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams, useNavigate, useRouteMatch } from "react-router-dom";
+import { useParams, useNavigate, useMatch } from "react-router-dom";
 
 import "./UserProfile.css";
 
@@ -12,7 +12,7 @@ function UserProfile({ contextUserId }) {
     const { isLoggedIn, userId } = useContext(AuthContext);
     const { artworks, setArtworks } = useContext(DiscoverArtworksContext);
     const navigate = useNavigate();
-    const match = useRouteMatch("/artworks/users/:id");
+    const match = useMatch("/artworks/users/:id");
 
     const { id } = useParams();
     const canUserDeleteArtwork = contextUserId === Number(id) ? true : false;
