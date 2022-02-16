@@ -33,7 +33,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* <Header /> */}
+        <Header />
         <Suspense fallback={<GlobalLoader />}>
           <Routes>
             <Route path="/artworks/users/:id" element={<UserProfile contextUserId={userId} />} />
@@ -41,7 +41,7 @@ function App() {
             <Route path="/auth/sign-up" element={<SignUp />} />
             <Route path="/auth/log-in" element={<LogIn />} />
             <Route path="/about" element={<About />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/*" element={<Dashboard />} />
             <Route path="/" element={<Discover />} />
             <Route element={<NotFound />} />
           </Routes>
