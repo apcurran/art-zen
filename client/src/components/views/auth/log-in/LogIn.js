@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../../../../contexts/AuthContext";
 
@@ -11,7 +11,7 @@ function LogIn() {
     const [error, setError] = useState("");
 
     const { setIsLoggedIn, setUserId } = useContext(AuthContext);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -47,7 +47,7 @@ function LogIn() {
             setIsLoggedIn(true);
             setUserId(data.userId);
             // Push user to Dashboard page after successful log in
-            history.push("/dashboard/subscriptions");
+            navigate("/dashboard/subscriptions");
             
         } catch (err) {
             setError(err.message);
