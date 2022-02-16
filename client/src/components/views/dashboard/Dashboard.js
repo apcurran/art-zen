@@ -24,11 +24,12 @@ function Dashboard() {
             <DashboardNav userId={userId} />
             <Routes>
                 {/* Pass props to route components */}
-                <Route path="/dashboard/subscriptions" element={<Subscriptions userId={userId} token={token} />} />
-                <Route path="/dashboard/user-info" element={<UserInfo userId={userId} token={token} />} />
-                <Route path="/dashboard/artworks/users/:id" element={<UserProfile contextUserId={userId} />} />
-                <Route path="/dashboard/add-artwork" element={<AddArtwork token={token} />} />
-                <Route path="/dashboard/favorites" element={<ArtworkFavorites userId={userId} token={token} />} />
+                {/* Each route is now a relative path to parent route */}
+                <Route path="subscriptions" element={<Subscriptions userId={userId} token={token} />} />
+                <Route path="user-info" element={<UserInfo userId={userId} token={token} />} />
+                <Route path="artworks/users/:id" element={<UserProfile contextUserId={userId} />} />
+                <Route path="add-artwork" element={<AddArtwork token={token} />} />
+                <Route path="favorites" element={<ArtworkFavorites userId={userId} token={token} />} />
             </Routes>
         </main>
     );

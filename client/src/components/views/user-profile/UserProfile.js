@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams, useHistory, useRouteMatch } from "react-router-dom";
+import { useParams, useNavigate, useRouteMatch } from "react-router-dom";
 
 import "./UserProfile.css";
 
@@ -11,7 +11,7 @@ import { DiscoverArtworksContext } from "../../../contexts/DiscoverArtworksConte
 function UserProfile({ contextUserId }) {
     const { isLoggedIn, userId } = useContext(AuthContext);
     const { artworks, setArtworks } = useContext(DiscoverArtworksContext);
-    const history = useHistory();
+    const navigate = useNavigate();
     const match = useRouteMatch("/artworks/users/:id");
 
     const { id } = useParams();
@@ -78,7 +78,7 @@ function UserProfile({ contextUserId }) {
     async function handleUpdateFollowers() {
         // Check if logged in user first
         if (!isLoggedIn) {
-            return history.push("/auth/log-in");
+            return navigate("/auth/log-in");
         }
 
         const token = localStorage.getItem("authToken");
