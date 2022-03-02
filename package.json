@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "jest",
+    "cy": "npx cypress open",
     "lint": "eslint ./",
     "start": "node server.js",
     "dev": "nodemon server.js",
