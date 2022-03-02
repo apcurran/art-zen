@@ -20,7 +20,7 @@ function LogIn() {
         setError("");
 
         try {
-            const response = await fetch("/api/auth/login", {
+            const response = await fetch("/api/auth/log-in", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
