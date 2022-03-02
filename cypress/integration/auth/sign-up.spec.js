@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
 
 describe("sign up flow", () => {
-
     it("signs a new user up", () => {
         // stub API req
         cy.intercept("POST", "/api/auth/sign-up", {
