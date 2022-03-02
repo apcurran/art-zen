@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "../Auth.css";
 
@@ -8,6 +9,8 @@ function SignUp() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
+    const navigate = useNavigate();
+
     async function handleSubmit(event) {
         event.preventDefault();
 
@@ -15,7 +18,7 @@ function SignUp() {
         setError("");
 
         try {
-            const response = await fetch("/api/auth/signup", {
+            const response = await fetch("/api/auth/sign-up", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -32,6 +35,8 @@ function SignUp() {
 
                 throw Error(serverErrMsg.error);
             }
+
+            navigate("/auth/log-in");
             
         } catch (err) {
             setError(err.message);
