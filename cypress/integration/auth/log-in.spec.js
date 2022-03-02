@@ -18,4 +18,19 @@ describe("log in page", () => {
 
         cy.url().should("eq", "http://localhost:3000/dashboard/subscriptions");
     });
+
+    it("gives an error message if the user email does not exist", () => {
+        cy.get("input[type=email]")
+            .type("fakeemail@gmail.com");
+
+        cy.get("input[type=password]")
+            .type(Cypress.env("testUserPassword"));
+
+        cy.get("button[type=submit]")
+            .click();
+
+        cy.contains("p", /email is not found./i)
+            .should("have.class", "error")
+            .should("exist");
+    });
 });
