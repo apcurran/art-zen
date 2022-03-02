@@ -48,4 +48,19 @@ describe("log in page", () => {
             .should("have.class", "error")
             .should("exist");
     });
+
+    it("gives an error message when the user provides a password shorter than 6 characters long", () => {
+        cy.get("input[type=email]")
+            .type(Cypress.env("testUserEmail"));
+
+        cy.get("input[type=password]")
+            .type("short");
+
+        cy.get("button[type=submit]")
+            .click();
+
+        cy.contains("p", /"password" length must be at least 6 characters long/i)
+            .should("have.class", "error")
+            .should("exist");
+    });
 });
