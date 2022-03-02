@@ -33,4 +33,19 @@ describe("log in page", () => {
             .should("have.class", "error")
             .should("exist");
     });
+
+    it("gives an error message when the user provides an incorrect password", () => {
+        cy.get("input[type=email]")
+            .type(Cypress.env("testUserEmail"));
+
+        cy.get("input[type=password]")
+            .type("myfakepassword");
+
+        cy.get("button[type=submit]")
+            .click();
+
+        cy.contains("p", /invalid password./i)
+            .should("have.class", "error")
+            .should("exist");
+    });
 });
