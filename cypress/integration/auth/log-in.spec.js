@@ -2,7 +2,7 @@
 
 describe("log in page", () => {
     beforeEach(() => {
-        cy.clearLocalStorage();
+        // cypress auto-clears cookies and localStorage for each test
         cy.visit("/auth/log-in");
     });
 
