@@ -2,8 +2,6 @@
 
 describe("log out flow", () => {
     it("should log the test user out", () => {
-        cy.clearLocalStorage();
-
         cy.visit("/auth/log-in");
 
         cy.get("input[type=email]")
