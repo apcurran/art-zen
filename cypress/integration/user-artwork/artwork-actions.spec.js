@@ -56,13 +56,15 @@ describe("specific artwork page user actions", () => {
             .should("have.class", "favorite-star-icon--full");
     });
 
-    it("comment will be posted below artwork after submitting", () => {
+    it("user should be able to add and remove a comment", () => {
+        const commentId = 61;
+
         cy.intercept("POST", "/api/artworks/81/comments", {
             statusCode: 201,
             body: {
                 commentsData: [
                     {
-                        "comment_id": 61,
+                        "comment_id": commentId,
                         "user_id": 36,
                         "text": "Test here",
                         "comment_created_at": "2022-03-08T17:26:33.118Z",
@@ -70,6 +72,13 @@ describe("specific artwork page user actions", () => {
                         "comment_avatar_img": "https://res.cloudinary.com/dev-project/image/upload/v1644616038/art-zen-app/user-avatars/alugkzxsgetx1hcjxfmi.png"
                     }
                 ]
+            }
+        });
+
+        cy.intercept("DELETE", `/api/artworks/81/comments/${commentId}`, {
+            statusCode: 200,
+            body: {
+                message: "Deleted artwork comment."
             }
         });
 
@@ -83,7 +92,7 @@ describe("specific artwork page user actions", () => {
             .should("exist")
             .contains("h4", "John")
             .should("exist");
-            
+
         cy.get(".comment-segment")
             .contains("time", "Mar 8th, 2022")
             .should("exist");
@@ -92,11 +101,15 @@ describe("specific artwork page user actions", () => {
             .contains("p", "Test here")
             .should("exist");
 
-        cy.get(".comment-segment__info__delete-btn")
-            .contains("span", /delete/i)
-            .should("exist");
-
         cy.get(".artwork-view__comments-total__amt")
             .should("have.text", "1");
+
+        cy.get(".comment-segment__info__delete-btn")
+            .contains("span", /delete/i)
+            .should("exist")
+            .click();
+
+        cy.contains("p", "Test here")
+            .should("not.exist");
     });
 });
