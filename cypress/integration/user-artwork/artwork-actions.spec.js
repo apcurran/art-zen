@@ -1,21 +1,31 @@
 /// <reference types="cypress" />
 
 describe("specific artwork page user actions", () => {
+    const artworkId = 81;
+
     before(() => {
         cy.login();
 
-        cy.visit("/artworks/81");
+        cy.visit(`/artworks/${artworkId}`);
     });
 
-    it("'liking' a user's artwork should increase the counter from 0 to 1", () => {
+    it("user should be able to add and remove a like", () => {
+        const likeId = 93;
         // stub API res
-        cy.intercept("POST", "/api/artworks/81/likes", {
+        cy.intercept("POST", `/api/artworks/${artworkId}/likes`, {
             statusCode: 201,
             body: {
                 "likesData": {
-                    "like_id": 93,
+                    "like_id": likeId,
                     "user_id": 36
                 }
+            }
+        });
+
+        cy.intercept("DELETE", `/api/artworks/${artworkId}/likes/${likeId}`, {
+            statusCode: 200,
+            body: {
+                message: "Deleted artwork like."
             }
         });
 
@@ -30,10 +40,12 @@ describe("specific artwork page user actions", () => {
 
         cy.get(".like-heart-icon")
             .should("have.class", "like-heart-icon--full");
+
+
     });
 
     it("favoriting a user's artwork should increment the counter from 0 to 1", () => {
-        cy.intercept("POST", "/api/artworks/81/favorites", {
+        cy.intercept("POST", `/api/artworks/${artworkId}/favorites`, {
             statusCode: 201,
             body: {
                 "favoriteData": {
@@ -59,7 +71,7 @@ describe("specific artwork page user actions", () => {
     it("user should be able to add and remove a comment", () => {
         const commentId = 61;
 
-        cy.intercept("POST", "/api/artworks/81/comments", {
+        cy.intercept("POST", `/api/artworks/${artworkId}/comments`, {
             statusCode: 201,
             body: {
                 commentsData: [
@@ -75,7 +87,7 @@ describe("specific artwork page user actions", () => {
             }
         });
 
-        cy.intercept("DELETE", `/api/artworks/81/comments/${commentId}`, {
+        cy.intercept("DELETE", `/api/artworks/${artworkId}/comments/${commentId}`, {
             statusCode: 200,
             body: {
                 message: "Deleted artwork comment."
