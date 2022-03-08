@@ -51,6 +51,9 @@ describe("specific artwork page user actions", () => {
         cy.get(".artwork-view__info__social-data__totals")
             .last()
             .should("have.text", "1 Favorites");
+
+        cy.get(".favorite-star-icon")
+            .should("have.class", "favorite-star-icon--full");
     });
 
     it("comment will be posted below artwork after submitting", () => {
