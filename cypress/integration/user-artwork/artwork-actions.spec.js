@@ -55,19 +55,28 @@ describe("specific artwork page user actions", () => {
     });
 
     it("favoriting a user's artwork should increment the counter from 0 to 1", () => {
+        const favoriteId = 70;
+
         cy.intercept("POST", `/api/artworks/${artworkId}/favorites`, {
             statusCode: 201,
             body: {
                 "favoriteData": {
-                    "favorite_id": 70,
+                    "favorite_id": favoriteId,
                     "user_id": 36
                 }
             }
         });
 
+        cy.intercept("DELETE", `/api/artworks/${artworkId}/favorites/${favoriteId}`, {
+            statusCode: 200,
+            body: {
+                message: "Deleted artwork favorite."
+            }
+        });
+
+        // add fav
         cy.get(".artwork-view__info__social-data__container")
             .last()
-            .should("exist")
             .click();
 
         cy.get(".artwork-view__info__social-data__totals")
@@ -76,6 +85,18 @@ describe("specific artwork page user actions", () => {
 
         cy.get(".favorite-star-icon")
             .should("have.class", "favorite-star-icon--full");
+
+        // remove fav
+        cy.get(".artwork-view__info__social-data__container")
+            .last()
+            .click();
+
+        cy.get(".artwork-view__info__social-data__totals")
+            .last()
+            .should("have.text", "0 Favorites");
+
+        cy.get(".favorite-star-icon")
+            .should("not.have.class", "favorite-star-icon--full");
     });
 
     it("user should be able to add and remove a comment", () => {
