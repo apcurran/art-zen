@@ -2,11 +2,12 @@
 
 require("dotenv").config();
 
-const { cloudinary } = require("../utils/cloudinary");
-const db = require("../db/index");
 const SQL = require("sql-template-strings");
 const faker = require("faker");
 const bcrypt = require("bcrypt");
+
+const db = require("../db/index");
+const { cloudinary } = require("../utils/cloudinary");
 
 async function getCloudinaryPublicIds() {
     const { resources } = await cloudinary
