@@ -54,7 +54,7 @@ describe("specific artwork page user actions", () => {
             .should("not.have.class", "like-heart-icon--full");
     });
 
-    it("favoriting a user's artwork should increment the counter from 0 to 1", () => {
+    it("user should be able to add and remove a favorite", () => {
         const favoriteId = 70;
 
         cy.intercept("POST", `/api/artworks/${artworkId}/favorites`, {
