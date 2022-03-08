@@ -29,9 +29,9 @@ describe("specific artwork page user actions", () => {
             }
         });
 
+        // add like
         cy.get(".artwork-view__info__social-data__container")
             .first()
-            .should("exist")
             .click();
 
         cy.get(".artwork-view__info__social-data__totals")
@@ -41,7 +41,17 @@ describe("specific artwork page user actions", () => {
         cy.get(".like-heart-icon")
             .should("have.class", "like-heart-icon--full");
 
+        // remove like
+        cy.get(".artwork-view__info__social-data__container")
+            .first()
+            .click();
 
+        cy.get(".artwork-view__info__social-data__totals")
+            .first()
+            .should("have.text", "0 Likes");
+
+        cy.get(".like-heart-icon")
+            .should("not.have.class", "like-heart-icon--full");
     });
 
     it("favoriting a user's artwork should increment the counter from 0 to 1", () => {
