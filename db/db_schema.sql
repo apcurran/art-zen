@@ -15,6 +15,9 @@ CREATE TABLE artwork(
     description VARCHAR(500) NOT NULL,
     genre VARCHAR(20) NOT NULL,
     img_url VARCHAR NOT NULL,
+    img_width INT NOT NULL,
+    img_height INT NOT NULL,
+    img_alt_txt VARCHAR NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

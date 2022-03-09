@@ -9,14 +9,19 @@ const bcrypt = require("bcrypt");
 const db = require("../db/index");
 const { cloudinary } = require("../utils/cloudinary");
 
-async function getCloudinaryPublicIds() {
+async function getCloudinaryImgsArr() {
     const { resources } = await cloudinary
                                     .search
                                     .expression("folder:art-zen-app")
                                     .execute();
-    const publicIds = resources.map((file) => file.public_id);
-    
-    return publicIds;
+
+    return resources.map((fileObj) => {
+        return {
+            public_id: fileObj.public_id,
+            width: fileObj.width,
+            height: fileObj.height
+        };
+    });
 }
 
 function randomGenre(genreArr) {
@@ -24,9 +29,9 @@ function randomGenre(genreArr) {
 }
 
 (async function populateDb() {
-    const artworkImgPublicIds = await getCloudinaryPublicIds();
+    const artworkImgs = await getCloudinaryImgsArr();
 
-    for (let img of artworkImgPublicIds) {
+    for (let imgObj of artworkImgs) {
         // Create app_user account
         const username = faker.internet.userName();
         const email = faker.internet.email();
@@ -54,13 +59,16 @@ function randomGenre(genreArr) {
         // Generate randomized genre
         const genreArr = ["fantasy", "landscape", "realism", "sci-fi", "anime", "horror", "modern", "portrait"];
         const genre = randomGenre(genreArr);
-        const img_url = img;
+        const imgUrl = imgObj.public_id;
+        const imgWidth = imgObj.width;
+        const imgHeight = imgObj.height;
+        const imgAltTxt = "User artwork";
         
         await db.query(SQL`
             INSERT INTO artwork
-                (user_id, title, description, genre, img_url)
+                (user_id, title, description, genre, img_url, img_width, img_height, img_alt_txt)
             VALUES
-                (${user_id}, ${title}, ${description}, ${genre}, ${img_url})
+                (${user_id}, ${title}, ${description}, ${genre}, ${imgUrl}, ${imgWidth}, ${imgHeight}, ${imgAltTxt})
         `);
     }    
 })();
