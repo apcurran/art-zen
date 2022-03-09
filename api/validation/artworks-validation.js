@@ -18,6 +18,10 @@ function userArtworkValidation(data) {
                 .string()
                 .trim()
                 .max(20)
+                .required(),
+        altTxt:   Joi
+                .string()
+                .trim()
                 .required()
     });
 
