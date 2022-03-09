@@ -14,7 +14,9 @@ function ArtworkInfo({ artworkData, likes, updateLikes, currUserHasLiked, favori
                     className="artwork-view__info__fig__img"
                     cloudName="dev-project"
                     publicId={artworkData.imgUrl}
-                    height="525"
+                    width={artworkData.imgWidth}
+                    height={artworkData.imgHeight}
+                    alt={artworkData.imgAltTxt}
                     decoding="async"
                 >
                     <Transformation quality="auto" fetchFormat="auto" />

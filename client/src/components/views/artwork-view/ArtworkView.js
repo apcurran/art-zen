@@ -17,11 +17,14 @@ function ArtworkView() {
         userId: 0,
         title: "",
         description: "",
-        imgUrl: "",
         artworkCreatedAt: "",
         username: "",
         avatarImgUrl: "",
-        genre: ""
+        genre: "",
+        imgUrl: "",
+        imgWidth: 0,
+        imgHeight: 0,
+        imgAltTxt: ""
     });
     const [likes, setLikes] = useState([]);
     const [currUserHasLiked, setCurrUserHasLiked] = useState(false);
@@ -36,16 +39,21 @@ function ArtworkView() {
         fetch(`/api/artworks/${id}`)
             .then((response) => response.json())
             .then((data) => {
+                console.log(data);
+
                 setArtworkData({
                     artworkId: data.artwork_id,
                     userId: data.user_id,
                     title: data.title,
                     description: data.description,
-                    imgUrl: data.img_url,
                     artworkCreatedAt: data.artwork_created_at,
                     username: data.username,
                     avatarImgUrl: data.avatar_img_url,
-                    genre: data.genre
+                    genre: data.genre,
+                    imgUrl: data.img_url,
+                    imgWidth: data.img_width,
+                    imgHeight: data.img_height,
+                    imgAltTxt: data.img_alt_txt
                 });
                 setLikes(data.likes);
                 setFavorites(data.favorites);

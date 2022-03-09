@@ -30,7 +30,7 @@ async function getUserArtwork(req, res, next) {
         // Combine only artwork and user tables
         const artworkAndUserData = db.query(SQL`
             SELECT
-                artwork.artwork_id, artwork.user_id, artwork.title, artwork.description, artwork.img_url, artwork.created_at AS artwork_created_at, artwork.genre,
+                artwork.artwork_id, artwork.user_id, artwork.title, artwork.description, artwork.img_url, artwork.created_at AS artwork_created_at, artwork.genre, artwork.img_url, artwork.img_width, artwork.img_height, artwork.img_alt_txt,
                 app_user.username, app_user.avatar_img_url
             FROM artwork
             LEFT JOIN app_user
