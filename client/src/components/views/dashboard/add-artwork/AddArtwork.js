@@ -28,6 +28,7 @@ function AddArtwork({ token }) {
         formData.append("description", description);
         formData.append("genre", genre);
         formData.append("artworkImg", selectedImgFile);
+        formData.append("altTxt", altTxt);
 
         try {
             const response = await fetch("/api/artworks", {

@@ -92,7 +92,7 @@ async function getUserArtworks(req, res, next) {
         `);
         const artworkData = db.query(SQL`
             SELECT
-                artwork.artwork_id, artwork.user_id, artwork.img_url AS artwork_img_url
+                artwork.artwork_id, artwork.user_id, artwork.img_url AS artwork_img_url, artwork.img_alt_txt
             FROM artwork
             WHERE artwork.user_id = ${userId}
             ORDER BY artwork.created_at DESC
