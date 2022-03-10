@@ -14,7 +14,7 @@ function Discover() {
             </div>
             <main className="masonry-grid">
                 {artworks.map((artwork) => (
-                    <GridArtwork img_url={artwork.img_url} artwork_id={artwork.artwork_id} key={artwork.artwork_id} />
+                    <GridArtwork img_url={artwork.img_url} img_alt_txt={artwork.img_alt_txt} artwork_id={artwork.artwork_id} key={artwork.artwork_id} />
                 ))}
             </main>
         </div>
