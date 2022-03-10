@@ -15,6 +15,7 @@ function SubscriptionCard({ artwork }) {
                         className="subscriptions-grid__card__fig__img"
                         cloudName="dev-project"
                         publicId={artwork.img_url}
+                        alt={artwork.img_alt_txt}
                         height="450"
                         width="auto"
                         decoding="async"

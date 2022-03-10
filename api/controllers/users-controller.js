@@ -31,7 +31,7 @@ async function getSubscriptions(req, res, next) {
     try {
         const subscriptionsArtworks = (await db.query(SQL`
             SELECT
-                artwork.artwork_id, artwork.user_id, artwork.title, artwork.img_url, artwork.genre, artwork.created_at,
+                artwork.artwork_id, artwork.user_id, artwork.title, artwork.img_url, artwork.genre, artwork.created_at, artwork.img_alt_txt,
                 app_user.username
             FROM artwork
             INNER JOIN follower ON artwork.user_id = follower.account_user_id
