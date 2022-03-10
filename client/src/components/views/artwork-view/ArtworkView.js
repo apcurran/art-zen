@@ -39,8 +39,6 @@ function ArtworkView() {
         fetch(`/api/artworks/${id}`)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
-
                 setArtworkData({
                     artworkId: data.artwork_id,
                     userId: data.user_id,

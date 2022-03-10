@@ -126,3 +126,7 @@ p {
 .input--short {
   max-width: 60%;
 }
+
+.input--long {
+  max-width: 100%;
+}

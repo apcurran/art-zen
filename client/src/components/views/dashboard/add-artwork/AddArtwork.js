@@ -11,6 +11,7 @@ function AddArtwork({ token }) {
     const [genre, setGenre] = useState("fantasy");
     const [description, setDescription] = useState("");
     const [selectedImgFile, setSelectedImgFile] = useState(null);
+    const [altTxt, setAltTxt] = useState("");
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -65,7 +66,7 @@ function AddArtwork({ token }) {
             <form onSubmit={handleSubmit} encType="multipart/form-data" className="add-artwork-form dashboard-form">
                 <div className="add-artwork-form__form-group dashboard-form__group">
                     <label htmlFor="title" className="add-artwork-form__label dashboard-form__label">Artwork Title</label>
-                    <input onChange={(event) => setTitle(event.target.value)} value={title} type="text" id="title" className="add-artwork-form__input dashboard-form__input input--short" required/>
+                    <input onChange={(event) => setTitle(event.target.value)} value={title} type="text" id="title" className="add-artwork-form__input dashboard-form__input input--short" required />
                 </div>
                 <div className="add-artwork-form__form-group dashboard-form__group">
                     <label htmlFor="genre" className="add-artwork-form__label dashboard-form__label">Artwork Genre</label>
@@ -86,7 +87,11 @@ function AddArtwork({ token }) {
                 </div>
                 <div className="add-artwork-form__form-group dashboard-form__group">
                     <label htmlFor="artwork-img" className="add-artwork-form__label dashboard-form__label">Upload Artwork Image</label>
-                    <input onChange={(event) => setSelectedImgFile(event.target.files[0])} type="file" name="artworkImg" id="artwork-img" className="add-artwork-form__input add-artwork-form__input--file" required/>
+                    <input onChange={(event) => setSelectedImgFile(event.target.files[0])} type="file" name="artworkImg" id="artwork-img" className="add-artwork-form__input add-artwork-form__input--file" required />
+                </div>
+                <div className="add-artwork-form__form-group dashboard-form__group">
+                    <label htmlFor="artwork-img-alt-txt" className="add-artwork-form__label dashboard-form__label">Short Image Description</label>
+                    <input onChange={(event) => setAltTxt(event.target.value)} type="text" name="altTxt" id="artwork-img-alt-txt" className="add-artwork-form__input dashboard-form__input input--long" required />
                 </div>
                 <button type="submit" className="add-artwork-form__submit-btn cta-btn">Upload</button>
                 {loading ? <Loader /> : null}

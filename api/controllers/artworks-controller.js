@@ -155,12 +155,12 @@ async function postUserArtwork(req, res, next) {
     try {
         const userId = req.user._id;
         // Destucture public_id, img width, and img height from async func
-        const artworkImgUrl = (await streamUploadToCloudinary(req, "art-zen-app")).public_id;
+        const { public_id, width, height } = await streamUploadToCloudinary(req, "art-zen-app");
         const { title, description, genre, altTxt } = await userArtworkValidation(req.body);
         // Data is now valid
         const addedArtwork = (await db.query(SQL`
-            INSERT INTO artwork(user_id, title, description, genre, img_url)
-            VALUES (${userId}, ${title}, ${description}, ${genre}, ${artworkImgUrl})
+            INSERT INTO artwork(user_id, title, description, genre, img_url, img_width, img_height, img_alt_txt)
+            VALUES (${userId}, ${title}, ${description}, ${genre}, ${public_id}, ${width}, ${height}, ${altTxt})
             RETURNING artwork.artwork_id, artwork.img_url
         `)).rows[0];
 
