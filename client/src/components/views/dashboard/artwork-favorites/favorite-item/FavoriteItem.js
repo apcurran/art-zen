@@ -12,6 +12,7 @@ function FavoriteItem({ favorite, deleteFavorite }) {
                         className="dashboard__favorites__article__fig__img"
                         cloudName="dev-project"
                         publicId={favorite.img_url}
+                        alt={favorite.img_alt_txt}
                         height="375"
                         width="auto"
                         decoding="async"

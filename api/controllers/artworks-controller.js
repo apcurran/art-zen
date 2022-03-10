@@ -135,7 +135,7 @@ async function getUserFavorites(req, res, next) {
     try {
         const favorites = (await db.query(SQL`
             SELECT
-                artwork.artwork_id, artwork.img_url, artwork.title,
+                artwork.artwork_id, artwork.img_url, artwork.title, artwork.img_alt_txt,
                 artwork_favorite.favorite_id
             FROM artwork
             INNER JOIN artwork_favorite
