@@ -7,13 +7,14 @@ import Header from "./components/layout/header/Header";
 import Footer from "./components/layout/footer/Footer";
 import GlobalLoader from "./components/loader/GlobalLoader";
 
-const About = lazy(() => import("./components/views/about/About"));
-const Discover = lazy(() => import("./components/views/discover/Discover"));
-const ArtworkView = lazy(() => import("./components/views/artwork-view/ArtworkView"));
-const UserProfile = lazy(() => import("./components/views/user-profile/UserProfile"));
+import Discover from "./components/views/discover/Discover";
+import ArtworkView from "./components/views/artwork-view/ArtworkView";
+import About from "./components/views/about/About";
+import LogIn from "./components/views/auth/log-in/LogIn";
+import SignUp from "./components/views/auth/sign-up/SignUp";
+import UserProfile from "./components/views/user-profile/UserProfile";
+// lazy-loaded comps
 const Dashboard = lazy(() => import("./components/views/dashboard/Dashboard"));
-const LogIn = lazy(() => import("./components/views/auth/log-in/LogIn"));
-const SignUp = lazy(() => import("./components/views/auth/sign-up/SignUp"));
 const NotFound = lazy(() => import("./components/views/not-found/NotFound"));
 
 function App() {
