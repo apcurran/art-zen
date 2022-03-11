@@ -12,6 +12,8 @@ function UserProfileArtwork({ artwork, canUserDeleteArtwork, deleteArtwork, artw
                     cloudName="dev-project"
                     publicId={artwork.artwork_img_url}
                     alt={artwork.img_alt_txt}
+                    width={artwork.img_width}
+                    height={artwork.img_height}
                     decoding="async"
                 >
                     <Transformation quality="auto" fetchFormat="auto" height="375" width="auto" crop="scale" />
