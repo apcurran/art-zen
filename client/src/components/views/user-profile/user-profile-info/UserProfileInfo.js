@@ -5,7 +5,7 @@ function UserProfileInfo({ profileData, totalCreations, totalFollowers, canUserD
         <section className="user-profile__info">
             {profileData.avatarImg ? (
                 <figure className="user-profile__info__avatar">
-                    <img src={profileData.avatarImg} alt="User avatar" className="user-profile__info__avatar__img" decoding="async" />
+                    <img src={profileData.avatarImg} alt="User avatar" width="200" height="200" className="user-profile__info__avatar__img" decoding="async" />
                 </figure>
             ) : (
                 <figure className="user-profile__info__avatar  user-profile__info__avatar--default">
