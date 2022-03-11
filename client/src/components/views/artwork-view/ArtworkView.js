@@ -22,8 +22,8 @@ function ArtworkView() {
         avatarImgUrl: "",
         genre: "",
         imgUrl: "",
-        imgWidth: "",
-        imgHeight: "",
+        imgWidth: "1280",
+        imgHeight: "600",
         imgAltTxt: ""
     });
     const [likes, setLikes] = useState([]);
