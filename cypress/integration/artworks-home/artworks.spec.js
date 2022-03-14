@@ -12,14 +12,14 @@ describe("artworks home page", () => {
     });
 
     it("clicking a card navigates to the unique artwork page", () => {
-        cy.get("a[href=\"/artworks/81\"]")
+        cy.get("a[href=\"/artworks/1\"]")
             .should("exist")
             .click();
         
         cy.url()
-            .should("eq", "http://localhost:3000/artworks/81");
+            .should("eq", "http://localhost:3000/artworks/1");
 
-        cy.contains("h1", "Cartoon Life")
+        cy.contains("h1", "Customizable methodical task-force")
             .should("exist");
     });
 });

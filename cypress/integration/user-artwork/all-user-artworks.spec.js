@@ -4,7 +4,7 @@ describe("all user artworks page", () => {
     it("can navigate to another user's artworks page, and the page displays all relevant user info and available artwork cards", () => {
         cy.visit("/artworks/28");
 
-        cy.contains("a", "Rosie.Graham1")
+        cy.contains("a", "Jan78")
             .should("exist")
             .click();
 
@@ -12,7 +12,7 @@ describe("all user artworks page", () => {
         cy.get(".user-profile__info__avatar__img")
             .should("exist");
 
-        cy.contains("h2", "Rosie.Graham1")
+        cy.contains("h2", "Jan78")
             .should("exist");
 
         cy.get(".user-profile__info-sect__totals")

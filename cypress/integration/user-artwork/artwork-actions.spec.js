@@ -1,7 +1,8 @@
 /// <reference types="cypress" />
 
 describe("specific artwork page user actions", () => {
-    const artworkId = 81;
+    const artworkId = 1;
+    const userId = 33;
 
     before(() => {
         cy.login();
@@ -10,14 +11,14 @@ describe("specific artwork page user actions", () => {
     });
 
     it("user should be able to add and remove a like", () => {
-        const likeId = 93;
+        const likeId = 3;
         // stub API res
         cy.intercept("POST", `/api/artworks/${artworkId}/likes`, {
             statusCode: 201,
             body: {
                 "likesData": {
                     "like_id": likeId,
-                    "user_id": 36
+                    "user_id": userId
                 }
             }
         });
@@ -55,14 +56,14 @@ describe("specific artwork page user actions", () => {
     });
 
     it("user should be able to add and remove a favorite", () => {
-        const favoriteId = 70;
+        const favoriteId = 3;
 
         cy.intercept("POST", `/api/artworks/${artworkId}/favorites`, {
             statusCode: 201,
             body: {
                 "favoriteData": {
                     "favorite_id": favoriteId,
-                    "user_id": 36
+                    "user_id": userId
                 }
             }
         });
@@ -100,7 +101,7 @@ describe("specific artwork page user actions", () => {
     });
 
     it("user should be able to add and remove a comment", () => {
-        const commentId = 61;
+        const commentId = 1;
 
         cy.intercept("POST", `/api/artworks/${artworkId}/comments`, {
             statusCode: 201,
@@ -108,7 +109,7 @@ describe("specific artwork page user actions", () => {
                 commentsData: [
                     {
                         "comment_id": commentId,
-                        "user_id": 36,
+                        "user_id": userId,
                         "text": "Test here",
                         "comment_created_at": "2022-03-08T17:26:33.118Z",
                         "comment_username": "John",
