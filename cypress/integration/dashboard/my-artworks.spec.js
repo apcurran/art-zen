@@ -28,4 +28,29 @@ describe("my artworks", () => {
             .children()
             .should("have.length.greaterThan", 0);
     });
+
+    it("deletes a user's artwork", () => {
+        const artworkId = 33;
+
+        cy.intercept("DELETE", `/api/artworks/${artworkId}`, {
+            statusCode: 200,
+            body: {
+                message: `Artwork with id, ${artworkId} deleted.`
+            }
+        });
+
+        cy.get(".user-profile__artworks-grid__article__link")
+            .as("myTargetedArtwork")
+            .should("have.attr", "href")
+            .and("match", /artworks/);
+
+        cy.get("@myTargetedArtwork")
+            .next()
+            .should("exist")
+            .should("have.text", "Delete")
+            .click();
+
+        cy.get("@myTargetedArtwork")
+            .should("not.exist");
+    });
 });
