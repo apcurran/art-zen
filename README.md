@@ -22,11 +22,13 @@
 
 - Ability to comment, or delete a previously created comment, on an artwork page
 
-- Main "Discover" page lists newly created artworks by date, and offer a way to view/interact in a visually pleasing masonry grid layout
+- Main "Discover" page lists newly created artworks by date and offers a way to view/interact in a visually pleasing masonry grid layout
 
 - Ability to follow a specific user whose work you enjoy
 
 - Image uploads utilize Cloudinary as a fast, third-party image CDN
+
+- :test_tube: Cypress.io automated testing for E2E tests
 
 ![Discover page](./readme-imgs/discover.jpg)
 
