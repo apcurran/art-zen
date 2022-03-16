@@ -42,4 +42,27 @@ describe("dashboard favorites", () => {
         cy.contains("button", "Delete Favorite")
             .should("exist");
     });
+
+    it("removes an artwork favorite", () => {
+        const artworkId = 2;
+        const favoriteId = 5;
+
+        cy.intercept("DELETE", `/api/artworks/${artworkId}/favorites/${favoriteId}`, {
+            statusCode: 200,
+            body: {
+                message: "Deleted artwork favorite."
+            }
+        });
+
+        cy.contains("button", "Delete Favorite")
+            .as("favDeleteBtn")
+            .click();
+
+        cy.get("@favDeleteBtn")
+            .should("not.exist");
+
+        cy.get(".dashboard__favorites")
+            .children()
+            .should("have.length", 0);
+    });
 });
