@@ -5,14 +5,13 @@
     max-width: var(--wrapper-max-width);
     width: var(--wrapper-width);
     margin: 0 auto;
+    gap: 1rem;
 }
 
 .masonry-grid__link {
     width: auto;
     height: 375px;
     flex: 1 0 auto;
-    margin-right: .875rem;
-    margin-bottom: .875rem;
 }
 
 .masonry-grid__link__img {
