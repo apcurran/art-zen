@@ -70,6 +70,10 @@
     visibility: visible;
 }
 
+.masonry-grid__link__fig-caption__username {
+    color: hsl(0, 0%, 85%);
+}
+
 @media screen and (max-width: 55em) {
     .masonry-grid {
         display: grid;

@@ -18,7 +18,7 @@ function GridArtwork({ img_url, img_alt_txt, artwork_id, title, username }) {
                 </Image>
                 <figcaption className="masonry-grid__link__fig-caption">
                     <h2 className="masonry-grid__link__fig-caption__title">{title}</h2>
-                    <p>by {username}</p>
+                    <p className="masonry-grid__link__fig-caption__username">by {username}</p>
                 </figcaption>
             </figure>
         </Link>
