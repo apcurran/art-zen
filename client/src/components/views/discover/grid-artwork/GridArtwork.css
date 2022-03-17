@@ -16,6 +16,7 @@
     width: auto;
     height: var(--grid-col-height);
     flex: 1 0 auto;
+    text-decoration: none;
 }
 
 .masonry-grid__link__fig {
@@ -57,13 +58,12 @@
     align-self: end;
     margin: 1rem 1.5rem;
     color: #fff;
-    /* TODO: not working */
-    text-decoration: inherit;
 
     z-index: 5;
     visibility: hidden;
 }
 
+/* show caption info on hover */
 .masonry-grid__link:hover figcaption {
     visibility: visible;
 }
