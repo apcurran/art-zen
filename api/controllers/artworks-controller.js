@@ -12,8 +12,12 @@ const { combineDataToObj } = require("../../utils/combine-data-to-obj");
 async function getArtworks(req, res, next) {
     try {
         const { rows } = await db.query(SQL`
-            SELECT artwork.artwork_id, artwork.img_url, artwork.img_alt_txt
+            SELECT
+                artwork.artwork_id, artwork.title, artwork.img_url, artwork.img_alt_txt,
+                app_user.username
             FROM artwork
+            LEFT JOIN app_user
+                ON artwork.user_id = app_user.user_id
             ORDER BY artwork.created_at DESC
         `);
 
