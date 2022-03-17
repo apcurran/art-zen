@@ -61,6 +61,8 @@
 
     z-index: 5;
     visibility: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 /* show caption info on hover */

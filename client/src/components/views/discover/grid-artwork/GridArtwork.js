@@ -14,10 +14,11 @@ function GridArtwork({ img_url, img_alt_txt, artwork_id, title, username }) {
                     alt={`${title} by ${username} -- ${img_alt_txt}`}
                     decoding="async"
                 >
-                    <Transformation quality="auto" fetchFormat="auto" height="375" width="auto" crop="scale" />
+                    <Transformation quality="auto" fetchFormat="auto" height="375" width="auto" crop="scale" dpr="2" />
                 </Image>
                 <figcaption className="masonry-grid__link__fig-caption">
-                    Test caption here
+                    <h2 className="masonry-grid__link__fig-caption__title">{title}</h2>
+                    <p>by {username}</p>
                 </figcaption>
             </figure>
         </Link>
