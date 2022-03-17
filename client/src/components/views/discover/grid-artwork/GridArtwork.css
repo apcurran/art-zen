@@ -1,3 +1,7 @@
+:root {
+    --grid-col-height: 375px;
+}
+
 .masonry-grid {
     display: flex;
     flex-wrap: wrap;
@@ -10,19 +14,31 @@
 
 .masonry-grid__link {
     width: auto;
-    height: 375px;
+    height: var(--grid-col-height);
     flex: 1 0 auto;
 }
 
 .masonry-grid__link__fig {
     width: 100%;
     height: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--grid-col-height);
 }
 
 .masonry-grid__link__img {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+
     object-fit: cover;
     width: 100%;
     height: 100%;
+}
+
+.masonry-grid__link__fig-caption {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
 }
 
 @media screen and (max-width: 55em) {

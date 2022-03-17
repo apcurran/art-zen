@@ -16,6 +16,7 @@ function GridArtwork({ img_url, img_alt_txt, artwork_id, title, username }) {
                 >
                     <Transformation quality="auto" fetchFormat="auto" height="375" width="auto" crop="scale" />
                 </Image>
+                <figcaption className="masonry-grid__link__fig-caption">Test caption here</figcaption>
             </figure>
         </Link>
     );
