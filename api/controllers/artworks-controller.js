@@ -120,8 +120,12 @@ async function getSearch(req, res, next) {
         const revisedWildcardQuery = `%${q}%`;
 
         const { rows } = await db.query(SQL`
-            SELECT artwork.artwork_id, artwork.title, artwork.img_url, artwork.genre
+            SELECT
+                artwork.artwork_id, artwork.title, artwork.img_url, artwork.genre, artwork.img_alt_txt,
+                app_user.username
             FROM artwork
+            LEFT JOIN app_user
+                ON artwork.user_id = app_user.user_id
             WHERE LOWER(title) LIKE LOWER(TRIM(${revisedWildcardQuery}))
                OR LOWER(genre) LIKE LOWER(TRIM(${revisedWildcardQuery}))
         `);
