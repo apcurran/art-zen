@@ -10,7 +10,7 @@
     max-width: var(--wrapper-max-width);
     width: var(--wrapper-width);
     margin: 0 auto;
-    gap: 1rem;
+    gap: .875rem;
 }
 
 .masonry-grid__link {
@@ -75,6 +75,10 @@
 .masonry-grid__link:hover figcaption {
     visibility: visible;
     opacity: 1;
+}
+
+.masonry-grid__link__fig-caption__title {
+    font-size: var(--heading-med-fz);
 }
 
 .masonry-grid__link__fig-caption__username {
