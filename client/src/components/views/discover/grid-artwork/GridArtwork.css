@@ -1,6 +1,6 @@
 :root {
     --grid-col-height: 375px;
-    --card-hover-anim-dur: 450ms;
+    --card-hover-anim-dur: 425ms;
 }
 
 .masonry-grid {
