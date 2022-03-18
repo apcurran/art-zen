@@ -5,12 +5,11 @@
 
 .nav {
     margin: 0 auto;
-    padding: 0 .875rem;
+    padding-left: .875rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: var(--wrapper-max-width);
-    width: var(--wrapper-width);
+    width: min(var(--wrapper-width), var(--wrapper-max-width));
 }
 
 .nav__logo-img {
@@ -62,6 +61,7 @@
 @media screen and (max-width: 68em) {
     .nav {
         flex-direction: column;
+        padding-left: 0;
     }
 
     .nav__logo-link,
