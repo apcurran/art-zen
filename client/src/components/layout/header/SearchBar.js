@@ -9,7 +9,7 @@ function SearchBar() {
     useEffect(() => {
         const timeout = setTimeout(() => {
             handleSearchFetch();
-        }, 300); // timeout of 300ms
+        }, 250); // timeout of 275ms
 
         return () => clearTimeout(timeout);
     }, [searchText]);
