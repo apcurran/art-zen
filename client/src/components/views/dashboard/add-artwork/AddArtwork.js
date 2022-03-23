@@ -71,7 +71,7 @@ function AddArtwork({ token }) {
                 </div>
                 <div className="add-artwork-form__form-group dashboard-form__group">
                     <label htmlFor="genre" className="add-artwork-form__label dashboard-form__label">Artwork Genre</label>
-                    <select onChange={(event) => setGenre(event.target.value)} value={genre} type="text" id="genre" className="add-artwork-form__input dashboard-form__input input--short">
+                    <select onChange={(event) => setGenre(event.target.value)} value={genre} id="genre" className="add-artwork-form__input dashboard-form__input input--short">
                         <option value="fantasy">Fantasy</option>
                         <option value="landscape">Landscape</option>
                         <option value="realism">Realism</option>
