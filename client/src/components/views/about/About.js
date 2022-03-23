@@ -1,7 +1,7 @@
 import "./About.css";
-import ArtMuseumIllustration from "../../../assets/images/illustration-art-museum-opt.svg";
-import SharingArticlesIllustration from "../../../assets/images/illustration-sharing-articles-opt.svg";
-import MonsterArtistIllustration from "../../../assets/images/illustration-monster-artist-opt.svg";
+import ArtMuseumIllustration from "./imgs/illustration-art-museum-opt.svg";
+import SharingArticlesIllustration from "./imgs/illustration-sharing-articles-opt.svg";
+import MonsterArtistIllustration from "./imgs/illustration-monster-artist-opt.svg";
 
 function About() {
     return (

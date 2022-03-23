@@ -1,5 +1,5 @@
 import "./NotFound.css";
-import NotFoundFeelingBlue from "../../../assets/images/illustration-not-found-feeling-blue.svg";
+import NotFoundFeelingBlue from "./imgs/illustration-not-found-feeling-blue.svg";
 
 function NotFound() {
     return (

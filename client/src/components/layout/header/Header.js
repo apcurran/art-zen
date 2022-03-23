@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
 
 import "./Header.css";
-import Logo from "../../../assets/images/logo-finished-opt.svg";
+import Logo from "./imgs/logo-finished-opt.svg";
 import SearchBar from "./SearchBar";
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
