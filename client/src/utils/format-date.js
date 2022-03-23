@@ -1,7 +1,7 @@
-import { format, parseISO } from "date-fns";
+function formatDate(dateISO) {
+    const revisedDate = new Date(dateISO);
 
-function formatDate(date) {
-    return format(parseISO(date), "MMM do, yyyy");
+    return new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(revisedDate);
 }
 
 export default formatDate;
