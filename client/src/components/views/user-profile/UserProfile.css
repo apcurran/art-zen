@@ -3,6 +3,7 @@
     width: var(--wrapper-width);
     margin: 0 auto;
     padding: 0 .875rem;
+    aspect-ratio: 373 / 176;
 }
 
 @media screen and (max-width: 35em) {
