@@ -126,8 +126,8 @@ async function getSearch(req, res, next) {
             FROM artwork
             LEFT JOIN app_user
                 ON artwork.user_id = app_user.user_id
-            WHERE LOWER(title) LIKE LOWER(TRIM(${revisedWildcardQuery}))
-               OR LOWER(genre) LIKE LOWER(TRIM(${revisedWildcardQuery}))
+            WHERE title ILIKE TRIM(${revisedWildcardQuery})
+               OR genre ILIKE TRIM(${revisedWildcardQuery})
             ORDER BY artwork.created_at DESC
         `);
 
