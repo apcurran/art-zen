@@ -2,7 +2,8 @@
 
 require("dotenv").config();
 
-const { Pool } = require("pg");
+// const { Pool } = require("pg");
+const pgp = require("pg-promise")({ capSQL: true });
 
 const devConfig = {
     user: process.env.DB_USER,
@@ -16,10 +17,15 @@ const prodConfig = {
     ssl: {
         rejectUnauthorized: false
     }
-}; 
-
-const pool = process.env.NODE_ENV === "development" ? new Pool(devConfig) : new Pool(prodConfig);
-
-module.exports = {
-    query: (text, params) => pool.query(text, params)
 };
+const connection = process.env.NODE_ENV === "development" ? devConfig : prodConfig;
+
+const db = pgp(connection);
+
+module.exports = { db };
+
+// const pool = process.env.NODE_ENV === "development" ? new Pool(devConfig) : new Pool(prodConfig);
+
+// module.exports = {
+//     query: (text, params) => pool.query(text, params)
+// };
