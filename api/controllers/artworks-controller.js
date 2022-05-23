@@ -32,6 +32,7 @@ async function getUserArtwork(req, res, next) {
     try {
         const { artworkId } = req.params;
 
+        // One req to postgres db with multiple queries concatenated
         const queriesText = `
             SELECT
                 artwork.artwork_id, artwork.user_id, artwork.title, artwork.description, artwork.img_url, artwork.created_at AS artwork_created_at, artwork.genre, artwork.img_url, artwork.img_width, artwork.img_height, artwork.img_alt_txt,
