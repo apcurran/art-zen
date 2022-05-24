@@ -56,7 +56,7 @@ async function getUserArtwork(req, res, next) {
 
             SELECT artwork_favorite.favorite_id, artwork_favorite.user_id
             FROM artwork_favorite
-            WHERE artwork_favorite.artwork_id = $1
+            WHERE artwork_favorite.artwork_id = $1;
         `;
 
         const [artworkAndUserDataArr, commentsData, likesData, favoritesData] = await db.multi(queriesText, [artworkId]);
@@ -72,29 +72,24 @@ async function getUserArtwork(req, res, next) {
 async function getUserArtworks(req, res, next) {
     try {
         const { userId } = req.params;
-        const userData = db.query(`
+        const queriesText = `
             SELECT
                 app_user.username, app_user.avatar_img_url, app_user.bio_description
             FROM app_user
-            WHERE app_user.user_id = $1
-        `, [userId]);
-        const followerData = db.query(`
+            WHERE app_user.user_id = $1;
+
             SELECT follower.follower_user_id
             FROM follower
-            WHERE follower.account_user_id = $1
-        `, [userId]);
-        const artworkData = db.query(`
+            WHERE follower.account_user_id = $1;
+
             SELECT
                 artwork.artwork_id, artwork.user_id, artwork.img_url AS artwork_img_url, artwork.img_alt_txt, artwork.img_width, artwork.img_height
             FROM artwork
             WHERE artwork.user_id = $1
-            ORDER BY artwork.created_at DESC
-        `, [userId]);
+            ORDER BY artwork.created_at DESC;
+        `;
 
-        const groupedData = await Promise.all([userData, followerData, artworkData]);
-        const resolvedUserData = groupedData[0];
-        const resolvedFollowerData = groupedData[1];
-        const resolvedArtworkData = groupedData[2];
+        const [resolvedUserData, resolvedFollowerData, resolvedArtworkData] = await db.multi(queriesText, [userId]);
 
         res.status(200).json({ userData: resolvedUserData, followerData: resolvedFollowerData, artworkData: resolvedArtworkData });
 
