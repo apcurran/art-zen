@@ -88,7 +88,7 @@ async function getUserArtworks(req, res, next) {
             WHERE artwork.user_id = $1
             ORDER BY artwork.created_at DESC;
         `;
-
+        
         const [resolvedUserData, resolvedFollowerData, resolvedArtworkData] = await db.multi(queriesText, [userId]);
 
         res.status(200).json({ userData: resolvedUserData, followerData: resolvedFollowerData, artworkData: resolvedArtworkData });
@@ -102,8 +102,7 @@ async function getSearch(req, res, next) {
     try {
         const { q } = req.query;
         const revisedWildcardQuery = `%${q}%`;
-
-        const { rows } = await db.query(`
+        const searchResults = await db.manyOrNone(`
             SELECT
                 artwork.artwork_id, artwork.title, artwork.img_url, artwork.genre, artwork.img_alt_txt,
                 app_user.username
@@ -115,7 +114,7 @@ async function getSearch(req, res, next) {
             ORDER BY artwork.created_at DESC
         `, [revisedWildcardQuery]);
 
-        res.status(200).json(rows);
+        res.status(200).json(searchResults);
 
     } catch (err) {
         next(err);
