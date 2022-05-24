@@ -1,7 +1,6 @@
 "use strict";
 
 const { db } = require("../../db/index");
-
 const { streamUploadToCloudinary } = require("../../utils/stream-upload-to-cloudinary");
 const { userPatchValidation } = require("../validation/users-validation");
 
