@@ -1,7 +1,6 @@
 "use strict";
 
-const db = require("../../db/index");
-const SQL = require("sql-template-strings");
+const { db } = require("../../db/index");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -12,13 +11,13 @@ async function postUserSignup(req, res, next) {
     try {
         const { username, email, password } = await signupValidation(req.body);
         // Data is valid, now reject creating an existing user.
-        const emailExists = await db.query(SQL`
+        const emailExists = await db.oneOrNone(`
             SELECT app_user.user_id
             FROM app_user
-            WHERE app_user.email = ${email}
-        `);
+            WHERE app_user.email = $1
+        `, [email]);
 
-        if (emailExists.rows.length > 0) {
+        if (emailExists) {
             return res.status(400).json({ error: "Email already exists." });
         }
 
@@ -27,10 +26,10 @@ async function postUserSignup(req, res, next) {
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
         // Add new user to db
-        await db.query(SQL`
+        await db.query(`
             INSERT INTO app_user(username, email, password)
-            VALUES (${username}, ${email}, ${hashedPassword})
-        `);
+            VALUES ($1, $2, $3)
+        `, [username, email, hashedPassword]);
 
         res.status(201).json({ message: "New user created." });
 
@@ -47,12 +46,11 @@ async function postUserLogin(req, res, next) {
     try {
         const { email, password } = await loginValidation(req.body);
         // Data valid, check for an existing email
-        const { rows } = await db.query(SQL`
+        const user = await db.oneOrNone(`
             SELECT app_user.user_id, app_user.password
             FROM app_user
-            WHERE app_user.email = ${email}
-        `);
-        const user = rows[0];
+            WHERE app_user.email = $1
+        `, [email]);
 
         if (!user) {
             return res.status(400).json({ error: "Email is not found." });
