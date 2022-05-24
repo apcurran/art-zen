@@ -88,7 +88,7 @@ async function getUserArtworks(req, res, next) {
             WHERE artwork.user_id = $1
             ORDER BY artwork.created_at DESC;
         `;
-        
+
         const [resolvedUserData, resolvedFollowerData, resolvedArtworkData] = await db.multi(queriesText, [userId]);
 
         res.status(200).json({ userData: resolvedUserData, followerData: resolvedFollowerData, artworkData: resolvedArtworkData });
@@ -125,7 +125,7 @@ async function getUserFavorites(req, res, next) {
     const userId = req.user._id;
 
     try {
-        const favorites = (await db.query(`
+        const favorites = await db.manyOrNone(`
             SELECT
                 artwork.artwork_id, artwork.img_url, artwork.title, artwork.img_alt_txt,
                 artwork_favorite.favorite_id
@@ -133,7 +133,7 @@ async function getUserFavorites(req, res, next) {
             INNER JOIN artwork_favorite
                 ON artwork.artwork_id = artwork_favorite.artwork_id
             WHERE artwork_favorite.user_id = $1
-        `, [userId]));
+        `, [userId]);
 
         res.status(200).json({ favoritesData: favorites });
 
