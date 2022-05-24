@@ -1,6 +1,5 @@
 "use strict";
 
-// const  = require("-template-strings");
 const { db } = require("../../db/index");
 
 const { streamUploadToCloudinary } = require("../../utils/stream-upload-to-cloudinary");
@@ -150,11 +149,13 @@ async function postUserArtwork(req, res, next) {
         const { public_id, width, height } = await streamUploadToCloudinary(req, "art-zen-app");
         const { title, description, genre, altTxt } = await userArtworkValidation(req.body);
         // Data is now valid
-        const addedArtwork = (await db.query(`
-            INSERT INTO artwork(user_id, title, description, genre, img_url, img_width, img_height, img_alt_txt)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        const addedArtwork = await db.one(`
+            INSERT INTO artwork
+                (user_id, title, description, genre, img_url, img_width, img_height, img_alt_txt)
+            VALUES
+                ($1, $2, $3, $4, $5, $6, $7, $8)
             RETURNING artwork.artwork_id, artwork.img_url
-        `, [userId, title, description, genre, public_id, width, height, altTxt]));
+        `, [userId, title, description, genre, public_id, width, height, altTxt]);
 
         res.status(201).json({ addedArtwork });
 
@@ -172,13 +173,15 @@ async function postUserArtworkLike(req, res, next) {
     const userId = req.user._id;
 
     try {
-        const addedLike = await db.query(`
-            INSERT INTO artwork_like(artwork_id, user_id)
-            VALUES ($1, $2)
+        const addedLike = await db.one(`
+            INSERT INTO artwork_like
+                (artwork_id, user_id)
+            VALUES
+                ($1, $2)
             RETURNING artwork_like.like_id, artwork_like.user_id
         `, [artworkId, userId]);
 
-        res.status(201).json({ likesData: addedLike.rows[0] });
+        res.status(201).json({ likesData: addedLike });
 
     } catch (err) {
         next(err);
@@ -192,13 +195,15 @@ async function postUserArtworkComment(req, res, next) {
     try {
         const { text } = await userArtworkCommentValidation(req.body);
         // Insert new comment
-        await db.query(`
-            INSERT INTO artwork_comment(artwork_id, user_id, text)
-            VALUES ($1, $2, $3)
+        await db.none(`
+            INSERT INTO artwork_comment
+                (artwork_id, user_id, text)
+            VALUES
+                ($1, $2, $3)
         `, [artworkId, userId, text]);
 
         // Retrieve all comments for artwork page
-        const commentsDataArr = (await db.query(`
+        const commentsDataArr = await db.manyOrNone(`
             SELECT
                 artwork_comment.comment_id, artwork_comment.user_id, artwork_comment.text, artwork_comment.created_at AS comment_created_at,
                 app_user.username AS comment_username, app_user.avatar_img_url AS comment_avatar_img
@@ -206,7 +211,7 @@ async function postUserArtworkComment(req, res, next) {
             LEFT JOIN app_user
                 ON artwork_comment.user_id = app_user.user_id
             WHERE artwork_comment.artwork_id = $1
-        `, [artworkId]));
+        `, [artworkId]);
     
         res.status(201).json({ commentsData: commentsDataArr });
         
@@ -224,11 +229,13 @@ async function postUserArtworkFavorite(req, res, next) {
     const userId = req.user._id;
 
     try {
-        const addedFavorite = (await db.query(`
-            INSERT INTO artwork_favorite(artwork_id, user_id)
-            VALUES ($1, $2)
+        const addedFavorite = await db.one(`
+            INSERT INTO artwork_favorite
+                (artwork_id, user_id)
+            VALUES
+                ($1, $2)
             RETURNING artwork_favorite.favorite_id, artwork_favorite.user_id
-        `, [artworkId, userId]));
+        `, [artworkId, userId]);
 
         res.status(201).json({ favoriteData: addedFavorite });
 
@@ -243,7 +250,7 @@ async function deleteUserArtworkLike(req, res, next) {
     const userId = req.user._id;
 
     try {
-        await db.query(`
+        await db.none(`
             DELETE FROM artwork_like
             WHERE (artwork_like.like_id = $1) AND (artwork_like.user_id = $2)
         `, [likeId, userId]);
@@ -260,7 +267,7 @@ async function deleteUserComment(req, res, next) {
     const userId = req.user._id;
 
     try {
-        await db.query(`
+        await db.none(`
             DELETE FROM artwork_comment
             WHERE (artwork_comment.comment_id = $1) AND (artwork_comment.user_id = $2)
         `, [commentId, userId]);
@@ -277,7 +284,7 @@ async function deleteUserArtworkFavorite(req, res, next) {
     const userId = req.user._id;
 
     try {
-        await db.query(`
+        await db.none(`
             DELETE FROM artwork_favorite
             WHERE (artwork_favorite.favorite_id = $1) AND (artwork_favorite.user_id = $2)
         `, [favoriteId, userId]);
@@ -294,7 +301,7 @@ async function deleteUserArtwork(req, res, next) {
     const userId = req.user._id;
 
     try {
-        await db.query(`
+        await db.none(`
             DELETE FROM artwork
             WHERE (artwork.artwork_id = $1) AND (artwork.user_id = $2)
         `, [artworkId, userId]);
