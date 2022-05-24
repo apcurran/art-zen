@@ -26,9 +26,11 @@ async function postUserSignup(req, res, next) {
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
         // Add new user to db
-        await db.query(`
-            INSERT INTO app_user(username, email, password)
-            VALUES ($1, $2, $3)
+        await db.none(`
+            INSERT INTO
+                app_user(username, email, password)
+            VALUES
+                ($1, $2, $3)
         `, [username, email, hashedPassword]);
 
         res.status(201).json({ message: "New user created." });
