@@ -1,7 +1,6 @@
 "use strict";
 
-const db = require("../../db/index");
-const SQL = require("sql-template-strings");
+const { db } = require("../../db/index");
 
 const { streamUploadToCloudinary } = require("../../utils/stream-upload-to-cloudinary");
 const { userPatchValidation } = require("../validation/users-validation");
@@ -11,11 +10,11 @@ async function getUserInfo(req, res, next) {
     const { userId } = req.params;
     
     try {
-        const userInfo = (await db.query(SQL`
+        const userInfo = await db.one(`
             SELECT app_user.username, app_user.bio_description, app_user.avatar_img_url
             FROM app_user
-            WHERE app_user.user_id = ${userId}
-        `)).rows[0];
+            WHERE app_user.user_id = $1
+        `, [userId]);
 
         res.status(200).json(userInfo);
 
@@ -29,15 +28,15 @@ async function getSubscriptions(req, res, next) {
     const { userId } = req.params;
 
     try {
-        const subscriptionsArtworks = (await db.query(SQL`
+        const subscriptionsArtworks = await db.manyOrNone(`
             SELECT
                 artwork.artwork_id, artwork.user_id, artwork.title, artwork.img_url, artwork.genre, artwork.created_at, artwork.img_alt_txt,
                 app_user.username
             FROM artwork
             INNER JOIN follower ON artwork.user_id = follower.account_user_id
             INNER JOIN app_user ON follower.account_user_id = app_user.user_id
-            WHERE follower.follower_user_id = ${userId}
-        `)).rows;
+            WHERE follower.follower_user_id = $1
+        `, [userId]);
 
         res.status(200).json({ subscriptionsArtworks });
 
@@ -52,11 +51,13 @@ async function postUserFollower(req, res, next) {
     const followerId = req.user._id;
 
     try {
-        const addedFollower = (await db.query(SQL`
-            INSERT INTO follower(follower_user_id, account_user_id)
-            VALUES (${followerId}, ${userId})
+        const addedFollower = await db.one(`
+            INSERT INTO follower
+                (follower_user_id, account_user_id)
+            VALUES
+                ($1, $2)
             RETURNING follower.follower_user_id
-        `)).rows[0];
+        `, [followerId, userId]);
     
         res.status(201).json({ addedFollower });
         
@@ -73,13 +74,13 @@ async function patchUser(req, res, next) {
         const avatarImgUrl = req.file ? (await streamUploadToCloudinary(req, "art-zen-app/user-avatars")).secure_url : null;
         const userId = req.user._id;
 
-        await db.query(SQL`
+        await db.none(`
             UPDATE app_user
             SET
-                bio_description = COALESCE(${bioDesc}, bio_description),
-                avatar_img_url = COALESCE(${avatarImgUrl}, avatar_img_url)
-            WHERE app_user.user_id = ${userId}
-        `);
+                bio_description = COALESCE($1, bio_description),
+                avatar_img_url = COALESCE($2, avatar_img_url)
+            WHERE app_user.user_id = $3
+        `, [bioDesc, avatarImgUrl, userId]);
 
         res.status(200).json({ message: "User info updated." });
 
@@ -98,10 +99,10 @@ async function deleteUserFollower(req, res, next) {
     const followerId = req.user._id;
 
     try {
-        await db.query(SQL`
+        await db.none(`
             DELETE FROM follower
-            WHERE (follower.follower_user_id = ${followerId}) AND (follower.account_user_id = ${userId})
-        `);
+            WHERE (follower.follower_user_id = $1) AND (follower.account_user_id = $2)
+        `, [followerId, userId]);
 
         res.status(200).json({ message: `Follower with user id, ${followerId} deleted from account with user id, ${userId}.` });
 
@@ -114,10 +115,10 @@ async function deleteUser(req, res, next) {
     const userId = req.user._id;
 
     try {
-        await db.query(SQL`
+        await db.none(`
             DELETE FROM app_user
-            WHERE app_user.user_id = ${userId}
-        `);
+            WHERE app_user.user_id = $1
+        `, [userId]);
 
         res.status(200).json({ message: `User with id, ${userId} deleted.` });
 
