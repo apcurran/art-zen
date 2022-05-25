@@ -1,6 +1,7 @@
 "use strict";
 
 const { db } = require("../../db/index");
+const pgp = db.$config.pgp;
 
 const { streamUploadToCloudinary } = require("../../utils/stream-upload-to-cloudinary");
 const { userArtworkValidation, userArtworkCommentValidation } = require("../validation/artworks-validation");
@@ -194,25 +195,41 @@ async function postUserArtworkComment(req, res, next) {
     
     try {
         const { text } = await userArtworkCommentValidation(req.body);
-        // Insert new comment
-        await db.none(`
-            INSERT INTO artwork_comment
-                (artwork_id, user_id, text)
-            VALUES
-                ($1, $2, $3)
-        `, [artworkId, userId, text]);
+        // using db.task() from pg-promise to chain queries while only using one connection
+        // better utilization of connections from db connection pool
+        const commentsDataArr = await db.task("user-comments-task", async (currTask) => {
+            // insert new comment first
+            await currTask.none(
+                `
+                INSERT INTO artwork_comment
+                    (artwork_id, user_id, text)
+                VALUES
+                    ($<artworkId>, $<userId>, $<text>)
+                `,
+                {
+                    artworkId,
+                    userId,
+                    text
+                }
+            );
 
-        // Retrieve all comments for artwork page
-        const commentsDataArr = await db.manyOrNone(`
-            SELECT
-                artwork_comment.comment_id, artwork_comment.user_id, artwork_comment.text, artwork_comment.created_at AS comment_created_at,
-                app_user.username AS comment_username, app_user.avatar_img_url AS comment_avatar_img
-            FROM artwork_comment
-            LEFT JOIN app_user
-                ON artwork_comment.user_id = app_user.user_id
-            WHERE artwork_comment.artwork_id = $1
-        `, [artworkId]);
-    
+            // retrieve all comments for artwork page
+            return currTask.manyOrNone(
+                `
+                SELECT
+                    artwork_comment.comment_id, artwork_comment.user_id, artwork_comment.text, artwork_comment.created_at AS comment_created_at,
+                    app_user.username AS comment_username, app_user.avatar_img_url AS comment_avatar_img
+                FROM artwork_comment
+                LEFT JOIN app_user
+                    ON artwork_comment.user_id = app_user.user_id
+                WHERE artwork_comment.artwork_id = $<artworkId>
+                `,
+                {
+                    artworkId
+                }
+            );
+        });
+
         res.status(201).json({ commentsData: commentsDataArr });
         
     } catch (err) {
