@@ -14,8 +14,8 @@ async function postUserSignup(req, res, next) {
         const emailExists = await db.oneOrNone(`
             SELECT app_user.user_id
             FROM app_user
-            WHERE app_user.email = $1
-        `, [email]);
+            WHERE app_user.email = $<email>
+        `, { email });
 
         if (emailExists) {
             return res.status(400).json({ error: "Email already exists." });
@@ -30,8 +30,8 @@ async function postUserSignup(req, res, next) {
             INSERT INTO
                 app_user(username, email, password)
             VALUES
-                ($1, $2, $3)
-        `, [username, email, hashedPassword]);
+                ($<username>, $<email>, $<hashedPassword>)
+        `, { username, email, hashedPassword });
 
         res.status(201).json({ message: "New user created." });
 
@@ -51,8 +51,8 @@ async function postUserLogin(req, res, next) {
         const user = await db.oneOrNone(`
             SELECT app_user.user_id, app_user.password
             FROM app_user
-            WHERE app_user.email = $1
-        `, [email]);
+            WHERE app_user.email = $<email>
+        `, { email });
 
         if (!user) {
             return res.status(400).json({ error: "Email is not found." });
