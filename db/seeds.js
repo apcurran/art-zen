@@ -2,11 +2,11 @@
 
 require("dotenv").config({ path: "../.env" });
 
-const SQL = require("sql-template-strings");
 const faker = require("faker");
 const bcrypt = require("bcrypt");
 
-const db = require("../db/index");
+// TODO: re-write to use pg-promise syntax
+const { db } = require("../db/index");
 const { cloudinary } = require("../utils/cloudinary");
 
 async function getCloudinaryImgsArr() {
@@ -49,7 +49,7 @@ getCloudinaryImgsArr()
             const hashedPassword = await bcrypt.hash(password, saltRounds);
             
             // Save in db
-            const savedUser = await db.query(SQL`
+            const savedUser = await db.one(`
                 INSERT INTO app_user
                     (username, email, password, bio_description, avatar_img_url)
                 VALUES
@@ -69,7 +69,7 @@ getCloudinaryImgsArr()
             const imgHeight = imgObj.height;
             const imgAltTxt = "User artwork";
             
-            await db.query(SQL`
+            await db.none(`
                 INSERT INTO artwork
                     (user_id, title, description, genre, img_url, img_width, img_height, img_alt_txt)
                 VALUES
