@@ -1,7 +1,6 @@
 "use strict";
 
 const { db } = require("../../db/index");
-const pgp = db.$config.pgp;
 
 const { streamUploadToCloudinary } = require("../../utils/stream-upload-to-cloudinary");
 const { userArtworkValidation, userArtworkCommentValidation } = require("../validation/artworks-validation");
@@ -109,8 +108,8 @@ async function getSearch(req, res, next) {
             FROM artwork
             LEFT JOIN app_user
                 ON artwork.user_id = app_user.user_id
-            WHERE title ILIKE TRIM($<revisedWildcardQuery>)
-               OR genre ILIKE TRIM($<revisedWildcardQuery>)
+            WHERE title ILIKE TRIM($<revisedWildcardQuery>) OR
+                  genre ILIKE TRIM($<revisedWildcardQuery>)
             ORDER BY artwork.created_at DESC
         `, { revisedWildcardQuery });
 
