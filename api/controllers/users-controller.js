@@ -12,8 +12,8 @@ async function getUserInfo(req, res, next) {
         const userInfo = await db.one(`
             SELECT app_user.username, app_user.bio_description, app_user.avatar_img_url
             FROM app_user
-            WHERE app_user.user_id = $1
-        `, [userId]);
+            WHERE app_user.user_id = $<userId>
+        `, { userId });
 
         res.status(200).json(userInfo);
 
@@ -34,8 +34,8 @@ async function getSubscriptions(req, res, next) {
             FROM artwork
             INNER JOIN follower ON artwork.user_id = follower.account_user_id
             INNER JOIN app_user ON follower.account_user_id = app_user.user_id
-            WHERE follower.follower_user_id = $1
-        `, [userId]);
+            WHERE follower.follower_user_id = $<userId>
+        `, { userId });
 
         res.status(200).json({ subscriptionsArtworks });
 
@@ -54,9 +54,9 @@ async function postUserFollower(req, res, next) {
             INSERT INTO follower
                 (follower_user_id, account_user_id)
             VALUES
-                ($1, $2)
+                ($<followerId>, $<userId>)
             RETURNING follower.follower_user_id
-        `, [followerId, userId]);
+        `, { followerId, userId });
     
         res.status(201).json({ addedFollower });
         
@@ -76,10 +76,10 @@ async function patchUser(req, res, next) {
         await db.none(`
             UPDATE app_user
             SET
-                bio_description = COALESCE($1, bio_description),
-                avatar_img_url = COALESCE($2, avatar_img_url)
-            WHERE app_user.user_id = $3
-        `, [bioDesc, avatarImgUrl, userId]);
+                bio_description = COALESCE($<bioDesc>, bio_description),
+                avatar_img_url = COALESCE($<avatarImgUrl>, avatar_img_url)
+            WHERE app_user.user_id = $<userId>
+        `, { bioDesc, avatarImgUrl, userId });
 
         res.status(200).json({ message: "User info updated." });
 
@@ -100,8 +100,8 @@ async function deleteUserFollower(req, res, next) {
     try {
         await db.none(`
             DELETE FROM follower
-            WHERE (follower.follower_user_id = $1) AND (follower.account_user_id = $2)
-        `, [followerId, userId]);
+            WHERE (follower.follower_user_id = $<followerId>) AND (follower.account_user_id = $<userId>)
+        `, { followerId, userId });
 
         res.status(200).json({ message: `Follower with user id, ${followerId} deleted from account with user id, ${userId}.` });
 
@@ -116,8 +116,8 @@ async function deleteUser(req, res, next) {
     try {
         await db.none(`
             DELETE FROM app_user
-            WHERE app_user.user_id = $1
-        `, [userId]);
+            WHERE app_user.user_id = $<userId>
+        `, { userId });
 
         res.status(200).json({ message: `User with id, ${userId} deleted.` });
 
