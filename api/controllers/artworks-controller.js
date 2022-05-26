@@ -90,7 +90,7 @@ async function getUserArtworks(req, res, next) {
 
         const [resolvedUserData, resolvedFollowerData, resolvedArtworkData] = await db.multi(queriesText, { userId });
 
-        res.status(200).json({ userData: resolvedUserData, followerData: resolvedFollowerData, artworkData: resolvedArtworkData });
+        res.status(200).json({ userData: resolvedUserData[0], followerData: resolvedFollowerData, artworkData: resolvedArtworkData });
 
     } catch (err) {
         next(err);

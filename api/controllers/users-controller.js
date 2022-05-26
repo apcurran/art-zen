@@ -14,7 +14,7 @@ async function getUserInfo(req, res, next) {
             FROM app_user
             WHERE app_user.user_id = $<userId>
         `, { userId });
-
+        
         res.status(200).json(userInfo);
 
     } catch (err) {
