@@ -111,7 +111,7 @@ describe("specific artwork page user actions", () => {
                         "comment_id": commentId,
                         "user_id": userId,
                         "text": "Test here",
-                        "comment_created_at": "2022-03-08T17:26:33.118Z",
+                        "comment_created_at": "2022-05-26T17:26:33.118Z",
                         "comment_username": "John",
                         "comment_avatar_img": "https://res.cloudinary.com/dev-project/image/upload/v1644616038/art-zen-app/user-avatars/alugkzxsgetx1hcjxfmi.png"
                     }
@@ -138,7 +138,7 @@ describe("specific artwork page user actions", () => {
             .should("exist");
 
         cy.get(".comment-segment")
-            .contains("time", "Mar 8th, 2022")
+            .contains("May 26, 2022")
             .should("exist");
 
         cy.get(".comment-segment")

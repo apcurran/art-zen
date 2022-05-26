@@ -21,7 +21,7 @@ describe("specific artwork page", () => {
         cy.get(".artwork-view__info__desc")
             .should("not.be.empty");
 
-        cy.contains("time", "Mar 9th, 2022")
+        cy.contains("time", "May 26, 2022")
             .should("exist");
     });
 });
