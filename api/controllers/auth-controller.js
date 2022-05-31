@@ -11,29 +11,32 @@ async function postUserSignup(req, res, next) {
     try {
         const { username, email, password } = await signupValidation(req.body);
         // Data is valid, now reject creating an existing user.
-        const emailExists = await db.oneOrNone(`
-            SELECT app_user.user_id
-            FROM app_user
-            WHERE app_user.email = $<email>
-        `, { email });
+        // run task for re-use of db connection
+        await db.task( async (currTask) => {
+            const emailExists = await currTask.oneOrNone(`
+                SELECT app_user.user_id
+                FROM app_user
+                WHERE app_user.email = $<email>
+            `, { email });
 
-        if (emailExists) {
-            return res.status(400).json({ error: "Email already exists." });
-        }
-
-        // Hash pw
-        const saltRounds = 12;
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-        // Add new user to db
-        await db.none(`
-            INSERT INTO
-                app_user(username, email, password)
-            VALUES
-                ($<username>, $<email>, $<hashedPassword>)
-        `, { username, email, hashedPassword });
-
-        res.status(201).json({ message: "New user created." });
+            if (emailExists) {
+                return res.status(400).json({ error: "Email already exists." });
+            }
+    
+            // Hash pw
+            const saltRounds = 12;
+            const hashedPassword = await bcrypt.hash(password, saltRounds);
+    
+            // Add new user to db
+            await currTask.none(`
+                INSERT INTO
+                    app_user(username, email, password)
+                VALUES
+                    ($<username>, $<email>, $<hashedPassword>)
+            `, { username, email, hashedPassword });
+    
+            res.status(201).json({ message: "New user created." });
+        } );
 
     } catch (err) {
         if (err.isJoi) {
