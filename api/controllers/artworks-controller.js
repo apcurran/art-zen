@@ -4,7 +4,6 @@ const { db } = require("../../db/index");
 
 const { streamUploadToCloudinary } = require("../../utils/stream-upload-to-cloudinary");
 const { userArtworkValidation, userArtworkCommentValidation } = require("../validation/artworks-validation");
-const { combineDataToObj } = require("../../utils/combine-data-to-obj");
 
 // GET controllers
 // Various artists sorted by most recent
@@ -59,7 +58,12 @@ async function getUserArtwork(req, res, next) {
         `;
 
         const [artworkAndUserDataArr, commentsData, likesData, favoritesData] = await db.multi(queriesText, { artworkId });
-        const formattedFinalObj = combineDataToObj(artworkAndUserDataArr[0], commentsData, likesData, favoritesData);
+        const formattedFinalObj = {
+            ...artworkAndUserDataArr[0],
+            comments: commentsData,
+            likes: likesData,
+            favorites: favoritesData
+        };
         
         res.status(200).json(formattedFinalObj);
 
