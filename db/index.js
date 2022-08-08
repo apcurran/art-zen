@@ -13,9 +13,9 @@ const devConfig = {
 };
 const prodConfig = {
     connectionString: process.env.DATABASE_URL,
-    // ssl: {
-    //     rejectUnauthorized: false
-    // }
+    ssl: {
+        rejectUnauthorized: false
+    }
 };
 const connection = process.env.NODE_ENV === "development" ? devConfig : prodConfig;
 const db = pgp(connection);
