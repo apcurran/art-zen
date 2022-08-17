@@ -27,30 +27,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "client", "build")));
 
-// Rate-limiting for routers
+// Rate-limiting setup
 const authLimiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
-    max: 2,
-    message: JSON.stringify({ error: "Too many requests, please try again later." }),
-    legacyHeaders: false
-});
-const usersLimiter = rateLimit({
-    windowMs: 1 * 60 * 1000, // 1 minute
     max: 7,
-    message: JSON.stringify({ error: "Too many requests, please try again later." }),
-    legacyHeaders: false
-});
-const artworksLimiter = rateLimit({
-    windowMs: 1 * 60 * 1000, // 1 minute
-    max: 3,
-    message: JSON.stringify({ error: "Too many requests, please try again later." }),
+    message: JSON.stringify({ error: "Too many requests, please try again in a minute." }),
     legacyHeaders: false
 });
 
 // API routers
 app.use("/api/auth", authLimiter, authRouter);
-app.use("/api/users", usersLimiter, usersRouter);
-app.use("/api/artworks", artworksLimiter, artworksRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/artworks", artworksRouter);
 
 // General server error handling
 app.use((err, req, res, next) => {
