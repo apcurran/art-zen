@@ -41,6 +41,7 @@ app.use("/api/users", usersRouter);
 app.use("/api/artworks", artworksRouter);
 
 // General server error handling
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
     console.error(err);
 
