@@ -1,27 +1,27 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 :root {
-  --wrapper-max-width: 95rem;
-  --wrapper-width: 92.5%;
-  --max-width-med: 80rem;
+    --wrapper-max-width: 95rem;
+    --wrapper-width: 92.5%;
+    --max-width-med: 80rem;
 
-  --page-title-fz: 1.75rem;
-  --heading-lg-fz: 1.625rem;
-  --heading-med-fz: 1.375rem;
-  --heading-sm-fz: 1.125rem;
-  --normal-fz: 1rem;
-  --small-fz: .9375rem;
+    --page-title-fz: 1.75rem;
+    --heading-lg-fz: 1.625rem;
+    --heading-med-fz: 1.375rem;
+    --heading-sm-fz: 1.125rem;
+    --normal-fz: 1rem;
+    --small-fz: .9375rem;
 
-  --main-bg-clr: #111827;
-  --dark-grey: #1f2937;
-  --supporting-txt-clr: #9ca3af;
-  --ultra-light-grey:  #f9fafb;
-  --brand-orange: #fdba74;
-  --accent-lime: #bef264;
+    --main-bg-clr: #111827;
+    --dark-grey: #1f2937;
+    --supporting-txt-clr: #9ca3af;
+    --ultra-light-grey: #f9fafb;
+    --brand-orange: #fdba74;
+    --accent-lime: #bef264;
 }
 
 body,
@@ -29,104 +29,105 @@ select,
 input,
 textarea,
 button {
-  font-family: 'Karla', sans-serif;
-  font-size: 1rem;
+    font-family: 'Karla', sans-serif;
+    font-size: 1rem;
 }
 
 body {
-  background-color: var(--main-bg-clr);
-  color: #fff;
+    background-color: var(--main-bg-clr);
+    color: #fff;
 }
 
 p {
-  line-height: 1.6;
+    line-height: 1.6;
 }
 
 .App {
-  min-height: 100vh;
-  display: grid;
-  grid-auto-rows: auto 1fr auto;
+    min-height: 100vh;
+    display: grid;
+    grid-auto-rows: auto 1fr auto;
 }
 
 /* Base msg and err styling */
 .msg,
 .error {
-  margin-bottom: 1rem;
-  padding: .5rem;
-  font-weight: 700;
+    margin-bottom: 1rem;
+    padding: .5rem;
+    font-weight: 700;
 }
 
 /* Msg styling */
 .msg {
-  background-color: #0c4a6e;
-  color: #bae6fd;
+    background-color: #0c4a6e;
+    color: #bae6fd;
 }
 
 /* Err styling */
 .error {
-  background-color: #fecaca;
-  color: #b91c1c;
+    background-color: #fecaca;
+    color: #b91c1c;
 }
 
 /* Base cta btn styling */
-.cta-btn {
-  padding: .625rem 1.25rem;
-  border: none;
-  border-radius: 4px;
-  background-color: var(--brand-orange);
-  color: var(--main-bg-clr);
-  font-weight: 700;
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: .08rem;
-  cursor: pointer;
+.cta-btn,
+input::file-selector-button {
+    padding: .625rem 1.25rem;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--brand-orange);
+    color: var(--main-bg-clr);
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: .08rem;
+    cursor: pointer;
 
-  transition: opacity 110ms ease;
+    transition: opacity 110ms ease;
 }
 
 .cta-btn:hover {
-  opacity: .75;
+    opacity: .75;
 }
 
 .title--highlight-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .title--highlight {
-  position: relative;
-  padding: 0 .75rem;
-  color: var(--main-bg-clr);
-  transform: rotate(-2deg);
+    position: relative;
+    padding: 0 .75rem;
+    color: var(--main-bg-clr);
+    transform: rotate(-2deg);
 }
 
 .title--highlight::before,
 .title--highlight::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .title--highlight::after {
-  z-index: -1;
-  background-color: var(--accent-lime);
+    z-index: -1;
+    background-color: var(--accent-lime);
 }
 
 .title--highlight::before {
-  background-color: var(--ultra-light-grey);
-  z-index: -2;
-  transform: rotate(2deg);
+    background-color: var(--ultra-light-grey);
+    z-index: -2;
+    transform: rotate(2deg);
 }
 
 /* Inputs */
 .input--short {
-  max-width: 60%;
+    max-width: 60%;
 }
 
 .input--long {
-  max-width: 100%;
+    max-width: 100%;
 }
