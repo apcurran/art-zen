@@ -3,11 +3,11 @@
 set -o errexit
 
 # install node server deps
-npm clean-install
+npm clean-install --production
 
 # navigate to client dir, and install frontend deps
 cd client
-npm clean-install
+npm clean-install --production
 npm run build
 cd ../
 
