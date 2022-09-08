@@ -2,6 +2,10 @@
 # exit on error
 set -o errexit
 
+# install node server deps
+npm install
+
+# navigate to client dir and install frontend deps
 cd client
 npm install
 npm run build
