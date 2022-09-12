@@ -12,7 +12,7 @@ const devConfig = {
     port: process.env.DB_PORT
 };
 const prodConfig = {
-    connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.DB_URL_SUPABASE,
     ssl: {
         rejectUnauthorized: false
     }
