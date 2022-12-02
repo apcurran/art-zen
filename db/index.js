@@ -14,7 +14,7 @@ const devConfig = {
 const prodConfig = {
     connectionString: process.env.DATABASE_URL,
     ssl: {
-        rejectUnauthorized: true
+        rejectUnauthorized: false
     }
 };
 const connection = process.env.NODE_ENV === "development" ? devConfig : prodConfig;
