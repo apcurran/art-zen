@@ -1,6 +1,6 @@
 # Art Zen (social media art site)
 
-[View live site](https://apcurran-art-zen.herokuapp.com/)
+[View live site](https://art-zen.currandev.com)
 
 ## Features:
 
