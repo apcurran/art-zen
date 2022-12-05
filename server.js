@@ -21,6 +21,9 @@ if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
 }
 
+// reduce fingerprinting
+app.disable("x-powered-by");
+
 // Middleware
 app.use(shrinkRay());
 app.use(express.json());
