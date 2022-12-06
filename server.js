@@ -27,7 +27,8 @@ app.disable("x-powered-by");
 
 // Middleware
 app.use(helmet({
-    contentSecurityPolicy: false
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false
 }));
 // custom helmet config to allow imgs to load
 // app.use(
