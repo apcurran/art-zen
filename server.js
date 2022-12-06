@@ -12,6 +12,7 @@ const artworksRouter = require("./api/routes/artworks-router");
 
 const shrinkRay = require("shrink-ray-current");
 const rateLimit = require("express-rate-limit");
+const helmet = require("helmet");
 
 const app = express();
 
@@ -25,6 +26,7 @@ if (process.env.NODE_ENV === "development") {
 app.disable("x-powered-by");
 
 // Middleware
+app.use(helmet());
 app.use(shrinkRay());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
