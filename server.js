@@ -25,20 +25,12 @@ if (process.env.NODE_ENV === "development") {
 // reduce fingerprinting
 app.disable("x-powered-by");
 
-// Middleware
+// middleware
+// custom helmet config to allow imgs to load
 app.use(helmet({
     contentSecurityPolicy: false,
     crossOriginEmbedderPolicy: false
 }));
-// custom helmet config to allow imgs to load
-// app.use(
-//     helmet.contentSecurityPolicy({
-//         useDefaults: true,
-//         directives: {
-//             "img-src": ["'self'", "https: data: blob:"]
-//         },
-//     })
-// );
 app.use(shrinkRay());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
