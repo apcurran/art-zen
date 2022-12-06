@@ -27,6 +27,15 @@ app.disable("x-powered-by");
 
 // Middleware
 app.use(helmet());
+// custom helmet config to allow imgs to load
+app.use(
+    helmet.contentSecurityPolicy({
+        useDefaults: true,
+        directives: {
+            "img-src": ["'self'", "https: data: blob:"]
+        },
+    })
+);
 app.use(shrinkRay());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
