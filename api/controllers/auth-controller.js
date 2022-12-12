@@ -69,7 +69,7 @@ async function postUserLogin(req, res, next) {
         }
 
         // Create and send token
-        const token = jwt.sign({ _id: user.user_id }, process.env.TOKEN_SECRET, { expiresIn: "2h" });
+        const token = jwt.sign({ _id: user.user_id }, process.env.TOKEN_SECRET, { expiresIn: "15s" });
 
         res.status(200).json({ accessToken: token, userId: user.user_id });
 
