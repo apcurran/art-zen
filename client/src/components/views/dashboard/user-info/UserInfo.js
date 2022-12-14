@@ -58,14 +58,14 @@ function UserInfo({ userId, token }) {
 
             const responseMsg = (await response.json()).message;
 
-            setLoading(false);
             // Set user message for 7 seconds
             setMessage(responseMsg);
             setTimeout(() => setMessage(""), 7000);
 
         } catch (err) {
-            setLoading(false);
             setError(err.message);
+        } finally {
+            setLoading(false);
         }
     }
 

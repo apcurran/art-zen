@@ -48,7 +48,6 @@ function AddArtwork({ token }) {
 
             const { addedArtwork } = await response.json();
 
-            setLoading(false);
             setMessage("Your new artwork was successfully uploaded!");
             setTimeout(() => setMessage(""), 7000);
 
@@ -56,8 +55,9 @@ function AddArtwork({ token }) {
             setArtworks([addedArtwork, ...artworks]);
 
         } catch (err) {
-            setLoading(false);
             setError(err.message);
+        } finally {
+            setLoading(false);
         }
     }
 
