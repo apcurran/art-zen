@@ -10,6 +10,7 @@
 .subscriptions-grid__card__title {
     margin-bottom: .5rem;
     font-size: var(--heading-med-fz);
+    text-transform: capitalize;
 }
 
 .subscriptions-grid__card__user-desc {
