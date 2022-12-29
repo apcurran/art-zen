@@ -79,6 +79,7 @@
 
 .masonry-grid__link__fig-caption__title {
     font-size: var(--heading-med-fz);
+    text-transform: capitalize;
 }
 
 .masonry-grid__link__fig-caption__username {
