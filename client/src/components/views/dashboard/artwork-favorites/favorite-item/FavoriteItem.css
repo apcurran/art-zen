@@ -9,6 +9,7 @@
 
 .dashboard__favorites__article__title {
     margin-bottom: 1rem;
+    text-transform: capitalize;
 }
 
 .dashboard__favorites__article__fig {
