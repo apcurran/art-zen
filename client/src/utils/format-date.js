@@ -1,7 +1,9 @@
+const dateFormatter = new Intl.DateTimeFormat("en", { dateStyle: "medium" });
+
 function formatDate(dateISO) {
     const revisedDate = new Date(dateISO);
 
-    return new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(revisedDate);
+    return dateFormatter.format(revisedDate);
 }
 
 export default formatDate;
