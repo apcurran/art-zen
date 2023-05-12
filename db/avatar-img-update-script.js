@@ -18,7 +18,7 @@ async function updateAvatarImages() {
         for (let i = 0; i < userData.length; i++) {
             const userId = userData[i].user_id;
             // generate avatar img
-            const avatarImgURL = `https://api.dicebear.com/6.x/bottts/svg?seed=${i}`;
+            const avatarImgURL = `https://api.dicebear.com/6.x/bottts-neutral/svg?seed=${i}`;
             // update avatar img with new one
             await db.none(`
                 UPDATE app_user
