@@ -8,17 +8,25 @@ async function updateAvatarImages() {
     try {
         console.log("Creating a new db connection");
         const dbConnection = await db.connect();
-        const images = await dbConnection.manyOrNone(`
-            SELECT avatar_img_url
+        const userData = await dbConnection.manyOrNone(`
+            SELECT
+                user_id,
+                avatar_img_url
             FROM app_user
         `);
 
-        // iterate list
-        for (let i = 0; i < images.length; i++) {
+        for (let i = 0; i < userData.length; i++) {
+            const userId = userData[i].user_id;
             // generate avatar img
-
+            const avatarImgURL = `https://api.dicebear.com/6.x/bottts/svg?seed=${i}`;
             // update avatar img with new one
+            await db.none(`
+                UPDATE app_user
+                SET avatar_img_url = $<avatarImgURL>
+                WHERE user_id = $<userId>
+            `, { avatarImgURL, userId });
         }
+        console.log("Update complete");
         console.log("Disconnecting temp db connection");
         await dbConnection.done();
 
