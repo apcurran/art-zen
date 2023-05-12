@@ -26,6 +26,7 @@ async function updateAvatarImages() {
                 WHERE user_id = $<userId>
             `, { avatarImgURL, userId });
         }
+        
         console.log("Update complete");
         console.log("Disconnecting temp db connection");
         await dbConnection.done();
