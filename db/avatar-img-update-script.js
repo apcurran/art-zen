@@ -20,7 +20,7 @@ async function updateAvatarImages() {
             // generate avatar img
             const avatarImgURL = `https://api.dicebear.com/6.x/bottts-neutral/svg?seed=${i}`;
             // update avatar img with new one
-            await db.none(`
+            await dbConnection.none(`
                 UPDATE app_user
                 SET avatar_img_url = $<avatarImgURL>
                 WHERE user_id = $<userId>
