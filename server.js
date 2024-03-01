@@ -10,7 +10,6 @@ const authRouter = require("./api/routes/auth-router");
 const usersRouter = require("./api/routes/users-router");
 const artworksRouter = require("./api/routes/artworks-router");
 
-const shrinkRay = require("shrink-ray-current");
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 
@@ -31,7 +30,6 @@ app.use(helmet({
     contentSecurityPolicy: false,
     crossOriginEmbedderPolicy: false
 }));
-app.use(shrinkRay());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "client", "build")));
