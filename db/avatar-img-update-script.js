@@ -1,7 +1,5 @@
 "use strict";
 
-require("dotenv").config({ path: "../.env" });
-
 const { db } = require("../db/index");
 
 async function updateAvatarImages() {

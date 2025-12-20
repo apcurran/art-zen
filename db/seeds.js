@@ -1,7 +1,5 @@
 "use strict";
 
-require("dotenv").config({ path: "../.env" });
-
 const faker = require("faker");
 const bcrypt = require("bcrypt");
 

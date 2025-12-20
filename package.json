@@ -4,29 +4,30 @@
   "description": "Art Zen is a social website for artists.",
   "main": "server.js",
   "engines": {
-    "node": "16.x"
+    "node": "24.x"
   },
   "scripts": {
     "test": "jest",
     "cy": "npx cypress open",
     "lint": "eslint ./",
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "node --env-file=.env server.js",
+    "dev": "node --env-file=.env --watch server.js",
+    "avatar-img-update": "node --env-file=.env ./db/avatar-img-update-script.js",
+    "db:seeds": "node --env-file=.env ./db/seeds.js",
     "heroku-postbuild": "cd client && npm clean-install --production && npm run build"
   },
   "author": "Alex Curran",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.0.1",
+    "bcrypt": "^6.0.0",
     "cloudinary": "^1.28.1",
-    "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "express-rate-limit": "^6.5.1",
     "helmet": "^6.0.1",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.4",
-    "pg-promise": "^10.11.1"
+    "pg-promise": "^12.3.0"
   },
   "devDependencies": {
     "cypress": "^9.5.1",

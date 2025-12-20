@@ -1,7 +1,5 @@
 "use strict";
 
-require("dotenv").config();
-
 const pgp = require("pg-promise")({ capSQL: true });
 
 const devConfig = {
