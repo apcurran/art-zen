@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, "client", "build")));
 // Rate-limiting setup
 const authLimiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
-    max: 7,
+    max: 50,
     message: JSON.stringify({ error: "Too many requests, please try again in a minute." }),
     legacyHeaders: false
 });
