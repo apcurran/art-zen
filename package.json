@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "jest",
-    "cy": "npx cypress open",
+    "cy:open": "npx cypress open",
+    "cy:run": "npx cypress run --config video=false,screenshotOnRunFailure=false",
     "lint": "eslint ./",
     "start": "node --env-file=.env server.js",
     "dev": "node --env-file=.env --watch server.js",
