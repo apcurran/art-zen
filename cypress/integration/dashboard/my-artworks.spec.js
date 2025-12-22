@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 
-describe("my artworks", () => {
-    const userId = 33;
+const userId = 33;
 
+describe("my artworks dashboard tab", () => {
     beforeEach(() => {
         cy.login();
 
@@ -23,34 +23,49 @@ describe("my artworks", () => {
 
         cy.get(".user-profile__info__bio")
             .should("not.be.empty");
+    });
+});
 
-        cy.get(".user-profile__artworks-grid")
-            .children()
-            .should("have.length.greaterThan", 0);
+describe("my artworks add/remove", () => {
+    beforeEach(() => {
+        cy.login();
     });
 
-    it("deletes a user's artwork", () => {
-        const artworkId = 33;
+    it("should add, then delete an artwork", () => {
+        // go to add artwork tab, fill out form, then submit to add the artwork
+        cy.visit("/dashboard/add-artwork");
 
-        cy.intercept("DELETE", `/api/artworks/${artworkId}`, {
-            statusCode: 200,
-            body: {
-                message: `Artwork with id, ${artworkId} deleted.`
-            }
-        });
+        cy.get("input[id=title]")
+            .type("Cartoon Aliens");
 
-        cy.get(".user-profile__artworks-grid__article__link")
-            .as("myTargetedArtwork")
-            .should("have.attr", "href")
-            .and("match", /artworks/);
+        cy.get("select[id=genre]")
+            .select("sci-fi");
 
-        cy.get("@myTargetedArtwork")
-            .next()
-            .should("exist")
-            .should("have.text", "Delete")
+        cy.get("textarea[id=description]")
+            .type("Here is my example description.");
+        
+        cy.get("input[type=file]")
+            .selectFile("cypress/fixtures/images/cartoon-aliens.jpg");
+
+        cy.get("input[id=artwork-img-alt-txt]")
+            .type("Black and white cartoon aliens in a spaceship.");
+
+        cy.contains("button", /upload/i)
             .click();
 
-        cy.get("@myTargetedArtwork")
-            .should("not.exist");
+        cy.contains(/successfully uploaded!/i).should("be.visible");
+
+        // navigate to profile
+        cy.visit(`/dashboard/artworks/users/${userId}`);
+
+        // delete the artwork
+        cy.get(".user-profile__artworks-grid__article")
+            .first()
+            .find("button")
+            .contains("Delete")
+            .click();
+
+        // check the artwork has been deleted
+        cy.get("Cartoon Aliens").should("not.exist");
     });
 });
