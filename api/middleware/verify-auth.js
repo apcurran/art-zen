@@ -10,19 +10,24 @@ module.exports = (req, res, next) => {
         return res.status(401).json({ error: "Access denied." });
     }
 
-    jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
-        if (err && err.name === "TokenExpiredError") {
-            // handle expired token
-            return res.status(403).json({ error: "Expired token" });
-        }
+    jwt.verify(
+        token,
+        process.env.TOKEN_SECRET,
+        { algorithms: ["HS256"] },
+        (err, user) => {
+            if (err && err.name === "TokenExpiredError") {
+                return res.status(403).json({ error: "Expired token" });
+            }
 
-        if (err) {
-            console.error(err);
-            return res.status(403).json({ error: "Invalid token" });
-        }
+            if (err) {
+                console.error(`JWT Error: ${err.message}`);
 
-        // Validation passed
-        req.user = user;
-        next();
-    });
+                return res.status(403).json({ error: "Invalid token" });
+            }
+
+            // Validation passed
+            req.user = user;
+            next();
+        },
+    );
 };
