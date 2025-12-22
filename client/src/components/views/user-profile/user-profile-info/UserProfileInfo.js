@@ -1,28 +1,67 @@
 import "./UserProfileInfo.css";
 
-function UserProfileInfo({ profileData, totalCreations, totalFollowers, canUserDeleteArtwork, handleUpdateFollowers, isFollowing }) {
+function UserProfileInfo({
+    profileData,
+    totalCreations,
+    totalFollowers,
+    canUserDeleteArtwork,
+    handleUpdateFollowers,
+    isFollowing,
+}) {
     return (
         <section className="user-profile__info">
             {profileData.avatarImg ? (
                 <figure className="user-profile__info__avatar">
-                    <img src={profileData.avatarImg} alt="User avatar" width="200" height="200" className="user-profile__info__avatar__img" decoding="async" />
+                    <img
+                        src={profileData.avatarImg}
+                        alt="User avatar"
+                        width="200"
+                        height="200"
+                        className="user-profile__info__avatar__img"
+                        decoding="async"
+                    />
                 </figure>
             ) : (
                 <figure className="user-profile__info__avatar  user-profile__info__avatar--default">
-                    <svg className="user-profile__info__avatar__icon--default" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                    <svg
+                        className="user-profile__info__avatar__icon--default"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                        />
+                    </svg>
                 </figure>
             )}
             <div className="user-profile__info-sect">
                 <div className="user-profile__info-sect__inner-container">
                     <div className="user-profile__info-sect--left">
-                        <h2 className="user-profile__info-sect__username">{profileData.username}</h2>
+                        <h2 className="user-profile__info-sect__username">
+                            {profileData.username}
+                        </h2>
                         <p className="user-profile__info-sect__totals">
-                            <span>{totalCreations}</span>  {totalCreations === 1 ? "Creation" : "Creations"} <span>{totalFollowers}</span> {totalFollowers === 1 ? "Follower" : "Followers"}
+                            <span>{totalCreations}</span>{" "}
+                            {totalCreations === 1 ? "Creation" : "Creations"}{" "}
+                            <span>{totalFollowers}</span>{" "}
+                            {totalFollowers === 1 ? "Follower" : "Followers"}
                         </p>
                     </div>
                     <div className="user-profile__info-sect--right">
                         {canUserDeleteArtwork ? null : (
-                            <button onClick={handleUpdateFollowers} className={isFollowing ? "user-profile__info__follow-btn--activated user-profile__info__follow-btn cta-btn" : "user-profile__info__follow-btn cta-btn"}>
+                            <button
+                                onClick={handleUpdateFollowers}
+                                className={
+                                    isFollowing
+                                        ? "user-profile__info__follow-btn--activated user-profile__info__follow-btn cta-btn"
+                                        : "user-profile__info__follow-btn cta-btn"
+                                }
+                            >
                                 {isFollowing ? "Following" : "Follow"}
                             </button>
                         )}

@@ -4,25 +4,10 @@ const Joi = require("joi");
 
 function userArtworkValidation(data) {
     const schema = Joi.object({
-        title: Joi
-                .string()
-                .trim()
-                .max(100)
-                .required(),
-        description: Joi
-                .string()
-                .trim()
-                .max(500)
-                .required(),
-        genre: Joi
-                .string()
-                .trim()
-                .max(20)
-                .required(),
-        altTxt:   Joi
-                .string()
-                .trim()
-                .required()
+        title: Joi.string().trim().max(100).required(),
+        description: Joi.string().trim().max(500).required(),
+        genre: Joi.string().trim().max(20).required(),
+        altTxt: Joi.string().trim().required(),
     });
 
     return schema.validateAsync(data);
@@ -30,9 +15,7 @@ function userArtworkValidation(data) {
 
 function userArtworkCommentValidation(data) {
     const schema = Joi.object({
-        text: Joi
-                .string()
-                .max(500)
+        text: Joi.string().max(500),
     });
 
     return schema.validateAsync(data);
@@ -40,5 +23,5 @@ function userArtworkCommentValidation(data) {
 
 module.exports = {
     userArtworkValidation,
-    userArtworkCommentValidation
+    userArtworkCommentValidation,
 };

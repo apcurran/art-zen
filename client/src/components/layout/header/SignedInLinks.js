@@ -13,20 +13,26 @@ function SignedInLinks() {
 
         setIsLoggedIn(false);
         setUserId(0);
-        
+
         navigate("/");
     }
 
     return (
         <ul className="nav__list">
             <li className="nav__item">
-                <NavLink to="/about" className="nav__link">About</NavLink>
+                <NavLink to="/about" className="nav__link">
+                    About
+                </NavLink>
             </li>
             <li className="nav__item">
-                <NavLink to="/dashboard/subscriptions" className="nav__link">Dashboard</NavLink>
+                <NavLink to="/dashboard/subscriptions" className="nav__link">
+                    Dashboard
+                </NavLink>
             </li>
             <li className="nav__item">
-                <button onClick={handleLogOut} className="log-out-btn">Log Out</button>
+                <button onClick={handleLogOut} className="log-out-btn">
+                    Log Out
+                </button>
             </li>
         </ul>
     );

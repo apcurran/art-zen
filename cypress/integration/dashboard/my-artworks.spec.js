@@ -10,19 +10,15 @@ describe("my artworks dashboard tab", () => {
     });
 
     it("profile information should display on the page", () => {
-        cy.get(".user-profile__info")
-            .children("figure")
-            .should("exist");
+        cy.get(".user-profile__info").children("figure").should("exist");
 
-        cy.contains("h2", "John")
-            .should("exist");
+        cy.contains("h2", "John").should("exist");
 
         cy.get(".user-profile__info-sect__totals")
             .children()
             .should("have.length", 2);
 
-        cy.get(".user-profile__info__bio")
-            .should("not.be.empty");
+        cy.get(".user-profile__info__bio").should("not.be.empty");
     });
 });
 
@@ -35,23 +31,23 @@ describe("my artworks add/remove", () => {
         // go to add artwork tab, fill out form, then submit to add the artwork
         cy.visit("/dashboard/add-artwork");
 
-        cy.get("input[id=title]")
-            .type("Cartoon Aliens");
+        cy.get("input[id=title]").type("Cartoon Aliens");
 
-        cy.get("select[id=genre]")
-            .select("sci-fi");
+        cy.get("select[id=genre]").select("sci-fi");
 
-        cy.get("textarea[id=description]")
-            .type("Here is my example description.");
-        
-        cy.get("input[type=file]")
-            .selectFile("cypress/fixtures/images/cartoon-aliens.jpg");
+        cy.get("textarea[id=description]").type(
+            "Here is my example description.",
+        );
 
-        cy.get("input[id=artwork-img-alt-txt]")
-            .type("Black and white cartoon aliens in a spaceship.");
+        cy.get("input[type=file]").selectFile(
+            "cypress/fixtures/images/cartoon-aliens.jpg",
+        );
 
-        cy.contains("button", /upload/i)
-            .click();
+        cy.get("input[id=artwork-img-alt-txt]").type(
+            "Black and white cartoon aliens in a spaceship.",
+        );
+
+        cy.contains("button", /upload/i).click();
 
         cy.contains(/successfully uploaded!/i).should("be.visible");
 

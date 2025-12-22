@@ -39,7 +39,7 @@
 
 .user-profile__info-sect--left {
     margin-right: 1.5rem;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
 }
 
 .user-profile__info-sect__totals span {
@@ -47,7 +47,7 @@
 }
 
 .user-profile__info-sect__username {
-    margin-bottom: .25rem;
+    margin-bottom: 0.25rem;
     line-height: 1;
     color: var(--brand-orange);
 }
@@ -57,7 +57,7 @@
 }
 
 .user-profile__info__follow-btn--activated {
-    opacity: .9;
+    opacity: 0.9;
     background-color: var(--supporting-txt-clr);
 }
 
@@ -73,7 +73,7 @@
     }
 
     .user-profile__info-sect--right {
-        margin-bottom: .5rem;
+        margin-bottom: 0.5rem;
     }
 
     .user-profile__info-sect {

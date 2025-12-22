@@ -7,7 +7,6 @@
 - Sign up and log in user functionality
 
 - Access to a user dashboard with a multitude of functionality, inluding:
-
     - Edit user profile information, or upload a unique avatar img
 
     - Upload artworks which include an image, title, description, and genre

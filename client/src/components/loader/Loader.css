@@ -1,7 +1,7 @@
 .loading-icon {
     width: 3.5rem;
     height: 3.5rem;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     background-color: var(--accent-lime);
     animation: spinner 1000ms ease-in-out infinite alternate;
 }
@@ -12,7 +12,7 @@
     }
 
     50% {
-        transform: rotate(180deg) scale(.75);
+        transform: rotate(180deg) scale(0.75);
     }
 
     100% {

@@ -23,12 +23,12 @@ function LogIn() {
             const response = await fetch("/api/auth/log-in", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     email,
-                    password
-                })
+                    password,
+                }),
             });
 
             // Check for errors
@@ -48,7 +48,6 @@ function LogIn() {
             setUserId(data.userId);
             // Push user to Dashboard page after successful log in
             navigate("/dashboard/subscriptions");
-            
         } catch (err) {
             setError(err.message);
         }
@@ -62,14 +61,37 @@ function LogIn() {
                 </div>
                 {error ? <p className="error">{error}</p> : null}
                 <div className="auth__form__group">
-                    <label htmlFor="email" className="auth__form__label">Email</label>
-                    <input onChange={(event) => setEmail(event.target.value)} type="email" name="email" id="email" className="auth__form__input" required/>
+                    <label htmlFor="email" className="auth__form__label">
+                        Email
+                    </label>
+                    <input
+                        onChange={(event) => setEmail(event.target.value)}
+                        type="email"
+                        name="email"
+                        id="email"
+                        className="auth__form__input"
+                        required
+                    />
                 </div>
                 <div className="auth__form__group">
-                    <label htmlFor="password" className="auth__form__label">Password</label>
-                    <input onChange={(event) => setPassword(event.target.value)} type="password" name="password" id="password" className="auth__form__input" required/>
+                    <label htmlFor="password" className="auth__form__label">
+                        Password
+                    </label>
+                    <input
+                        onChange={(event) => setPassword(event.target.value)}
+                        type="password"
+                        name="password"
+                        id="password"
+                        className="auth__form__input"
+                        required
+                    />
                 </div>
-                <button type="submit" className="auth__form__submit-btn cta-btn">Submit</button>
+                <button
+                    type="submit"
+                    className="auth__form__submit-btn cta-btn"
+                >
+                    Submit
+                </button>
             </form>
         </main>
     );

@@ -9,8 +9,8 @@ function ArtworkFavorites({ userId, token }) {
     useEffect(() => {
         fetch(`/api/artworks/users/${userId}/favorites`, {
             headers: {
-                "Authorization": `Bearer ${token}`
-            }
+                Authorization: `Bearer ${token}`,
+            },
         })
             .then((response) => response.json())
             .then((data) => setFavoritesData(data.favoritesData))
@@ -22,15 +22,16 @@ function ArtworkFavorites({ userId, token }) {
             await fetch(`/api/artworks/${artworkId}/favorites/${favoriteId}`, {
                 method: "DELETE",
                 headers: {
-                    "Authorization": `Bearer ${token}`
-                }
+                    Authorization: `Bearer ${token}`,
+                },
             });
 
             // Update local state
-            const updatedFavs = favoritesData.filter((favorite) => favorite.favorite_id !== Number(favoriteId));
+            const updatedFavs = favoritesData.filter(
+                (favorite) => favorite.favorite_id !== Number(favoriteId),
+            );
 
             setFavoritesData(updatedFavs);
-
         } catch (err) {
             console.error(err);
         }
@@ -39,7 +40,11 @@ function ArtworkFavorites({ userId, token }) {
     return (
         <section className="dashboard__favorites">
             {favoritesData.map((favorite) => (
-                <FavoriteItem favorite={favorite} deleteFavorite={deleteFavorite} key={favorite.favorite_id} />
+                <FavoriteItem
+                    favorite={favorite}
+                    deleteFavorite={deleteFavorite}
+                    key={favorite.favorite_id}
+                />
             ))}
         </section>
     );

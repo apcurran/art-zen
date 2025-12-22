@@ -14,7 +14,7 @@
     --heading-med-fz: 1.375rem;
     --heading-sm-fz: 1.125rem;
     --normal-fz: 1rem;
-    --small-fz: .9375rem;
+    --small-fz: 0.9375rem;
 
     --main-bg-clr: #111827;
     --dark-grey: #1f2937;
@@ -29,7 +29,7 @@ select,
 input,
 textarea,
 button {
-    font-family: 'Karla', sans-serif;
+    font-family: "Karla", sans-serif;
     font-size: 1rem;
 }
 
@@ -52,7 +52,7 @@ p {
 .msg,
 .error {
     margin-bottom: 1rem;
-    padding: .5rem;
+    padding: 0.5rem;
     font-weight: 700;
 }
 
@@ -71,7 +71,7 @@ p {
 /* Base cta btn styling */
 .cta-btn,
 input::file-selector-button {
-    padding: .625rem 1.25rem;
+    padding: 0.625rem 1.25rem;
     border: none;
     border-radius: 4px;
     background-color: var(--brand-orange);
@@ -79,14 +79,14 @@ input::file-selector-button {
     font-weight: 700;
     font-size: 1rem;
     text-transform: uppercase;
-    letter-spacing: .08rem;
+    letter-spacing: 0.08rem;
     cursor: pointer;
 
     transition: opacity 110ms ease;
 }
 
 .cta-btn:hover {
-    opacity: .75;
+    opacity: 0.75;
 }
 
 .title--highlight-wrapper {
@@ -97,7 +97,7 @@ input::file-selector-button {
 
 .title--highlight {
     position: relative;
-    padding: 0 .75rem;
+    padding: 0 0.75rem;
     color: var(--main-bg-clr);
     transform: rotate(-2deg);
 }

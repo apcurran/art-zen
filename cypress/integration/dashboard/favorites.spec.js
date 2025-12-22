@@ -9,14 +9,14 @@ describe("dashboard favorites", () => {
             body: {
                 favoritesData: [
                     {
-                        "artwork_id": 2,
-                        "img_url": "art-zen-app/h3chvlxylqdbd3jdu7yw",
-                        "title": "Reactive zero tolerance adapter",
-                        "img_alt_txt": "User artwork",
-                        "favorite_id": 5
-                    }
-                ]
-            }
+                        artwork_id: 2,
+                        img_url: "art-zen-app/h3chvlxylqdbd3jdu7yw",
+                        title: "Reactive zero tolerance adapter",
+                        img_alt_txt: "User artwork",
+                        favorite_id: 5,
+                    },
+                ],
+            },
         });
 
         cy.login();
@@ -25,44 +25,38 @@ describe("dashboard favorites", () => {
     });
 
     it("displays user's favorite artworks", () => {
-        cy.get(".dashboard__favorites")
-            .children()
-            .should("have.length", 1);
+        cy.get(".dashboard__favorites").children().should("have.length", 1);
 
-        cy.get(".dashboard__favorites__article__fig__img")
-            .should("exist");
+        cy.get(".dashboard__favorites__article__fig__img").should("exist");
 
         cy.get(".dashboard__favorites__article__fig__img")
             .invoke("attr", "src")
             .should("include", "/art-zen-app/h3chvlxylqdbd3jdu7yw");
 
-        cy.contains("h2", "Reactive zero tolerance adapter")
-            .should("exist");
+        cy.contains("h2", "Reactive zero tolerance adapter").should("exist");
 
-        cy.contains("button", "Delete Favorite")
-            .should("exist");
+        cy.contains("button", "Delete Favorite").should("exist");
     });
 
     it("removes an artwork favorite", () => {
         const artworkId = 2;
         const favoriteId = 5;
 
-        cy.intercept("DELETE", `/api/artworks/${artworkId}/favorites/${favoriteId}`, {
-            statusCode: 200,
-            body: {
-                message: "Deleted artwork favorite."
-            }
-        });
+        cy.intercept(
+            "DELETE",
+            `/api/artworks/${artworkId}/favorites/${favoriteId}`,
+            {
+                statusCode: 200,
+                body: {
+                    message: "Deleted artwork favorite.",
+                },
+            },
+        );
 
-        cy.contains("button", "Delete Favorite")
-            .as("favDeleteBtn")
-            .click();
+        cy.contains("button", "Delete Favorite").as("favDeleteBtn").click();
 
-        cy.get("@favDeleteBtn")
-            .should("not.exist");
+        cy.get("@favDeleteBtn").should("not.exist");
 
-        cy.get(".dashboard__favorites")
-            .children()
-            .should("have.length", 0);
+        cy.get(".dashboard__favorites").children().should("have.length", 0);
     });
 });

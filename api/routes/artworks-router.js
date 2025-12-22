@@ -10,7 +10,11 @@ const artworksController = require("../controllers/artworks-controller");
 const verifyAuth = require("../middleware/verify-auth");
 
 // GET all user favorites
-router.get("/users/:userid/favorites", verifyAuth, artworksController.getUserFavorites);
+router.get(
+    "/users/:userid/favorites",
+    verifyAuth,
+    artworksController.getUserFavorites,
+);
 // GET specific user artworks based on user id
 router.get("/users/:userId", artworksController.getUserArtworks); // tested
 // GET search results for artwork title or genre
@@ -20,19 +24,48 @@ router.get("/:artworkId", artworksController.getUserArtwork); // tested
 // GET all artworks
 router.get("/", artworksController.getArtworks); // tested
 // POST new artwork like
-router.post("/:artworkId/likes", verifyAuth, artworksController.postUserArtworkLike); // tested
+router.post(
+    "/:artworkId/likes",
+    verifyAuth,
+    artworksController.postUserArtworkLike,
+); // tested
 // POST new artwork comment
-router.post("/:artworkId/comments", verifyAuth, artworksController.postUserArtworkComment); // tested
+router.post(
+    "/:artworkId/comments",
+    verifyAuth,
+    artworksController.postUserArtworkComment,
+); // tested
 // POST new artwork favorite
-router.post("/:artworkId/favorites", verifyAuth, artworksController.postUserArtworkFavorite); // tested
+router.post(
+    "/:artworkId/favorites",
+    verifyAuth,
+    artworksController.postUserArtworkFavorite,
+); // tested
 // POST new artwork
-router.post("/", verifyAuth, fileUpload.single("artworkImg"), artworksController.postUserArtwork); // tested
+router.post(
+    "/",
+    verifyAuth,
+    fileUpload.single("artworkImg"),
+    artworksController.postUserArtwork,
+); // tested
 // DELETE artwork like
-router.delete("/:artworkId/likes/:likeId", verifyAuth, artworksController.deleteUserArtworkLike); // tested
+router.delete(
+    "/:artworkId/likes/:likeId",
+    verifyAuth,
+    artworksController.deleteUserArtworkLike,
+); // tested
 // DELETE artwork comment
-router.delete("/:artworkId/comments/:commentId", verifyAuth, artworksController.deleteUserComment);
+router.delete(
+    "/:artworkId/comments/:commentId",
+    verifyAuth,
+    artworksController.deleteUserComment,
+);
 // DELETE artwork favorite
-router.delete("/:artworkId/favorites/:favoriteId", verifyAuth, artworksController.deleteUserArtworkFavorite); // tested
+router.delete(
+    "/:artworkId/favorites/:favoriteId",
+    verifyAuth,
+    artworksController.deleteUserArtworkFavorite,
+); // tested
 // DELETE artwork
 router.delete("/:artworkId", verifyAuth, artworksController.deleteUserArtwork); // tested
 

@@ -15,8 +15,8 @@ function UserInfo({ userId, token }) {
     useEffect(() => {
         fetch(`/api/users/${userId}`, {
             headers: {
-                "Authorization": `Bearer ${token}`
-            }
+                Authorization: `Bearer ${token}`,
+            },
         })
             .then((response) => response.json())
             .then((data) => {
@@ -44,9 +44,9 @@ function UserInfo({ userId, token }) {
             const response = await fetch(`/api/users/${userId}`, {
                 method: "PATCH",
                 headers: {
-                    "Authorization": `Bearer ${token}`
+                    Authorization: `Bearer ${token}`,
                 },
-                body: formData
+                body: formData,
             });
 
             // Check for errors
@@ -61,7 +61,6 @@ function UserInfo({ userId, token }) {
             // Set user message for 7 seconds
             setMessage(responseMsg);
             setTimeout(() => setMessage(""), 7000);
-
         } catch (err) {
             setError(err.message);
         } finally {
@@ -75,20 +74,57 @@ function UserInfo({ userId, token }) {
 
     return (
         <section>
-            <h2 className="dashboard-user-info-title">Welcome back, {username}!</h2>
-            <form onSubmit={handleSubmit} encType="multipart/form-data" className="dashboard-user-info dashboard-form">
+            <h2 className="dashboard-user-info-title">
+                Welcome back, {username}!
+            </h2>
+            <form
+                onSubmit={handleSubmit}
+                encType="multipart/form-data"
+                className="dashboard-user-info dashboard-form"
+            >
                 <div className="dashboard-user-info__form-group dashboard-form__group">
-                    <label className="dashboard-user-info__label dashboard-form__label" htmlFor="bioDesc">Bio Description</label>
-                    <textarea className="dashboard-user-info__textarea dashboard-form__textarea" value={bioDesc} onChange={(event) => setBioDesc(event.target.value)} id="bioDesc" name="bioDesc" cols="30" rows="10"></textarea>
+                    <label
+                        className="dashboard-user-info__label dashboard-form__label"
+                        htmlFor="bioDesc"
+                    >
+                        Bio Description
+                    </label>
+                    <textarea
+                        className="dashboard-user-info__textarea dashboard-form__textarea"
+                        value={bioDesc}
+                        onChange={(event) => setBioDesc(event.target.value)}
+                        id="bioDesc"
+                        name="bioDesc"
+                        cols="30"
+                        rows="10"
+                    ></textarea>
                 </div>
                 <div className="dashboard-user-info__form-group dashboard-form__group">
-                    <label className="dashboard-user-info__label dashboard-form__label" htmlFor="avatarImg">Upload Avatar Image</label>
-                    <input className="dashboard-user-info__input dashboard-user-info__input--file" onChange={handleFileChange} type="file" name="avatarImg" id="avatarImg"/>
+                    <label
+                        className="dashboard-user-info__label dashboard-form__label"
+                        htmlFor="avatarImg"
+                    >
+                        Upload Avatar Image
+                    </label>
+                    <input
+                        className="dashboard-user-info__input dashboard-user-info__input--file"
+                        onChange={handleFileChange}
+                        type="file"
+                        name="avatarImg"
+                        id="avatarImg"
+                    />
                 </div>
-                <button type="submit" className="dashboard-user-info__submit-btn cta-btn">Update</button>
+                <button
+                    type="submit"
+                    className="dashboard-user-info__submit-btn cta-btn"
+                >
+                    Update
+                </button>
                 {loading ? <Loader /> : null}
                 {message ? (
-                    <p className="dashboard-user-info__response-msg msg">{message}</p>
+                    <p className="dashboard-user-info__response-msg msg">
+                        {message}
+                    </p>
                 ) : null}
                 {error ? <p className="error">{error}</p> : null}
             </form>

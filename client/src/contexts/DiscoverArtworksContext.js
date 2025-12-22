@@ -13,7 +13,7 @@ function DiscoverArtworksContextProvider(props) {
     }, []);
 
     return (
-        <DiscoverArtworksContext.Provider value={{artworks, setArtworks}}>
+        <DiscoverArtworksContext.Provider value={{ artworks, setArtworks }}>
             {props.children}
         </DiscoverArtworksContext.Provider>
     );

@@ -9,11 +9,12 @@ function SearchBar() {
     useEffect(() => {
         async function handleSearchFetch() {
             try {
-                const response = await fetch(`/api/artworks/search?q=${searchText}`);
+                const response = await fetch(
+                    `/api/artworks/search?q=${searchText}`,
+                );
                 const searchResultsData = await response.json();
-        
+
                 setArtworks(searchResultsData);
-        
             } catch (err) {
                 console.error(err);
             }
@@ -32,8 +33,18 @@ function SearchBar() {
     }
 
     return (
-        <form onSubmit={(event) => event.preventDefault()} className="search-form">
-            <input value={searchText} onChange={handleInputChange} type="text" className="search-form__input" aria-label="Search for artworks" placeholder="Search for artworks by title or genre"/>
+        <form
+            onSubmit={(event) => event.preventDefault()}
+            className="search-form"
+        >
+            <input
+                value={searchText}
+                onChange={handleInputChange}
+                type="text"
+                className="search-form__input"
+                aria-label="Search for artworks"
+                placeholder="Search for artworks by title or genre"
+            />
         </form>
     );
 }

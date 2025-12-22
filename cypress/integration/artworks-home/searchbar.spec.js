@@ -10,17 +10,12 @@ describe("searchbar", () => {
             .should("exist")
             .type("Exclusive maximized firmware");
 
-        cy.get("main")
-            .children()
-            .should("have.length", 1);
+        cy.get("main").children().should("have.length", 1);
     });
 
     it("displays all artworks when the search input is cleared", () => {
-        cy.get(".search-form__input")
-            .clear();
+        cy.get(".search-form__input").clear();
 
-        cy.get("main")
-            .children()
-            .should("have.length.at.least", 30);
+        cy.get("main").children().should("have.length.at.least", 30);
     });
 });

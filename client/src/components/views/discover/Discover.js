@@ -10,7 +10,9 @@ function Discover() {
     return (
         <div className="discover">
             <div className="title--highlight-wrapper">
-                <h1 className="discover__title title--highlight">Discover New Artists</h1>
+                <h1 className="discover__title title--highlight">
+                    Discover New Artists
+                </h1>
             </div>
             <main className="masonry-grid">
                 {artworks.map((artwork) => (

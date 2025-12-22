@@ -1,22 +1,26 @@
 "use strict";
 
 const { db } = require("../../db/index");
-const { streamUploadToCloudinary } = require("../../utils/stream-upload-to-cloudinary");
+const {
+    streamUploadToCloudinary,
+} = require("../../utils/stream-upload-to-cloudinary");
 const { userPatchValidation } = require("../validation/users-validation");
 
 // GET controller
 async function getUserInfo(req, res, next) {
     const { userId } = req.params;
-    
+
     try {
-        const userInfo = await db.one(`
+        const userInfo = await db.one(
+            `
             SELECT app_user.username, app_user.bio_description, app_user.avatar_img_url
             FROM app_user
             WHERE app_user.user_id = $<userId>
-        `, { userId });
-        
-        res.status(200).json(userInfo);
+        `,
+            { userId },
+        );
 
+        res.status(200).json(userInfo);
     } catch (err) {
         next(err);
     }
@@ -27,7 +31,8 @@ async function getSubscriptions(req, res, next) {
     const { userId } = req.params;
 
     try {
-        const subscriptionsArtworks = await db.manyOrNone(`
+        const subscriptionsArtworks = await db.manyOrNone(
+            `
             SELECT
                 artwork.artwork_id, artwork.user_id, artwork.title, artwork.img_url, artwork.genre, artwork.created_at, artwork.img_alt_txt,
                 app_user.username
@@ -35,10 +40,11 @@ async function getSubscriptions(req, res, next) {
             INNER JOIN follower ON artwork.user_id = follower.account_user_id
             INNER JOIN app_user ON follower.account_user_id = app_user.user_id
             WHERE follower.follower_user_id = $<userId>
-        `, { userId });
+        `,
+            { userId },
+        );
 
         res.status(200).json({ subscriptionsArtworks });
-
     } catch (err) {
         next(err);
     }
@@ -50,16 +56,18 @@ async function postUserFollower(req, res, next) {
     const followerId = req.user._id;
 
     try {
-        const addedFollower = await db.one(`
+        const addedFollower = await db.one(
+            `
             INSERT INTO follower
                 (follower_user_id, account_user_id)
             VALUES
                 ($<followerId>, $<userId>)
             RETURNING follower.follower_user_id
-        `, { followerId, userId });
-    
+        `,
+            { followerId, userId },
+        );
+
         res.status(201).json({ addedFollower });
-        
     } catch (err) {
         next(err);
     }
@@ -70,19 +78,24 @@ async function patchUser(req, res, next) {
     try {
         const { bioDesc } = await userPatchValidation(req.body);
         // If user did not send a new img to replace avatar img with, keep the old one.
-        const avatarImgUrl = req.file ? (await streamUploadToCloudinary(req, "art-zen-app/user-avatars")).secure_url : null;
+        const avatarImgUrl = req.file
+            ? (await streamUploadToCloudinary(req, "art-zen-app/user-avatars"))
+                  .secure_url
+            : null;
         const userId = req.user._id;
 
-        await db.none(`
+        await db.none(
+            `
             UPDATE app_user
             SET
                 bio_description = COALESCE($<bioDesc>, bio_description),
                 avatar_img_url = COALESCE($<avatarImgUrl>, avatar_img_url)
             WHERE app_user.user_id = $<userId>
-        `, { bioDesc, avatarImgUrl, userId });
+        `,
+            { bioDesc, avatarImgUrl, userId },
+        );
 
         res.status(200).json({ message: "User info updated." });
-
     } catch (err) {
         if (err.isJoi) {
             return res.status(400).json({ error: err.message });
@@ -98,13 +111,17 @@ async function deleteUserFollower(req, res, next) {
     const followerId = req.user._id;
 
     try {
-        await db.none(`
+        await db.none(
+            `
             DELETE FROM follower
             WHERE (follower.follower_user_id = $<followerId>) AND (follower.account_user_id = $<userId>)
-        `, { followerId, userId });
+        `,
+            { followerId, userId },
+        );
 
-        res.status(200).json({ message: `Follower with user id, ${followerId} deleted from account with user id, ${userId}.` });
-
+        res.status(200).json({
+            message: `Follower with user id, ${followerId} deleted from account with user id, ${userId}.`,
+        });
     } catch (err) {
         next(err);
     }
@@ -114,13 +131,15 @@ async function deleteUser(req, res, next) {
     const userId = req.user._id;
 
     try {
-        await db.none(`
+        await db.none(
+            `
             DELETE FROM app_user
             WHERE app_user.user_id = $<userId>
-        `, { userId });
+        `,
+            { userId },
+        );
 
         res.status(200).json({ message: `User with id, ${userId} deleted.` });
-
     } catch (err) {
         next(err);
     }
@@ -132,5 +151,5 @@ module.exports = {
     postUserFollower,
     patchUser,
     deleteUserFollower,
-    deleteUser
+    deleteUser,
 };

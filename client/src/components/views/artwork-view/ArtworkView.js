@@ -24,7 +24,7 @@ function ArtworkView() {
         imgUrl: "",
         imgWidth: "1280",
         imgHeight: "600",
-        imgAltTxt: ""
+        imgAltTxt: "",
     });
     const [likes, setLikes] = useState([]);
     const [currUserHasLiked, setCurrUserHasLiked] = useState(false);
@@ -51,7 +51,7 @@ function ArtworkView() {
                     imgUrl: data.img_url,
                     imgWidth: data.img_width,
                     imgHeight: data.img_height,
-                    imgAltTxt: data.img_alt_txt
+                    imgAltTxt: data.img_alt_txt,
                 });
                 setLikes(data.likes);
                 setFavorites(data.favorites);
@@ -66,7 +66,7 @@ function ArtworkView() {
 
         setCurrUserHasLiked(hasUserLiked);
     }, [userId, likes]);
-    
+
     useEffect(() => {
         // Check if curr user has favorited artwork
         const hasUserFavorited = checkUserIdInArr(userId, favorites);
@@ -88,7 +88,7 @@ function ArtworkView() {
             addLike(id, token);
         } else {
             const likeId = getLikeId(currUserId, likes);
-            
+
             removeLike(id, likeId, token);
         }
     }
@@ -99,14 +99,13 @@ function ArtworkView() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${authToken}`
-                }
+                    Authorization: `Bearer ${authToken}`,
+                },
             });
 
             const { likesData } = await response.json();
             // Update state
             setLikes([...likes, likesData]);
-            
         } catch (err) {
             console.error(err);
         }
@@ -114,22 +113,26 @@ function ArtworkView() {
 
     async function removeLike(artworkId, likeId, authToken) {
         try {
-            const response = await fetch(`/api/artworks/${artworkId}/likes/${likeId}`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${authToken}`
-                }
-            });
+            const response = await fetch(
+                `/api/artworks/${artworkId}/likes/${likeId}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${authToken}`,
+                    },
+                },
+            );
 
             // Delete from db
             await response.json();
 
             // Update local state
-            const updatedLikes = likes.filter((likeObj) => likeObj.like_id !== likeId);
-            
-            setLikes(updatedLikes);
+            const updatedLikes = likes.filter(
+                (likeObj) => likeObj.like_id !== likeId,
+            );
 
+            setLikes(updatedLikes);
         } catch (err) {
             console.error(err);
         }
@@ -162,24 +165,26 @@ function ArtworkView() {
             addFavorite(id, token);
         } else {
             const favoriteId = getFavId(currUserId, favorites);
-            
+
             removeFavorite(id, favoriteId, token);
         }
     }
 
     async function addFavorite(artworkId, authToken) {
         try {
-            const response = await fetch(`/api/artworks/${artworkId}/favorites`, {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${authToken}`
-                }
-            });
+            const response = await fetch(
+                `/api/artworks/${artworkId}/favorites`,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${authToken}`,
+                    },
+                },
+            );
 
             const { favoriteData } = await response.json();
             // Update state
             setFavorites([...favorites, favoriteData]);
-            
         } catch (err) {
             console.error(err);
         }
@@ -187,21 +192,25 @@ function ArtworkView() {
 
     async function removeFavorite(artworkId, favoriteId, authToken) {
         try {
-            const response = await fetch(`/api/artworks/${artworkId}/favorites/${favoriteId}`, {
-                method: "DELETE",
-                headers: {
-                    "Authorization": `Bearer ${authToken}`
-                }
-            });
+            const response = await fetch(
+                `/api/artworks/${artworkId}/favorites/${favoriteId}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: `Bearer ${authToken}`,
+                    },
+                },
+            );
 
             // Delete from db
             await response.json();
 
             // Update local state
-            const updatedfavorites = favorites.filter((favoriteObj) => favoriteObj.favorite_id !== favoriteId);
-            
-            setFavorites(updatedfavorites);
+            const updatedfavorites = favorites.filter(
+                (favoriteObj) => favoriteObj.favorite_id !== favoriteId,
+            );
 
+            setFavorites(updatedfavorites);
         } catch (err) {
             console.error(err);
         }
@@ -215,16 +224,19 @@ function ArtworkView() {
         const token = localStorage.getItem("authToken");
 
         try {
-            const response = await fetch(`/api/artworks/${artworkId}/comments`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
+            const response = await fetch(
+                `/api/artworks/${artworkId}/comments`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        text: commentText,
+                    }),
                 },
-                body: JSON.stringify({
-                    text: commentText
-                })
-            });
+            );
 
             // Entire comments data array back
             const { commentsData } = await response.json();
@@ -233,7 +245,6 @@ function ArtworkView() {
             setComments(commentsData);
             // Clear form input
             setCommentText("");
-            
         } catch (err) {
             console.error(err);
         }
@@ -248,19 +259,19 @@ function ArtworkView() {
             await fetch(`/api/artworks/${artworkId}/comments/${commentId}`, {
                 method: "DELETE",
                 headers: {
-                    "Authorization": `Bearer ${token}`
-                }
+                    Authorization: `Bearer ${token}`,
+                },
             });
 
             // Delete from local state
-            const updatedComments = comments.filter((comment) => comment.comment_id !== commentId);
+            const updatedComments = comments.filter(
+                (comment) => comment.comment_id !== commentId,
+            );
 
             setComments(updatedComments);
-
         } catch (err) {
             console.error(err);
         }
-
     }
 
     return (

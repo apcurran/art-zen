@@ -1,11 +1,7 @@
 import "./ArtworkFavs.css";
 
 function ArtworkFavs() {
-    return (
-        <div>
-            
-        </div>
-    );
+    return <div></div>;
 }
 
 export default ArtworkFavs;

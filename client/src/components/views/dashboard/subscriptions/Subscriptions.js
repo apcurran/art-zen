@@ -5,12 +5,12 @@ import SubscriptionCard from "../subscription-card/SubscriptionCard";
 
 function Subscriptions({ userId, token }) {
     const [subscripArtworks, setSubscripArtworks] = useState([]);
-    
+
     useEffect(() => {
         fetch(`/api/users/${userId}/subscriptions`, {
             headers: {
-                "Authorization": `Bearer ${token}`
-            }
+                Authorization: `Bearer ${token}`,
+            },
         })
             .then((response) => response.json())
             .then((data) => setSubscripArtworks(data.subscriptionsArtworks))
@@ -21,7 +21,10 @@ function Subscriptions({ userId, token }) {
         <div>
             <section className="subscriptions-grid">
                 {subscripArtworks.map((artwork) => (
-                    <SubscriptionCard artwork={artwork} key={artwork.artwork_id} />
+                    <SubscriptionCard
+                        artwork={artwork}
+                        key={artwork.artwork_id}
+                    />
                 ))}
             </section>
         </div>

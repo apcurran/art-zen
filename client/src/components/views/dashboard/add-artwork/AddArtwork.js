@@ -34,9 +34,9 @@ function AddArtwork({ token }) {
             const response = await fetch("/api/artworks", {
                 method: "POST",
                 headers: {
-                    "Authorization": `Bearer ${token}`
+                    Authorization: `Bearer ${token}`,
                 },
-                body: formData
+                body: formData,
             });
 
             // Check for errors
@@ -53,7 +53,6 @@ function AddArtwork({ token }) {
 
             // Set Global Context State
             setArtworks([addedArtwork, ...artworks]);
-
         } catch (err) {
             setError(err.message);
         } finally {
@@ -64,14 +63,40 @@ function AddArtwork({ token }) {
     return (
         <div>
             <h2 className="add-artwork-title">Add New Artwork</h2>
-            <form onSubmit={handleSubmit} encType="multipart/form-data" className="add-artwork-form dashboard-form">
+            <form
+                onSubmit={handleSubmit}
+                encType="multipart/form-data"
+                className="add-artwork-form dashboard-form"
+            >
                 <div className="add-artwork-form__form-group dashboard-form__group">
-                    <label htmlFor="title" className="add-artwork-form__label dashboard-form__label">Artwork Title</label>
-                    <input onChange={(event) => setTitle(event.target.value)} value={title} type="text" id="title" className="add-artwork-form__input dashboard-form__input input--short" required />
+                    <label
+                        htmlFor="title"
+                        className="add-artwork-form__label dashboard-form__label"
+                    >
+                        Artwork Title
+                    </label>
+                    <input
+                        onChange={(event) => setTitle(event.target.value)}
+                        value={title}
+                        type="text"
+                        id="title"
+                        className="add-artwork-form__input dashboard-form__input input--short"
+                        required
+                    />
                 </div>
                 <div className="add-artwork-form__form-group dashboard-form__group">
-                    <label htmlFor="genre" className="add-artwork-form__label dashboard-form__label">Artwork Genre</label>
-                    <select onChange={(event) => setGenre(event.target.value)} value={genre} id="genre" className="add-artwork-form__input dashboard-form__input input--short">
+                    <label
+                        htmlFor="genre"
+                        className="add-artwork-form__label dashboard-form__label"
+                    >
+                        Artwork Genre
+                    </label>
+                    <select
+                        onChange={(event) => setGenre(event.target.value)}
+                        value={genre}
+                        id="genre"
+                        className="add-artwork-form__input dashboard-form__input input--short"
+                    >
                         <option value="fantasy">Fantasy</option>
                         <option value="landscape">Landscape</option>
                         <option value="realism">Realism</option>
@@ -83,18 +108,63 @@ function AddArtwork({ token }) {
                     </select>
                 </div>
                 <div className="add-artwork-form__form-group dashboard-form__group">
-                    <label htmlFor="description" className="add-artwork-form__label dashboard-form__label">Artwork Description</label>
-                    <textarea onChange={(event) => setDescription(event.target.value)} value={description} name="description" id="description" cols="30" rows="10" className="add-artwork-form__textarea dashboard-form__textarea" required></textarea>
+                    <label
+                        htmlFor="description"
+                        className="add-artwork-form__label dashboard-form__label"
+                    >
+                        Artwork Description
+                    </label>
+                    <textarea
+                        onChange={(event) => setDescription(event.target.value)}
+                        value={description}
+                        name="description"
+                        id="description"
+                        cols="30"
+                        rows="10"
+                        className="add-artwork-form__textarea dashboard-form__textarea"
+                        required
+                    ></textarea>
                 </div>
                 <div className="add-artwork-form__form-group dashboard-form__group">
-                    <label htmlFor="artwork-img" className="add-artwork-form__label dashboard-form__label">Upload Artwork Image</label>
-                    <input onChange={(event) => setSelectedImgFile(event.target.files[0])} type="file" name="artworkImg" id="artwork-img" className="add-artwork-form__input add-artwork-form__input--file" required />
+                    <label
+                        htmlFor="artwork-img"
+                        className="add-artwork-form__label dashboard-form__label"
+                    >
+                        Upload Artwork Image
+                    </label>
+                    <input
+                        onChange={(event) =>
+                            setSelectedImgFile(event.target.files[0])
+                        }
+                        type="file"
+                        name="artworkImg"
+                        id="artwork-img"
+                        className="add-artwork-form__input add-artwork-form__input--file"
+                        required
+                    />
                 </div>
                 <div className="add-artwork-form__form-group dashboard-form__group">
-                    <label htmlFor="artwork-img-alt-txt" className="add-artwork-form__label dashboard-form__label">Short Image Description</label>
-                    <input onChange={(event) => setAltTxt(event.target.value)} type="text" name="altTxt" id="artwork-img-alt-txt" className="add-artwork-form__input dashboard-form__input input--long" required />
+                    <label
+                        htmlFor="artwork-img-alt-txt"
+                        className="add-artwork-form__label dashboard-form__label"
+                    >
+                        Short Image Description
+                    </label>
+                    <input
+                        onChange={(event) => setAltTxt(event.target.value)}
+                        type="text"
+                        name="altTxt"
+                        id="artwork-img-alt-txt"
+                        className="add-artwork-form__input dashboard-form__input input--long"
+                        required
+                    />
                 </div>
-                <button type="submit" className="add-artwork-form__submit-btn cta-btn">Upload</button>
+                <button
+                    type="submit"
+                    className="add-artwork-form__submit-btn cta-btn"
+                >
+                    Upload
+                </button>
                 {loading ? <Loader /> : null}
                 {message ? (
                     <p className="add-artwork-form__message msg">{message}</p>

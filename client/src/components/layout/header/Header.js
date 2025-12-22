@@ -12,13 +12,23 @@ import SignedOutLinks from "./SignedOutLinks";
 function Header() {
     const { isLoggedIn } = useContext(AuthContext);
 
-    const currDisplayLinks = isLoggedIn ? <SignedInLinks /> : <SignedOutLinks />;
+    const currDisplayLinks = isLoggedIn ? (
+        <SignedInLinks />
+    ) : (
+        <SignedOutLinks />
+    );
 
     return (
         <header className="header">
             <nav className="nav">
                 <NavLink to="/" className="nav__logo-link">
-                    <img className="nav__logo-img" src={Logo} alt="Art Zen logo" width="753" height="217" />
+                    <img
+                        className="nav__logo-img"
+                        src={Logo}
+                        alt="Art Zen logo"
+                        width="753"
+                        height="217"
+                    />
                 </NavLink>
                 <SearchBar />
                 {currDisplayLinks}

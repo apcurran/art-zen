@@ -7,8 +7,8 @@ describe("edit user profile", () => {
         cy.intercept("PATCH", `/api/users/${userId}`, {
             statusCode: 200,
             body: {
-                message: "User info updated."
-            }
+                message: "User info updated.",
+            },
         });
 
         cy.login();
@@ -17,28 +17,20 @@ describe("edit user profile", () => {
     });
 
     it("user should be able to change bio description of profile", () => {
-        cy.get(".dashboard-user-info__textarea")
-            .clear()
-            .type("lorem ipsum");
+        cy.get(".dashboard-user-info__textarea").clear().type("lorem ipsum");
 
-        cy.contains("button", /update/i)
-            .click();
+        cy.contains("button", /update/i).click();
 
-        cy.contains("User info updated")
-            .should("exist");
+        cy.contains("User info updated").should("exist");
     });
 
     it("user should be able to change avatar image of profile", () => {
-        cy.fixture("images/doom-suspect.png")
-            .as("doomGuy");
+        cy.fixture("images/doom-suspect.png").as("doomGuy");
 
-        cy.get("input[id=avatarImg]")
-            .selectFile("@doomGuy");
+        cy.get("input[id=avatarImg]").selectFile("@doomGuy");
 
-        cy.contains("button", /update/i)
-            .click();
+        cy.contains("button", /update/i).click();
 
-        cy.contains("User info updated.")
-            .should("exist");
+        cy.contains("User info updated.").should("exist");
     });
 });

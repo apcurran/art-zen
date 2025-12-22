@@ -18,17 +18,19 @@ async function updateAvatarImages() {
             // generate avatar img
             const avatarImgURL = `https://api.dicebear.com/6.x/bottts-neutral/svg?seed=${userId}`;
             // update avatar img with new one
-            await dbConnection.none(`
+            await dbConnection.none(
+                `
                 UPDATE app_user
                 SET avatar_img_url = $<avatarImgURL>
                 WHERE user_id = $<userId>
-            `, { avatarImgURL, userId });
+            `,
+                { avatarImgURL, userId },
+            );
         }
 
         console.log("Update complete");
         console.log("Disconnecting temp db connection");
         await dbConnection.done();
-
     } catch (err) {
         console.error(err);
     }

@@ -4,7 +4,7 @@
     max-width: var(--wrapper-max-width);
     width: var(--wrapper-width);
     margin: 0 auto;
-    padding: 0 .875rem;
+    padding: 0 0.875rem;
 }
 
 .auth__title {
@@ -23,11 +23,11 @@
 }
 
 .auth__form__label {
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
 }
 
 .auth__form__input {
-    padding: .5rem;
+    padding: 0.5rem;
     border: none;
     border-radius: 4px;
 }

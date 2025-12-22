@@ -20,7 +20,7 @@ function UserProfile({ contextUserId }) {
     const [profileData, setProfileData] = useState({
         username: "",
         avatarImg: "",
-        bioDesc: ""
+        bioDesc: "",
     });
     const [followers, setFollowers] = useState([]);
     const [userArtworks, setUserArtworks] = useState([]);
@@ -33,7 +33,7 @@ function UserProfile({ contextUserId }) {
                 setProfileData({
                     username: data.userData.username,
                     avatarImg: data.userData.avatar_img_url,
-                    bioDesc: data.userData.bio_description
+                    bioDesc: data.userData.bio_description,
                 });
                 setFollowers(data.followerData);
                 setUserArtworks(data.artworkData);
@@ -42,7 +42,9 @@ function UserProfile({ contextUserId }) {
     }, [id]);
 
     useEffect(() => {
-        const hasUserFollowed = followers.some((followerObj) => followerObj.follower_user_id === userId);
+        const hasUserFollowed = followers.some(
+            (followerObj) => followerObj.follower_user_id === userId,
+        );
 
         setIsFollowing(hasUserFollowed);
     }, [userId, followers]);
@@ -55,20 +57,23 @@ function UserProfile({ contextUserId }) {
             await fetch(`/api/artworks/${artworkId}`, {
                 method: "DELETE",
                 headers: {
-                    "Authorization": `Bearer ${token}`
-                }
+                    Authorization: `Bearer ${token}`,
+                },
             });
 
             // Remove from local component DOM
-            const updatedArtworks = userArtworks.filter((artwork) => artwork.artwork_id !== artworkId);
+            const updatedArtworks = userArtworks.filter(
+                (artwork) => artwork.artwork_id !== artworkId,
+            );
 
             setUserArtworks(updatedArtworks);
 
             // Update global context state
-            const updatedContextArtworks = artworks.filter((artwork) => artwork.artwork_id !== artworkId);
+            const updatedContextArtworks = artworks.filter(
+                (artwork) => artwork.artwork_id !== artworkId,
+            );
 
             setArtworks(updatedContextArtworks);
-
         } catch (err) {
             console.error(err);
         }
@@ -89,21 +94,19 @@ function UserProfile({ contextUserId }) {
         } else {
             removeFollower(artistId, userId, token);
         }
-
     }
-    
+
     async function addFollower(artistId, token) {
         try {
             const response = await fetch(`/api/users/${artistId}/followers`, {
                 method: "POST",
                 headers: {
-                    "Authorization": `Bearer ${token}`
-                }
+                    Authorization: `Bearer ${token}`,
+                },
             });
             const { addedFollower } = await response.json();
 
             setFollowers([...followers, addedFollower]);
-    
         } catch (err) {
             console.error(err);
         }
@@ -115,22 +118,27 @@ function UserProfile({ contextUserId }) {
             await fetch(`/api/users/${artistId}/followers/${userId}`, {
                 method: "DELETE",
                 headers: {
-                    "Authorization": `Bearer ${token}`
-                }
+                    Authorization: `Bearer ${token}`,
+                },
             });
 
             // Remove from local state
-            const updatedFollowers = followers.filter((follower) => follower.follower_user_id !== userId);
+            const updatedFollowers = followers.filter(
+                (follower) => follower.follower_user_id !== userId,
+            );
 
             setFollowers(updatedFollowers);
-
         } catch (err) {
             console.error(err);
         }
     }
 
     return (
-        <main className={match ? "user-profile-main" : "user-profile-main--dashboard"}>
+        <main
+            className={
+                match ? "user-profile-main" : "user-profile-main--dashboard"
+            }
+        >
             <UserProfileInfo
                 profileData={profileData}
                 totalCreations={userArtworks.length}
