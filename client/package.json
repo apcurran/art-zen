@@ -2,6 +2,7 @@
     "name": "client",
     "version": "0.1.0",
     "proxy": "http://localhost:5000",
+    "type": "module",
     "private": true,
     "dependencies": {
         "@testing-library/jest-dom": "^5.16.2",
@@ -23,12 +24,7 @@
         "extends": [
             "react-app",
             "react-app/jest"
-        ],
-        "rules": {
-            "semi": "error",
-            "quotes": "error",
-            "arrow-parens": "error"
-        }
+        ]
     },
     "browserslist": {
         "production": [
