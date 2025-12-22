@@ -1,15 +1,15 @@
 "use strict";
 
 const express = require("express");
+const { rateLimit } = require("express-rate-limit");
+const helmet = require("helmet");
+
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 // Import routers
 const authRouter = require("./api/routes/auth-router");
 const usersRouter = require("./api/routes/users-router");
 const artworksRouter = require("./api/routes/artworks-router");
-
-const rateLimit = require("express-rate-limit");
-const helmet = require("helmet");
 
 const app = express();
 
@@ -31,13 +31,15 @@ app.use(helmet({
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "client", "build")));
+app.set("trust proxy", 1);
 
 // Rate-limiting setup
 const authLimiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
-    max: 50,
-    message: JSON.stringify({ error: "Too many requests, please try again in a minute." }),
-    legacyHeaders: false
+    limit: 50,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: JSON.stringify({ error: "Too many requests, please try again in a minute." })
 });
 
 // API routers
@@ -54,7 +56,7 @@ app.use((err, req, res, next) => {
 });
 
 // Catch-all handler to send back React's index.html file
-app.get("*", (req, res) => {
+app.get("/{*splat}", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
