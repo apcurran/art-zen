@@ -13,8 +13,16 @@ export default defineConfig([
         extends: ["js/recommended"],
         languageOptions: { globals: { ...globals.browser, ...globals.node } },
     },
-    { files: ["**/*.js"], languageOptions: { sourceType: "commonjs" } },
-    // react scoped to /client dir
+    {
+        files: ["server.js", "api/**/*.js", "db/**/*.js", "utils/**/*.js"],
+        languageOptions: {
+            sourceType: "commonjs",
+            globals: {
+                ...globals.node,
+            },
+        },
+    },
+    // client-side react files scoped
     {
         files: ["client/**/*.{js,jsx}"],
         ...pluginReact.configs.flat.recommended,
@@ -31,6 +39,7 @@ export default defineConfig([
     },
     {
         files: ["**/*.json"],
+        ignores: ["**/package-lock.json", ".vscode/**"],
         plugins: { json },
         language: "json/json",
         extends: ["json/recommended"],
