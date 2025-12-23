@@ -70,7 +70,7 @@ function randomGenre(genreArr) {
 
                 // Hash pw
                 const saltRounds = 12;
-                const password = process.env.DB_SEEDS_PW;
+                const password = faker.internet.password({ length: 10 });
                 const hashedPassword = await bcrypt.hash(password, saltRounds);
 
                 // Save in db
