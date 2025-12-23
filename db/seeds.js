@@ -39,65 +39,92 @@ function randomGenre(genreArr) {
     return genreArr[Math.floor(Math.random() * genreArr.length)];
 }
 
-getCloudinaryImgsArr()
-    .then((results) => console.log(results))
-    .catch((err) => console.error(err));
-
 (async function populateDb() {
     try {
         const artworkImgs = await getCloudinaryImgsArr();
 
-        for (let imgObj of artworkImgs) {
-            // Create app_user account
-            const username = faker.internet.username();
-            const email = faker.internet.email();
-            const bio_description = faker.lorem.sentences(3);
-            const avatarSeed = faker.string.alphanumeric(12);
-            const avatar_img_url = `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${avatarSeed}`;
+        await db.tx(async (t) => {
+            for (let img of artworkImgs) {
+                if (
+                    !Number.isInteger(img.width) ||
+                    !Number.isInteger(img.height)
+                ) {
+                    throw new Error("Invalid Cloudinary width or height data");
+                }
 
-            // Hash pw
-            const saltRounds = 12;
-            const password = process.env.DB_SEEDS_PW;
-            const hashedPassword = await bcrypt.hash(password, saltRounds);
+                // Create app_user account
+                const username = faker.internet.username();
+                const email = faker.internet.email();
+                const bio_description = faker.person.bio();
 
-            // Save in db
-            const savedUser = await db.one(`
+                const avatarSeed = faker.string.alphanumeric(12);
+                const avatar_img_url = `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${avatarSeed}`;
+
+                // Hash pw
+                const saltRounds = 12;
+                const password = process.env.DB_SEEDS_PW;
+                const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+                // Save in db
+                const { user_id } = await t.one(
+                    `
                 INSERT INTO app_user
                     (username, email, password, bio_description, avatar_img_url)
                 VALUES
-                    (${username}, ${email}, ${hashedPassword}, ${bio_description}, ${avatar_img_url})
-                RETURNING *
-            `);
+                    ($1, $2, $3, $4, $5)
+                RETURNING user_id
+            `,
+                    [
+                        username,
+                        email,
+                        hashedPassword,
+                        bio_description,
+                        avatar_img_url,
+                    ],
+                );
 
-            // Create artwork row entry and link with foreign key from app_user.user_id
-            const { user_id } = savedUser.rows[0];
-            const title = faker.company.catchPhrase();
-            const description = faker.lorem.sentences(2);
-            // Generate randomized genre
-            const genreArr = [
-                "fantasy",
-                "landscape",
-                "realism",
-                "sci-fi",
-                "anime",
-                "horror",
-                "modern",
-                "portrait",
-            ];
-            const genre = randomGenre(genreArr);
-            const imgUrl = imgObj.public_id;
-            const imgWidth = imgObj.width;
-            const imgHeight = imgObj.height;
-            const imgAltTxt = "User artwork";
+                // Create artwork row entry and link with foreign key from app_user.user_id
+                const description = faker.lorem.sentences(2);
+                // Generate randomized genre
+                const genreArr = [
+                    "fantasy",
+                    "landscape",
+                    "realism",
+                    "sci-fi",
+                    "anime",
+                    "horror",
+                    "modern",
+                    "portrait",
+                ];
+                const genre = randomGenre(genreArr);
+                const imgUrl = img.public_id;
+                const imgWidth = img.width;
+                const imgHeight = img.height;
+                const imgAltTxt = "User artwork";
 
-            await db.none(`
+                await t.none(
+                    `
                 INSERT INTO artwork
                     (user_id, title, description, genre, img_url, img_width, img_height, img_alt_txt)
                 VALUES
-                    (${user_id}, ${title}, ${description}, ${genre}, ${imgUrl}, ${imgWidth}, ${imgHeight}, ${imgAltTxt})
-            `);
-        }
+                    ($1, $2, $3, $4, $5, $6, $7, $8)
+            `,
+                    [
+                        user_id,
+                        randomArtworkTitle(),
+                        description,
+                        genre,
+                        imgUrl,
+                        imgWidth,
+                        imgHeight,
+                        imgAltTxt,
+                    ],
+                );
+            }
+        });
+
+        console.log("Database seeded: success");
     } catch (err) {
-        console.error(err);
+        console.error(`Seed failure: ${err}`);
     }
 })();
