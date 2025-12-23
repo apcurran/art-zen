@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
         "module": "CommonJS",
-        "target": "esnext"
+        "target": "esnext",
+        "checkJs": true
     },
     "exclude": ["node_modules", "client"]
 }
