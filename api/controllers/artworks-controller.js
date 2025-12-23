@@ -161,7 +161,6 @@ async function getUserFavorites(req, res, next) {
 async function postUserArtwork(req, res, next) {
     try {
         const userId = req.user._id;
-        // Destucture public_id, img width, and img height from async func
         const { public_id, width, height } = await streamUploadToCloudinary(
             req,
             "art-zen-app",
