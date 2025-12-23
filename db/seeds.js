@@ -9,6 +9,7 @@ const { cloudinary } = require("../utils/cloudinary");
 async function getCloudinaryImgsArr() {
     const { resources } = await cloudinary.search
         .expression("folder:art-zen-app")
+        .max_results(100)
         .execute();
 
     return resources.map((fileObj) => {
