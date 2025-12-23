@@ -6,6 +6,12 @@ const bcrypt = require("bcrypt");
 const { db } = require("../db/index");
 const { cloudinary } = require("../utils/cloudinary");
 
+async function clearDb() {
+    await db.none("TRUNCATE app_user RESTART IDENTITY CASCADE");
+
+    console.log("DB cleared");
+}
+
 async function getCloudinaryImgsArr() {
     const { resources } = await cloudinary.search
         .expression("folder:art-zen-app")
@@ -41,6 +47,8 @@ function randomGenre(genreArr) {
 
 (async function populateDb() {
     try {
+        await clearDb();
+
         const artworkImgs = await getCloudinaryImgsArr();
 
         await db.tx(async (t) => {
