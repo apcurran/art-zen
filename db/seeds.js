@@ -1,9 +1,8 @@
 "use strict";
 
-const faker = require("faker");
+const { faker } = require("@faker-js/faker");
 const bcrypt = require("bcrypt");
 
-// TODO: re-write to use pg-promise syntax
 const { db } = require("../db/index");
 const { cloudinary } = require("../utils/cloudinary");
 
@@ -35,10 +34,11 @@ getCloudinaryImgsArr()
 
         for (let imgObj of artworkImgs) {
             // Create app_user account
-            const username = faker.internet.userName();
+            const username = faker.internet.username();
             const email = faker.internet.email();
             const bio_description = faker.lorem.sentences(3);
-            const avatar_img_url = "http://placeimg.com/200/200/abstract";
+            const avatarSeed = faker.string.alphanumeric(12);
+            const avatar_img_url = `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${avatarSeed}`;
 
             // Hash pw
             const saltRounds = 12;
