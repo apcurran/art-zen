@@ -15,6 +15,7 @@ export default defineConfig([
     },
     {
         files: ["server.js", "api/**/*.js", "db/**/*.js", "utils/**/*.js"],
+        ignores: ["client/**/*.{js,jsx}"],
         languageOptions: {
             sourceType: "commonjs",
             globals: {

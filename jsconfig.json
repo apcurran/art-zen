@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "module": "CommonJS",
+        "moduleResolution": "node",
         "target": "esnext",
         "checkJs": true
     },
