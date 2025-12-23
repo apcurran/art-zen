@@ -12,13 +12,27 @@ async function getCloudinaryImgsArr() {
         .max_results(100)
         .execute();
 
-    return resources.map((fileObj) => {
+    return resources.map((file) => {
         return {
-            public_id: fileObj.public_id,
-            width: fileObj.width,
-            height: fileObj.height,
+            public_id: file.public_id,
+            width: file.width,
+            height: file.height,
         };
     });
+}
+
+function randomArtworkTitle() {
+    const styles = [
+        () => faker.word.adjective(),
+        () => faker.word.noun(),
+        () => `${faker.word.adjective()} ${faker.word.noun()}`,
+        () => `${faker.word.noun()} of ${faker.word.noun()}`,
+        () => `the ${faker.word.adjective()} ${faker.word.noun()}`,
+        () => `${faker.word.adjective()}, ${faker.word.adjective()}`,
+        () => faker.lorem.words({ min: 2, max: 4 }),
+    ];
+
+    return faker.helpers.arrayElement(styles)();
 }
 
 function randomGenre(genreArr) {
