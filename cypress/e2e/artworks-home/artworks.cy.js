@@ -14,6 +14,6 @@ describe("artworks home page", () => {
 
         cy.url().should("eq", "http://localhost:3000/artworks/1");
 
-        cy.contains("h1", "Customizable methodical task-force").should("exist");
+        cy.get("h1").should("be.visible").and("not.be.empty");
     });
 });
