@@ -26,13 +26,13 @@ describe("edit user profile", () => {
         cy.contains(/user info updated/i).should("be.visible");
     });
 
-    // it("user should be able to change avatar image of profile", () => {
-    //     cy.fixture("images/doom-suspect.png").as("doomGuy");
+    it("user should be able to change avatar image of profile", () => {
+        cy.fixture("images/doom-suspect.png").as("doomGuy");
 
-    //     cy.get("input[id=avatarImg]").selectFile("@doomGuy");
+        cy.get("input[id=avatarImg]").selectFile("@doomGuy");
 
-    //     cy.contains("button", /update/i).click();
+        cy.contains("button", /update/i).click();
 
-    //     cy.contains("User info updated.").should("exist");
-    // });
+        cy.contains(/user info updated/i).should("be.visible");
+    });
 });
