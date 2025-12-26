@@ -52,18 +52,22 @@ describe("log in page", () => {
             .should("exist");
     });
 
-    // it("gives an error message when the user provides a password shorter than 6 characters long", () => {
-    //     cy.get("input[type=email]").type(Cypress.env("testUserEmail"));
+    it("gives an error message when the user provides a password shorter than 6 characters long", () => {
+        cy.intercept("POST", "/api/auth/log-in").as("log-in");
 
-    //     cy.get("input[type=password]").type("short");
+        cy.get("input[type=email]").type(Cypress.env("testUserEmail"));
 
-    //     cy.get("button[type=submit]").click();
+        cy.get("input[type=password]").type("short");
 
-    //     cy.contains(
-    //         "p",
-    //         /"password" length must be at least 6 characters long/i,
-    //     )
-    //         .should("have.class", "error")
-    //         .should("exist");
-    // });
+        cy.get("button[type=submit]").click();
+
+        cy.wait("@log-in");
+
+        cy.contains(
+            "p",
+            /"password" length must be at least 6 characters long/i,
+        )
+            .should("have.class", "error")
+            .should("exist");
+    });
 });
