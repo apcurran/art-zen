@@ -1,10 +1,8 @@
 /// <reference types="cypress" />
 
 describe("dashboard favorites", () => {
-    const userId = 33;
-
     beforeEach(() => {
-        cy.intercept("GET", `/api/artworks/users/${userId}/favorites`, {
+        cy.intercept("GET", `/api/artworks/users/**/favorites`, {
             statusCode: 200,
             body: {
                 favoritesData: [
