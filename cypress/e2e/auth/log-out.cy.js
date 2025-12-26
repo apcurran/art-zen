@@ -2,6 +2,8 @@
 
 describe("log out flow", () => {
     it("should log the test user out", () => {
+        cy.intercept("POST", "/api/auth/log-in").as("log-in");
+
         cy.visit("/auth/log-in");
 
         cy.get("input[type=email]").type(Cypress.env("testUserEmail"));
@@ -9,6 +11,8 @@ describe("log out flow", () => {
         cy.get("input[type=password]").type(Cypress.env("testUserPassword"));
 
         cy.get("button[type=submit]").click();
+
+        cy.wait("@log-in");
 
         // user now logged in
         cy.contains("button", /log out/i)
