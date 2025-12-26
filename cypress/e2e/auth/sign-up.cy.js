@@ -20,6 +20,6 @@ describe("sign up flow", () => {
 
         cy.contains("button", /submit/i).click();
 
-        cy.url().should("eq", "http://localhost:3000/auth/log-in");
+        cy.url().should("include", "/auth/log-in");
     });
 });
