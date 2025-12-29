@@ -2,7 +2,7 @@
 
 describe("my artworks dashboard tab", () => {
     beforeEach(() => {
-        cy.login().as("log-in");
+        cy.login();
 
         cy.window().then((win) => {
             const userId = win.localStorage.getItem("userId");
