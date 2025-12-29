@@ -29,46 +29,51 @@ describe("my artworks dashboard tab", () => {
     });
 });
 
-// describe("my artworks add/remove", () => {
-//     beforeEach(() => {
-//         cy.login();
-//     });
+describe("my artworks add/remove", () => {
+    beforeEach(() => {
+        cy.login();
 
-//     it("should add, then delete an artwork", () => {
-//         // go to add artwork tab, fill out form, then submit to add the artwork
-//         cy.visit("/dashboard/add-artwork");
+        cy.window().then((win) => {
+            const userId = win.localStorage.getItem("userId");
+            cy.wrap(userId).as("userId");
+        });
+    });
 
-//         cy.get("input[id=title]").type("Cartoon Aliens");
+    it("should add, then delete an artwork", () => {
+        // go to add artwork tab, fill out form, then submit to add the artwork
+        cy.visit("/dashboard/add-artwork");
 
-//         cy.get("select[id=genre]").select("sci-fi");
+        cy.get("input[id=title]").type("Cartoon Aliens");
 
-//         cy.get("textarea[id=description]").type(
-//             "Here is my example description.",
-//         );
+        cy.get("select[id=genre]").select("sci-fi");
 
-//         cy.get("input[type=file]").selectFile(
-//             "cypress/fixtures/images/cartoon-aliens.jpg",
-//         );
+        cy.get("textarea[id=description]").type(
+            "Here is my example description.",
+        );
 
-//         cy.get("input[id=artwork-img-alt-txt]").type(
-//             "Black and white cartoon aliens in a spaceship.",
-//         );
+        cy.get("input[type=file]").selectFile(
+            "cypress/fixtures/images/cartoon-aliens.jpg",
+        );
 
-//         cy.contains("button", /upload/i).click();
+        cy.get("input[id=artwork-img-alt-txt]").type(
+            "Black and white cartoon aliens in a spaceship.",
+        );
 
-//         cy.contains(/successfully uploaded!/i).should("be.visible");
+        cy.contains("button", /upload/i).click();
 
-//         // navigate to profile
-//         cy.visit(`/dashboard/artworks/users/**`);
+        cy.contains(/successfully uploaded!/i).should("be.visible");
 
-//         // delete the artwork
-//         cy.get(".user-profile__artworks-grid__article")
-//             .first()
-//             .find("button")
-//             .contains("Delete")
-//             .click();
-
-//         // check the artwork has been deleted
-//         cy.get("Cartoon Aliens").should("not.exist");
-//     });
-// });
+        cy.get("@userId").then((userId) => {
+            // visit my artworks tab
+            cy.visit(`/dashboard/artworks/users/${userId}`);
+            // delete the artwork
+            cy.get(".user-profile__artworks-grid__article")
+                .first()
+                .find("button")
+                .contains("Delete")
+                .click();
+            // check the artwork has been deleted
+            cy.get("Cartoon Aliens").should("not.exist");
+        });
+    });
+});
