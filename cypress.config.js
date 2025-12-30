@@ -8,4 +8,6 @@ module.exports = defineConfig({
         supportFile: "cypress/support/e2e.js",
         testIsolation: false,
     },
+    video: false,
+    screenshotOnRunFailure: false,
 });
