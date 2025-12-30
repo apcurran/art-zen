@@ -9,7 +9,7 @@
     "scripts": {
         "test": "jest",
         "cy:open": "npx cypress open",
-        "cy:run": "npx cypress run --config video=false,screenshotOnRunFailure=false",
+        "cy:run": "npx cypress run",
         "lint": "npx eslint ./",
         "format": "npx prettier --write .",
         "start": "node --env-file=.env server.js",
