@@ -1,5 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 
 import "./index.css";
 import App from "./App";
@@ -7,7 +8,10 @@ import App from "./App";
 import AuthContextProvider from "./contexts/AuthContext";
 import DiscoverArtworksContextProvider from "./contexts/DiscoverArtworksContext";
 
-ReactDOM.render(
+const domNode = document.getElementById("root");
+const root = createRoot(domNode);
+
+root.render(
     <React.StrictMode>
         <AuthContextProvider>
             <DiscoverArtworksContextProvider>
@@ -15,5 +19,4 @@ ReactDOM.render(
             </DiscoverArtworksContextProvider>
         </AuthContextProvider>
     </React.StrictMode>,
-    document.getElementById("root"),
 );
