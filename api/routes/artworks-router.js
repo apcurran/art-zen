@@ -42,13 +42,8 @@ router.post(
     artworksController.postUserArtworkFavorite,
 ); // tested
 // POST new artwork
-router.post(
-    "/",
-    verifyAuth,
-    fileUpload.single("artworkImg"),
-    artworksController.postUserArtwork,
-); // tested
-// Cloudinary signed upload
+router.post("/", verifyAuth, artworksController.postUserArtwork); // tested
+// Cloudinary img upload signature
 router.post(
     "/sign-cloudinary-upload",
     verifyAuth,
