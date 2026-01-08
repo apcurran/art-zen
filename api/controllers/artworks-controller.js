@@ -3,9 +3,6 @@
 const { db } = require("../../db/index");
 
 const {
-    streamUploadToCloudinary,
-} = require("../../utils/stream-upload-to-cloudinary");
-const {
     userArtworkValidation,
     userArtworkCommentValidation,
 } = require("../validation/artworks-validation");
@@ -162,11 +159,7 @@ async function getUserFavorites(req, res, next) {
 async function postUserArtwork(req, res, next) {
     try {
         const userId = req.user._id;
-        const { public_id, width, height } = await streamUploadToCloudinary(
-            req,
-            "art-zen-app",
-        );
-        const { title, description, genre, altTxt } =
+        const { title, description, genre, altTxt, public_id, width, height } =
             await userArtworkValidation(req.body);
         // Data is now valid
         const addedArtwork = await db.one(
