@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import "./UserInfo.css";
 
@@ -7,12 +7,18 @@ import Loader from "../../../loader/Loader";
 function UserInfo({ userId, token }) {
     const [username, setUsername] = useState("");
     const [bioDesc, setBioDesc] = useState("");
-    const [selectedImgFile, setSelectedImgFile] = useState(null);
+
+    // Cloudinary data
+    const [avatarInfo, setAvatarInfo] = useState(null);
+
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
+    const widgetRef = useRef();
+
     useEffect(() => {
+        // current user data
         fetch(`/api/users/${userId}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -24,6 +30,43 @@ function UserInfo({ userId, token }) {
                 setBioDesc(data.bio_description);
             })
             .catch((err) => setError(err.message));
+
+        // init Cloudinary widget
+        if (!window.cloudinary) {
+            setMessage("Cloudinary is not available.");
+
+            return;
+        }
+
+        widgetRef.current = window.cloudinary.createUploadWidget(
+            {
+                cloudName: "dev-project",
+                apiKey: "365584668378597",
+                uploadPreset: "art-zen-app-react-widget",
+                folder: "art-zen-app/user-avatars",
+                uploadSignature: async (cb, params_to_sign) => {
+                    // TODO: refactor upload signature API endpoint -- route and controller
+                    const response = await fetch("REFACTOR_ENDPOINT_HERE", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                        body: JSON.stringify({ paramsToSign: params_to_sign }),
+                    });
+                    const data = await response.json();
+                    cb(data.signature);
+                },
+            },
+            (error, result) => {
+                if (!error && result && result.event === "success") {
+                    setAvatarInfo(result.info);
+                    setMessage(
+                        "Avatar image uploaded; click update to save changes",
+                    );
+                }
+            },
+        );
     }, [userId, token]);
 
     // Form
@@ -34,19 +77,20 @@ function UserInfo({ userId, token }) {
         // Reset err msg
         setError("");
 
-        let formData = new FormData();
-        formData.append("bioDesc", bioDesc);
-        formData.append("avatarImg", selectedImgFile);
-
+        const payload = {
+            bioDesc,
+            avatar_public_id: avatarInfo ? avatarInfo.public_id : null,
+        };
         const token = localStorage.getItem("authToken");
 
         try {
             const response = await fetch(`/api/users/${userId}`, {
                 method: "PATCH",
                 headers: {
+                    "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                body: formData,
+                body: JSON.stringify(payload),
             });
 
             // Check for errors
@@ -56,20 +100,16 @@ function UserInfo({ userId, token }) {
                 throw Error(serverErrMsg.error);
             }
 
-            const responseMsg = (await response.json()).message;
-
+            const data = await response.json();
             // Set user message for 7 seconds
-            setMessage(responseMsg);
+            setMessage(data.message);
             setTimeout(() => setMessage(""), 7000);
+            setAvatarInfo(null);
         } catch (err) {
             setError(err.message);
         } finally {
             setLoading(false);
         }
-    }
-
-    function handleFileChange(event) {
-        setSelectedImgFile(event.target.files[0]);
     }
 
     return (
@@ -79,7 +119,6 @@ function UserInfo({ userId, token }) {
             </h2>
             <form
                 onSubmit={handleSubmit}
-                encType="multipart/form-data"
                 className="dashboard-user-info dashboard-form"
             >
                 <div className="dashboard-user-info__form-group dashboard-form__group">
@@ -100,19 +139,15 @@ function UserInfo({ userId, token }) {
                     ></textarea>
                 </div>
                 <div className="dashboard-user-info__form-group dashboard-form__group">
-                    <label
-                        className="dashboard-user-info__label dashboard-form__label"
-                        htmlFor="avatarImg"
+                    <button
+                        type="button"
+                        className="cta-btn"
+                        onClick={() => widgetRef.current.open()}
                     >
-                        Upload Avatar Image
-                    </label>
-                    <input
-                        className="dashboard-user-info__input dashboard-user-info__input--file"
-                        onChange={handleFileChange}
-                        type="file"
-                        name="avatarImg"
-                        id="avatarImg"
-                    />
+                        {avatarInfo
+                            ? "Change Avatar"
+                            : "Upload New Avatar Image"}
+                    </button>
                 </div>
                 <button
                     type="submit"
