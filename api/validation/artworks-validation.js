@@ -8,6 +8,9 @@ function userArtworkValidation(data) {
         description: Joi.string().trim().max(500).required(),
         genre: Joi.string().trim().max(20).required(),
         altTxt: Joi.string().trim().required(),
+        public_id: Joi.string().trim().required(),
+        width: Joi.number().required(),
+        height: Joi.number().required(),
     });
 
     return schema.validateAsync(data);
