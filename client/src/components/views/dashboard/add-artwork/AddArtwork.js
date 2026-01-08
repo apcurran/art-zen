@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 
 import "./AddArtwork.css";
 import { DiscoverArtworksContext } from "../../../../contexts/DiscoverArtworksContext";
@@ -7,14 +7,25 @@ import Loader from "../../../../components/loader/Loader";
 function AddArtwork({ token }) {
     const { artworks, setArtworks } = useContext(DiscoverArtworksContext);
 
+    // basic form state
     const [title, setTitle] = useState("");
     const [genre, setGenre] = useState("fantasy");
     const [description, setDescription] = useState("");
-    const [selectedImgFile, setSelectedImgFile] = useState(null);
     const [altTxt, setAltTxt] = useState("");
+    // cloudinary info state
+    const [cloudinaryInfo, setCloudinaryInfo] = useState(null);
+    // const [selectedImgFile, setSelectedImgFile] = useState(null);
+
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+
+    // refs
+    const widgetRef = useRef();
+
+    useEffect(() => {
+        // setup cloudinary
+    });
 
     async function handleSubmit(event) {
         event.preventDefault();
