@@ -24,8 +24,47 @@ function AddArtwork({ token }) {
     const widgetRef = useRef();
 
     useEffect(() => {
+        if (!window.cloudinary) {
+            setMessage("Error: Cloudinary is not available.");
+        }
         // setup cloudinary
-    });
+        widgetRef.current = window.cloudinary.createUploadWidget(
+            {
+                cloudName: "dev-project",
+                apiKey: "365584668378597",
+                uploadPreset: "art-zen-app-react-widget", // signed ON
+                folder: "art-zen-app",
+                // signature from back-end
+                uploadSignature: async (cb, params_to_sign) => {
+                    // send out a req to my server to get signature for authorized uploads
+                    const response = await fetch(
+                        "/api/artworks/sign-cloudinary-upload",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${token}`,
+                            },
+                            body: JSON.stringify({
+                                paramsToSign: params_to_sign,
+                            }),
+                        },
+                    );
+                    const data = await response.json();
+                    cb(data.signature);
+                },
+            },
+            (error, result) => {
+                if (!error && result && result.event === "success") {
+                    // store data in local state, then form submission
+                    setCloudinaryInfo(result.info);
+                    setMessage(
+                        "Image uploaded; complete the form, then submit to finish",
+                    );
+                }
+            },
+        );
+    }, [token]);
 
     async function handleSubmit(event) {
         event.preventDefault();
