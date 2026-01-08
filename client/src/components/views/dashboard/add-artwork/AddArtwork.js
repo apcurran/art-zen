@@ -14,7 +14,6 @@ function AddArtwork({ token }) {
     const [altTxt, setAltTxt] = useState("");
     // cloudinary info state
     const [cloudinaryInfo, setCloudinaryInfo] = useState(null);
-    // const [selectedImgFile, setSelectedImgFile] = useState(null);
 
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
@@ -69,24 +68,32 @@ function AddArtwork({ token }) {
     async function handleSubmit(event) {
         event.preventDefault();
 
+        if (!cloudinaryInfo) {
+            setError("Please upload your image before submitting.");
+
+            return;
+        }
+
         setLoading(true);
         // Reset err msg
         setError("");
-
-        let formData = new FormData();
-        formData.append("title", title);
-        formData.append("description", description);
-        formData.append("genre", genre);
-        formData.append("artworkImg", selectedImgFile);
-        formData.append("altTxt", altTxt);
 
         try {
             const response = await fetch("/api/artworks", {
                 method: "POST",
                 headers: {
+                    "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                body: formData,
+                body: JSON.stringify({
+                    title,
+                    description,
+                    genre,
+                    altTxt,
+                    public_id: cloudinaryInfo.public_id,
+                    width: cloudinaryInfo.width,
+                    height: cloudinaryInfo.height,
+                }),
             });
 
             // Check for errors
@@ -115,7 +122,6 @@ function AddArtwork({ token }) {
             <h2 className="add-artwork-title">Add New Artwork</h2>
             <form
                 onSubmit={handleSubmit}
-                encType="multipart/form-data"
                 className="add-artwork-form dashboard-form"
             >
                 <div className="add-artwork-form__form-group dashboard-form__group">
@@ -176,22 +182,14 @@ function AddArtwork({ token }) {
                     ></textarea>
                 </div>
                 <div className="add-artwork-form__form-group dashboard-form__group">
-                    <label
-                        htmlFor="artwork-img"
-                        className="add-artwork-form__label dashboard-form__label"
+                    {/* BUTTON TO TRIGGER CLOUDINARY WIDGET */}
+                    <button
+                        type="button"
+                        className="cta-btn"
+                        onClick={() => widgetRef.current.open()}
                     >
-                        Upload Artwork Image
-                    </label>
-                    <input
-                        onChange={(event) =>
-                            setSelectedImgFile(event.target.files[0])
-                        }
-                        type="file"
-                        name="artworkImg"
-                        id="artwork-img"
-                        className="add-artwork-form__input add-artwork-form__input--file"
-                        required
-                    />
+                        {cloudinaryInfo ? "Change Artwork" : "Upload Image"}
+                    </button>
                 </div>
                 <div className="add-artwork-form__form-group dashboard-form__group">
                     <label
