@@ -3,9 +3,6 @@
 const express = require("express");
 const router = express.Router();
 
-const multer = require("multer");
-const fileUpload = multer();
-
 const artworksController = require("../controllers/artworks-controller");
 const verifyAuth = require("../middleware/verify-auth");
 
