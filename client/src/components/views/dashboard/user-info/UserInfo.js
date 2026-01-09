@@ -9,7 +9,7 @@ function UserInfo({ userId, token }) {
     const [bioDesc, setBioDesc] = useState("");
 
     // Cloudinary data
-    const [avatarInfo, setAvatarInfo] = useState(null);
+    const [avatarUrl, setAvatarUrl] = useState("");
 
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
@@ -59,7 +59,7 @@ function UserInfo({ userId, token }) {
             },
             (error, result) => {
                 if (!error && result && result.event === "success") {
-                    setAvatarInfo(result.info);
+                    setAvatarUrl(result.info.secure_url);
                     setMessage(
                         "Avatar image uploaded; click update to save changes",
                     );
@@ -77,7 +77,7 @@ function UserInfo({ userId, token }) {
 
         const payload = {
             bioDesc,
-            avatar_public_id: avatarInfo ? avatarInfo.public_id : null,
+            avatarUrl,
         };
         const token = localStorage.getItem("authToken");
 
@@ -102,7 +102,7 @@ function UserInfo({ userId, token }) {
             // Set user message for 7 seconds
             setMessage(data.message);
             setTimeout(() => setMessage(""), 7000);
-            setAvatarInfo(null);
+            setAvatarUrl("");
         } catch (err) {
             setError(err.message);
         } finally {
@@ -142,7 +142,7 @@ function UserInfo({ userId, token }) {
                         className="cta-btn"
                         onClick={() => widgetRef.current.open()}
                     >
-                        {avatarInfo
+                        {avatarUrl
                             ? "Change Avatar"
                             : "Upload New Avatar Image"}
                     </button>

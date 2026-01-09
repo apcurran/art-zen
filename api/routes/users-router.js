@@ -3,9 +3,6 @@
 const express = require("express");
 const router = express.Router();
 
-const multer = require("multer");
-const fileUpload = multer();
-
 const usersController = require("../controllers/users-controller");
 const verifyAuth = require("../middleware/verify-auth");
 
@@ -20,12 +17,7 @@ router.post("/:userId/followers", verifyAuth, usersController.postUserFollower);
 // GET user info
 router.get("/:userId", verifyAuth, usersController.getUserInfo);
 // PATCH user account
-router.patch(
-    "/:userId",
-    verifyAuth,
-    fileUpload.single("avatarImg"),
-    usersController.patchUser,
-); // tested
+router.patch("/:userId", verifyAuth, usersController.patchUser); // tested
 // DELETE account follower
 router.delete(
     "/:userId/followers/:followerId",

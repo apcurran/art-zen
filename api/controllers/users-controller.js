@@ -1,9 +1,6 @@
 "use strict";
 
 const { db } = require("../../db/index");
-const {
-    streamUploadToCloudinary,
-} = require("../../utils/stream-upload-to-cloudinary");
 const { userPatchValidation } = require("../validation/users-validation");
 
 // GET controller
@@ -76,12 +73,8 @@ async function postUserFollower(req, res, next) {
 // PATCH controller
 async function patchUser(req, res, next) {
     try {
-        const { bioDesc } = await userPatchValidation(req.body);
+        const { bioDesc, avatarUrl } = await userPatchValidation(req.body);
         // If user did not send a new img to replace avatar img with, keep the old one.
-        const avatarImgUrl = req.file
-            ? (await streamUploadToCloudinary(req, "art-zen-app/user-avatars"))
-                  .secure_url
-            : null;
         const userId = req.user._id;
 
         await db.none(
@@ -89,10 +82,10 @@ async function patchUser(req, res, next) {
             UPDATE app_user
             SET
                 bio_description = COALESCE($<bioDesc>, bio_description),
-                avatar_img_url = COALESCE($<avatarImgUrl>, avatar_img_url)
+                avatar_img_url = COALESCE($<avatarUrl>, avatar_img_url)
             WHERE app_user.user_id = $<userId>
         `,
-            { bioDesc, avatarImgUrl, userId },
+            { bioDesc, avatarUrl, userId },
         );
 
         res.status(200).json({ message: "User info updated." });
