@@ -6,7 +6,6 @@ const {
     userArtworkValidation,
     userArtworkCommentValidation,
 } = require("../validation/artworks-validation");
-const cloudinary = require("../../utils/cloudinary");
 
 // GET controllers
 // Various artists sorted by most recent
@@ -190,16 +189,6 @@ async function postUserArtwork(req, res, next) {
 
         next(err);
     }
-}
-
-async function postCloudinaryUploadSignature(req, res) {
-    const { paramsToSign } = req.body;
-    const signature = cloudinary.cloudinary.utils.api_sign_request(
-        paramsToSign,
-        process.env.CLOUDINARY_API_SECRET,
-    );
-
-    res.status(200).json({ signature });
 }
 
 async function postUserArtworkLike(req, res, next) {
@@ -386,7 +375,6 @@ module.exports = {
     getSearch,
     getUserFavorites,
     postUserArtwork,
-    postCloudinaryUploadSignature,
     postUserArtworkLike,
     postUserArtworkComment,
     postUserArtworkFavorite,

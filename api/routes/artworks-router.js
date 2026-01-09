@@ -40,12 +40,6 @@ router.post(
 ); // tested
 // POST new artwork
 router.post("/", verifyAuth, artworksController.postUserArtwork); // tested
-// Cloudinary img upload signature
-router.post(
-    "/sign-cloudinary-upload",
-    verifyAuth,
-    artworksController.postCloudinaryUploadSignature,
-);
 // DELETE artwork like
 router.delete(
     "/:artworkId/likes/:likeId",
