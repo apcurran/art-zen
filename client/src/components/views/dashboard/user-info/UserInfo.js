@@ -45,8 +45,7 @@ function UserInfo({ userId, token }) {
                 uploadPreset: "art-zen-app-react-widget",
                 folder: "art-zen-app/user-avatars",
                 uploadSignature: async (cb, params_to_sign) => {
-                    // TODO: refactor upload signature API endpoint -- route and controller
-                    const response = await fetch("REFACTOR_ENDPOINT_HERE", {
+                    const response = await fetch("/api/cloudinary/sign", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -69,7 +68,6 @@ function UserInfo({ userId, token }) {
         );
     }, [userId, token]);
 
-    // Form
     async function handleSubmit(event) {
         event.preventDefault();
 
