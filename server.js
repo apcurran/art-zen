@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 5000;
 const authRouter = require("./api/routes/auth-router");
 const usersRouter = require("./api/routes/users-router");
 const artworksRouter = require("./api/routes/artworks-router");
+const cloudinaryRouter = require("./api/routes/cloudinary-router");
 
 const app = express();
 
@@ -72,6 +73,7 @@ const authLimiter = rateLimit({
 app.use("/api/auth", authLimiter, authRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/artworks", artworksRouter);
+app.use("/api/cloudinary", cloudinaryRouter);
 
 // General server error handling
 // eslint-disable-next-line no-unused-vars
