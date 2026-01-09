@@ -36,19 +36,16 @@ function AddArtwork({ token }) {
                 // signature from back-end
                 uploadSignature: async (cb, params_to_sign) => {
                     // send out a req to my server to get signature for authorized uploads
-                    const response = await fetch(
-                        "/api/artworks/sign-cloudinary-upload",
-                        {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                                Authorization: `Bearer ${token}`,
-                            },
-                            body: JSON.stringify({
-                                paramsToSign: params_to_sign,
-                            }),
+                    const response = await fetch("/api/cloudinary/sign", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
                         },
-                    );
+                        body: JSON.stringify({
+                            paramsToSign: params_to_sign,
+                        }),
+                    });
                     const data = await response.json();
                     cb(data.signature);
                 },
