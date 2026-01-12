@@ -4,7 +4,31 @@ describe("add artwork -- dashboard", () => {
     beforeEach(() => {
         cy.login();
 
-        cy.visit("/dashboard/add-artwork");
+        // Block Cloudinary widget script entirely
+        cy.intercept("GET", "https://upload-widget.cloudinary.com/**", {
+            statusCode: 204,
+        });
+
+        cy.visit("/dashboard/add-artwork", {
+            onBeforeLoad(win) {
+                win.cloudinary = {
+                    createUploadWidget: (options, cb) => {
+                        return {
+                            open: () => {
+                                // simulation of Cloudinary img upload
+                                cb(null, {
+                                    event: "success",
+                                    info: {
+                                        secure_url:
+                                            "https://res.cloudinary.com/test/image/upload/fake.jpg",
+                                    },
+                                });
+                            },
+                        };
+                    },
+                };
+            },
+        });
     });
 
     it("user can fill out form details and submit the form", () => {
@@ -28,10 +52,17 @@ describe("add artwork -- dashboard", () => {
 
         cy.fixture("images/cartoon-aliens.jpg").as("cartoonAliensImg");
 
-        cy.get('[data-cy="upload"]').should("be.visible");
+        cy.get('[data-cy="upload"]').click();
 
         cy.get("input[id=artwork-img-alt-txt]").type(
             "Black and white cartoon aliens in a spaceship.",
+        );
+
+        cy.get('[data-cy="submit"]').click();
+
+        cy.get('[data-cy="message"]').should(
+            "have.text",
+            "Your new artwork was successfully uploaded!",
         );
     });
 });

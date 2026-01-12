@@ -208,12 +208,18 @@ function AddArtwork({ token }) {
                 <button
                     type="submit"
                     className="add-artwork-form__submit-btn cta-btn"
+                    data-cy="submit"
                 >
                     Upload
                 </button>
                 {loading ? <Loader /> : null}
                 {message ? (
-                    <p className="add-artwork-form__message msg">{message}</p>
+                    <p
+                        className="add-artwork-form__message msg"
+                        data-cy="message"
+                    >
+                        {message}
+                    </p>
                 ) : null}
                 {error ? <p className="error">{error}</p> : null}
             </form>
