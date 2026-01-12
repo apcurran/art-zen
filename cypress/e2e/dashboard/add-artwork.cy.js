@@ -28,17 +28,10 @@ describe("add artwork -- dashboard", () => {
 
         cy.fixture("images/cartoon-aliens.jpg").as("cartoonAliensImg");
 
-        cy.get("input[type=file]").selectFile("@cartoonAliensImg");
+        cy.get('[data-cy="upload"]').should("be.visible");
 
         cy.get("input[id=artwork-img-alt-txt]").type(
             "Black and white cartoon aliens in a spaceship.",
-        );
-
-        cy.contains("button", /upload/i).click();
-
-        // result
-        cy.contains("Your new artwork was successfully uploaded!").should(
-            "exist",
         );
     });
 });

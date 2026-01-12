@@ -183,6 +183,7 @@ function AddArtwork({ token }) {
                     <button
                         type="button"
                         className="cta-btn"
+                        data-cy="upload"
                         onClick={() => widgetRef.current.open()}
                     >
                         {cloudinaryInfo ? "Change Artwork" : "Upload Image"}
