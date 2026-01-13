@@ -4,31 +4,11 @@ describe("add artwork -- dashboard", () => {
     beforeEach(() => {
         cy.login();
 
-        // Block Cloudinary widget script entirely
-        cy.intercept("GET", "https://upload-widget.cloudinary.com/**", {
-            statusCode: 204,
-        });
+        cy.mockCloudinaryUpload(
+            "https://res.cloudinary.com/test/image/upload/fake.jpg",
+        );
 
-        cy.visit("/dashboard/add-artwork", {
-            onBeforeLoad(win) {
-                win.cloudinary = {
-                    createUploadWidget: (options, cb) => {
-                        return {
-                            open: () => {
-                                // simulation of Cloudinary img upload
-                                cb(null, {
-                                    event: "success",
-                                    info: {
-                                        secure_url:
-                                            "https://res.cloudinary.com/test/image/upload/fake.jpg",
-                                    },
-                                });
-                            },
-                        };
-                    },
-                };
-            },
-        });
+        cy.visit("/dashboard/add-artwork");
     });
 
     it("user can fill out form details and submit the form", () => {

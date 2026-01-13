@@ -17,3 +17,28 @@ Cypress.Commands.add("login", () => {
         });
     });
 });
+
+Cypress.Commands.add("mockCloudinaryUpload", (secureUrl) => {
+    // Block Cloudinary widget script entirely
+    cy.intercept("GET", "https://upload-widget.cloudinary.com/**", {
+        statusCode: 204,
+    });
+
+    cy.on("window:before:load", (win) => {
+        win.cloudinary = {
+            createUploadWidget: (options, cb) => {
+                return {
+                    open: () => {
+                        // simulation of Cloudinary img upload
+                        cb(null, {
+                            event: "success",
+                            info: {
+                                secure_url: secureUrl,
+                            },
+                        });
+                    },
+                };
+            },
+        };
+    });
+});
