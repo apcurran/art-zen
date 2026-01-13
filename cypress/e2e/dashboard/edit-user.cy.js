@@ -11,6 +11,10 @@ describe("edit user profile", () => {
 
         cy.login();
 
+        cy.mockCloudinaryUpload(
+            "https://res.cloudinary.com/test/image/upload/avatar-fake.jpg",
+        );
+
         cy.visit("/dashboard/user-info");
     });
 
@@ -27,11 +31,15 @@ describe("edit user profile", () => {
     });
 
     it("user should be able to change avatar image of profile", () => {
-        cy.fixture("images/doom-suspect.png").as("doomGuy");
-
-        cy.get("input[id=avatarImg]").selectFile("@doomGuy");
+        // trigger Cloudinary widget (mocked functionality)
+        cy.get('[data-cy="upload-avatar"]').click();
 
         cy.contains("button", /update/i).click();
+
+        cy.wait("@changeUserInfo").its("request.body").should("include", {
+            avatarUrl:
+                "https://res.cloudinary.com/test/image/upload/avatar-fake.jpg",
+        });
 
         cy.contains(/user info updated/i).should("be.visible");
     });

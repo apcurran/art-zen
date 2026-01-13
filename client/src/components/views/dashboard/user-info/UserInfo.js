@@ -140,6 +140,7 @@ function UserInfo({ userId, token }) {
                     <button
                         type="button"
                         className="cta-btn"
+                        data-cy="upload-avatar"
                         onClick={() => widgetRef.current.open()}
                     >
                         {avatarUrl
