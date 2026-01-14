@@ -3,3 +3,4 @@ node_modules
 cypress.env.json
 *.dump
 *.code-workspace
+.zed
