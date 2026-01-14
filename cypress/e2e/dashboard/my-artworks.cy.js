@@ -39,7 +39,25 @@ describe("my artworks add/remove", () => {
         });
     });
 
-    it("should add, then delete an artwork", () => {
+    it("user can delete an artwork from the dashboard 'My Artworks' tab", () => {
+        // stub initial page loaded artworks on My Artworks tab
+        cy.get("@userId").then((userId) => {
+            cy.intercept("GET", `/api/artworks/users/${userId}`, {
+                body: [
+                    {
+                        artwork_id: 1,
+                        user_id: 67,
+                        artwork_img_url: "art-zen-app/fake-here",
+                        img_alt_txt: "Cartoon Aliens",
+                        img_width: 640,
+                        img_height: 376,
+                    },
+                ],
+            }).as("getArtworks");
+        });
+
+        cy.intercept("DELETE", "/api/artworks/1", {});
+
         // go to add artwork tab, fill out form, then submit to add the artwork
         cy.visit("/dashboard/add-artwork");
 
