@@ -40,58 +40,47 @@ describe("my artworks add/remove", () => {
     });
 
     it("user can delete an artwork from the dashboard 'My Artworks' tab", () => {
-        // stub initial page loaded artworks on My Artworks tab
         cy.get("@userId").then((userId) => {
+            // GET request with nested structure
             cy.intercept("GET", `/api/artworks/users/${userId}`, {
-                body: [
-                    {
-                        artwork_id: 1,
-                        user_id: 67,
-                        artwork_img_url: "art-zen-app/fake-here",
-                        img_alt_txt: "Cartoon Aliens",
-                        img_width: 640,
-                        img_height: 376,
+                statusCode: 200,
+                body: {
+                    userData: {
+                        username: "johndoe",
+                        avatar_img_url:
+                            "https://res.cloudinary.com/demo/image/upload/sample.png",
+                        bio_description: "lorem ipsum, update here!!",
                     },
-                ],
+                    followerData: [],
+                    artworkData: [
+                        {
+                            artwork_id: 1,
+                            user_id: Number(userId),
+                            artwork_img_url: "art-zen-app/tlx992cfy7khritthx2l",
+                            img_alt_txt: "Cartoon Aliens",
+                            img_width: 640,
+                            img_height: 376,
+                        },
+                    ],
+                },
             }).as("getArtworks");
-        });
 
-        cy.intercept("DELETE", "/api/artworks/1", {});
+            cy.intercept("DELETE", "**/api/artworks/1", {
+                statusCode: 204,
+            }).as("deleteArtwork");
 
-        // go to add artwork tab, fill out form, then submit to add the artwork
-        cy.visit("/dashboard/add-artwork");
-
-        cy.get("input[id=title]").type("Cartoon Aliens");
-
-        cy.get("select[id=genre]").select("sci-fi");
-
-        cy.get("textarea[id=description]").type(
-            "Here is my example description.",
-        );
-
-        cy.get("input[type=file]").selectFile(
-            "cypress/fixtures/images/cartoon-aliens.jpg",
-        );
-
-        cy.get("input[id=artwork-img-alt-txt]").type(
-            "Black and white cartoon aliens in a spaceship.",
-        );
-
-        cy.contains("button", /upload/i).click();
-
-        cy.contains(/successfully uploaded!/i).should("be.visible");
-
-        cy.get("@userId").then((userId) => {
-            // visit my artworks tab
             cy.visit(`/dashboard/artworks/users/${userId}`);
-            // delete the artwork
+
+            cy.wait("@getArtworks");
+
             cy.get(".user-profile__artworks-grid__article")
-                .first()
-                .find("button")
-                .contains("Delete")
-                .click();
-            // check the artwork has been deleted
-            cy.get("Cartoon Aliens").should("not.exist");
+                .should("be.visible")
+                .within(() => {
+                    cy.contains("button", /delete/i).click();
+                });
+
+            cy.wait("@deleteArtwork");
+            cy.get(".user-profile__artworks-grid__article").should("not.exist");
         });
     });
 });
