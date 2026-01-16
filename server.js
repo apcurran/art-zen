@@ -32,7 +32,12 @@ app.use(
             directives: {
                 "default-src": ["'self'"],
                 // 1. Allow images from self, data URIs, and Cloudinary
-                "img-src": ["'self'", "data:", "https://res.cloudinary.com"],
+                "img-src": [
+                    "'self'",
+                    "data:",
+                    "https://res.cloudinary.com",
+                    "https://api.dicebear.com",
+                ],
                 // 2. Allow scripts from your own domain (React's build files)
                 "script-src": ["'self'", "'unsafe-inline'"],
                 // enable Google Fonts to load for React client
