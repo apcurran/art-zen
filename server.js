@@ -24,21 +24,19 @@ if (process.env.NODE_ENV === "development") {
 app.disable("x-powered-by");
 
 // middleware
-// custom helmet config to allow imgs to load
-// TODO: deployed app on Dokku blocked CSS stylesheets for font from Google Fonts API, fix needed
 app.use(
     helmet({
         contentSecurityPolicy: {
             directives: {
                 "default-src": ["'self'"],
-                // 1. Allow images from self, data URIs, and Cloudinary
+                // Allow images from self, data URIs, and Cloudinary
                 "img-src": [
                     "'self'",
                     "data:",
                     "https://res.cloudinary.com",
                     "https://api.dicebear.com",
                 ],
-                // 2. Allow scripts from your own domain (React's build files)
+                // Allow scripts from your own domain (React's build files)
                 "script-src": ["'self'", "'unsafe-inline'"],
                 // enable Google Fonts to load for React client
                 "style-src": [
@@ -47,7 +45,7 @@ app.use(
                     "https://fonts.googleapis.com",
                 ],
                 "font-src": ["'self'", "https://fonts.gstatic.com"],
-                // 3. Connect-src must allow your API and Cloudinary if using their SDK
+                // Connect-src must allow your API and Cloudinary if using their SDK
                 "connect-src": ["'self'", "https://res.cloudinary.com"],
                 "upgrade-insecure-requests": [],
             },
