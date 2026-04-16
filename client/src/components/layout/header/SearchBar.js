@@ -41,7 +41,7 @@ function SearchBar() {
                 value={searchText}
                 onChange={handleInputChange}
                 type="text"
-                className="search-form__input"
+                className="search-form__input chamfered-corner--single"
                 aria-label="Search for artworks"
                 placeholder="Search for artworks by title or genre"
             />

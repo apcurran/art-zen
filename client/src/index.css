@@ -22,6 +22,8 @@
     --ultra-light-grey: #f9fafb;
     --brand-orange: #fdba74;
     --accent-lime: #bef264;
+
+    --chamfered-corner-amount: 14px;
 }
 
 body,
@@ -130,4 +132,16 @@ input::file-selector-button {
 
 .input--long {
     max-width: 100%;
+}
+
+/* Util classes */
+.chamfered-corner--both {
+    corner-shape: bevel;
+    border-top-left-radius: var(--chamfered-corner-amount);
+    border-bottom-right-radius: var(--chamfered-corner-amount);
+}
+
+.chamfered-corner--single {
+    corner-shape: bevel;
+    border-bottom-right-radius: var(--chamfered-corner-amount);
 }

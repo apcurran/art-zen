@@ -50,7 +50,6 @@
     font-size: 1rem;
     border: none;
     caret-color: var(--main-bg-clr);
-    border-radius: 4px;
     color: var(--main-bg-clr);
 }
 
