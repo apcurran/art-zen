@@ -69,7 +69,7 @@ function LogIn() {
                         type="email"
                         name="email"
                         id="email"
-                        className="auth__form__input"
+                        className="auth__form__input chamfered-corner--single"
                         required
                     />
                 </div>
@@ -82,13 +82,13 @@ function LogIn() {
                         type="password"
                         name="password"
                         id="password"
-                        className="auth__form__input"
+                        className="auth__form__input chamfered-corner--single"
                         required
                     />
                 </div>
                 <button
                     type="submit"
-                    className="auth__form__submit-btn cta-btn"
+                    className="auth__form__submit-btn cta-btn chamfered-corner--single"
                 >
                     Submit
                 </button>
