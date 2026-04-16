@@ -39,13 +39,13 @@
 }
 
 .search-form {
-    max-width: 25rem;
+    max-width: 22rem;
     width: 100%;
 }
 
 .search-form__input {
     width: 100%;
-    padding: 0.5625rem 0.5rem;
+    padding: 0.5625rem 1rem;
     background-color: #f3f4f6;
     font-size: 1rem;
     border: none;
