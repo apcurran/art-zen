@@ -69,7 +69,7 @@ function LogIn() {
                         type="email"
                         name="email"
                         id="email"
-                        className="auth__form__input chamfered-corner--single"
+                        className="auth__form__input"
                         required
                     />
                 </div>
@@ -82,7 +82,7 @@ function LogIn() {
                         type="password"
                         name="password"
                         id="password"
-                        className="auth__form__input chamfered-corner--single"
+                        className="auth__form__input"
                         required
                     />
                 </div>
