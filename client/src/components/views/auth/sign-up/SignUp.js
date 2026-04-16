@@ -92,7 +92,7 @@ function SignUp() {
                 </div>
                 <button
                     type="submit"
-                    className="auth__form__submit-btn cta-btn"
+                    className="auth__form__submit-btn cta-btn chamfered-corner--single"
                 >
                     Submit
                 </button>
