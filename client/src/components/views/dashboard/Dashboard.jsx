@@ -6,7 +6,7 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import DashboardNav from "./dashboard-nav/DashboardNav";
 import Subscriptions from "./subscriptions/Subscriptions";
 import UserInfo from "./user-info/UserInfo";
-import UserProfile from "../../../components/views/user-profile/UserProfile";
+import UserProfile from "../user-profile/UserProfile";
 import AddArtwork from "./add-artwork/AddArtwork";
 import ArtworkFavorites from "./artwork-favorites/ArtworkFavorites";
 

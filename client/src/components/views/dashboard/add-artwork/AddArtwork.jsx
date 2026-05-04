@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useContext } from "react";
 
 import "./AddArtwork.css";
 import { DiscoverArtworksContext } from "../../../../contexts/DiscoverArtworksContext";
-import Loader from "../../../../components/loader/Loader";
+import Loader from "../../../loader/Loader";
 
 function AddArtwork({ token }) {
     const { artworks, setArtworks } = useContext(DiscoverArtworksContext);
