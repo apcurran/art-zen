@@ -1,5 +1,8 @@
 import { Link } from "react-router";
-import { Image, Transformation } from "cloudinary-react";
+import { AdvancedImage } from "@cloudinary/react";
+import { scale } from "@cloudinary/url-gen/actions/resize";
+
+import { cld } from "../../../../utils/cloudinary-client";
 
 import "./UserProfileArtwork.css";
 
@@ -9,29 +12,26 @@ function UserProfileArtwork({
     deleteArtwork,
     artworkId,
 }) {
+    const img = cld
+        .image(artwork.artwork_img_url)
+        .resize(scale())
+        .quality("auto")
+        .format("auto");
+
     return (
         <article className="user-profile__artworks-grid__article">
             <Link
                 to={{ pathname: `/artworks/${artwork.artwork_id}` }}
                 className="user-profile__artworks-grid__article__link"
             >
-                <Image
-                    className="user-profile__artworks-grid__article__link__img"
-                    cloudName="dev-project"
-                    publicId={artwork.artwork_img_url}
+                <AdvancedImage
+                    cldImg={img}
                     alt={artwork.img_alt_txt}
                     width={artwork.img_width}
                     height={artwork.img_height}
                     decoding="async"
-                >
-                    <Transformation
-                        quality="auto"
-                        fetchFormat="auto"
-                        height="375"
-                        width="auto"
-                        crop="scale"
-                    />
-                </Image>
+                    className="user-profile__artworks-grid__article__link__img"
+                />
             </Link>
             {canUserDeleteArtwork ? (
                 <button

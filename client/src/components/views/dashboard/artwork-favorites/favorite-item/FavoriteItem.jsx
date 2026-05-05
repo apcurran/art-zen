@@ -1,9 +1,13 @@
 import { Link } from "react-router";
-import { Image, Transformation } from "cloudinary-react";
+import { AdvancedImage } from "@cloudinary/react";
+
+import { cld } from "../../../../../utils/cloudinary-client";
 
 import "./FavoriteItem.css";
 
 function FavoriteItem({ favorite, deleteFavorite }) {
+    const img = cld.image(favorite.img_url).quality("auto").format("auto");
+
     return (
         <article className="dashboard__favorites__article">
             <Link
@@ -11,17 +15,14 @@ function FavoriteItem({ favorite, deleteFavorite }) {
                 className="dashboard__favorites__article-link"
             >
                 <figure className="dashboard__favorites__article__fig">
-                    <Image
-                        className="dashboard__favorites__article__fig__img"
-                        cloudName="dev-project"
-                        publicId={favorite.img_url}
+                    <AdvancedImage
+                        cldImg={img}
                         alt={favorite.img_alt_txt}
                         height="375"
                         width="auto"
                         decoding="async"
-                    >
-                        <Transformation quality="auto" fetchFormat="auto" />
-                    </Image>
+                        className="dashboard__favorites__article__fig__img"
+                    />
                 </figure>
                 <h2 className="dashboard__favorites__article__title">
                     {favorite.title}
