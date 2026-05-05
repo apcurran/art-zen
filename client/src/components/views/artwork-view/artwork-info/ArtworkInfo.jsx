@@ -17,16 +17,13 @@ function ArtworkInfo({
     updateFavorites,
     currUserHasFavorited,
 }) {
-    const cldImage = cld
-        .image(artworkData.imgUrl)
-        .quality("auto")
-        .format("auto");
+    const img = cld.image(artworkData.imgUrl).quality("auto").format("auto");
 
     return (
         <section className="artwork-view__info">
             <figure className="artwork-view__info__fig">
                 <AdvancedImage
-                    cldImg={cldImage}
+                    cldImg={img}
                     width={artworkData.imgWidth}
                     height={artworkData.imgHeight}
                     alt={artworkData.imgAltTxt}
