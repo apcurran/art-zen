@@ -7,11 +7,9 @@ function AuthContextProvider(props) {
     const [userId, setUserId] = useState(0);
 
     return (
-        <AuthContext.Provider
-            value={{ isLoggedIn, setIsLoggedIn, userId, setUserId }}
-        >
+        <AuthContext value={{ isLoggedIn, setIsLoggedIn, userId, setUserId }}>
             {props.children}
-        </AuthContext.Provider>
+        </AuthContext>
     );
 }
 
