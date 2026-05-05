@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams, useNavigate, useMatch } from "react-router-dom";
+import { useParams, useNavigate, useMatch } from "react-router";
 
 import "./UserProfile.css";
 
