@@ -32,7 +32,7 @@ function App() {
     }, [setIsLoggedIn, setUserId]);
 
     return (
-        <Router>
+        <Router future={{ v7_relativeSplatPath: true }}>
             <div className="App">
                 <Header />
                 <Suspense fallback={<GlobalLoader />}>
