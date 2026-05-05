@@ -1,5 +1,7 @@
 import { Link } from "react-router";
-import { Image, Transformation } from "cloudinary-react";
+import { AdvancedImage } from "@cloudinary/react";
+
+import { cld } from "../../../../utils/cloudinary-client";
 
 import "./ArtworkInfo.css";
 
@@ -15,20 +17,22 @@ function ArtworkInfo({
     updateFavorites,
     currUserHasFavorited,
 }) {
+    const cldImage = cld
+        .image(artworkData.imgUrl)
+        .quality("auto")
+        .format("auto");
+
     return (
         <section className="artwork-view__info">
             <figure className="artwork-view__info__fig">
-                <Image
-                    className="artwork-view__info__fig__img"
-                    cloudName="dev-project"
-                    publicId={artworkData.imgUrl}
+                <AdvancedImage
+                    cldImg={cldImage}
                     width={artworkData.imgWidth}
                     height={artworkData.imgHeight}
                     alt={artworkData.imgAltTxt}
+                    className="artwork-view__info__fig__img"
                     decoding="async"
-                >
-                    <Transformation quality="auto" fetchFormat="auto" />
-                </Image>
+                />
             </figure>
             <h1 className="artwork-view__info__title">{artworkData.title}</h1>
             <span className="artwork-view__info__by">by</span>
