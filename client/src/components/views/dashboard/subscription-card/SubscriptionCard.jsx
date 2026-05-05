@@ -1,5 +1,7 @@
 import { Link } from "react-router";
-import { Image, Transformation } from "cloudinary-react";
+import { AdvancedImage } from "@cloudinary/react";
+
+import { cld } from "../../../../utils/cloudinary-client";
 
 import "./SubscriptionCard.css";
 
@@ -7,6 +9,8 @@ import Chip from "../../../chip/Chip";
 import formatDate from "../../../../utils/format-date";
 
 function SubscriptionCard({ artwork }) {
+    const img = cld.image(artwork.img_url).quality("auto").format("auto");
+
     return (
         <article className="subscriptions-grid__card">
             <Link
@@ -14,17 +18,14 @@ function SubscriptionCard({ artwork }) {
                 className="subscriptions-grid__card-link-container"
             >
                 <figure className="subscriptions-grid__card__fig">
-                    <Image
-                        className="subscriptions-grid__card__fig__img"
-                        cloudName="dev-project"
-                        publicId={artwork.img_url}
+                    <AdvancedImage
+                        cldImg={img}
                         alt={artwork.img_alt_txt}
+                        className="subscriptions-grid__card__fig__img"
                         height="450"
                         width="auto"
                         decoding="async"
-                    >
-                        <Transformation quality="auto" fetchFormat="auto" />
-                    </Image>
+                    />
                 </figure>
                 <h3 className="subscriptions-grid__card__title">
                     {artwork.title}
