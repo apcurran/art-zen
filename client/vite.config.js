@@ -7,6 +7,7 @@ export default defineConfig({
         outDir: "build",
     },
     server: {
+        port: 3000,
         proxy: {
             // String shorthand is not supported in Vite like it is in CRA.
             // You must specify the path prefix you want to proxy.
