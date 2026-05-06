@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
-        "module": "CommonJS",
-        "moduleResolution": "node",
+        "module": "nodenext",
         "target": "esnext",
         "checkJs": true
     },
