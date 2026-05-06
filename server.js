@@ -37,7 +37,12 @@ app.use(
                     "https://api.dicebear.com",
                 ],
                 // Allow scripts from your own domain (React's build files)
-                "script-src": ["'self'", "'unsafe-inline'"],
+                "script-src": [
+                    "'self'",
+                    "'unsafe-inline'",
+                    "https://upload-widget.cloudinary.com", // Added for the widget script
+                    "https://widget.cloudinary.com",
+                ],
                 // enable Google Fonts to load for React client
                 "style-src": [
                     "'self'",
@@ -46,7 +51,12 @@ app.use(
                 ],
                 "font-src": ["'self'", "https://fonts.gstatic.com"],
                 // Connect-src must allow your API and Cloudinary if using their SDK
-                "connect-src": ["'self'", "https://res.cloudinary.com"],
+                "connect-src": [
+                    "'self'",
+                    "https://res.cloudinary.com",
+                    "https://api.cloudinary.com", // Added to allow the upload request
+                ],
+                "worker-src": ["'self'", "blob:"], // Added because the widget uses Web Workers
                 "upgrade-insecure-requests": [],
             },
         },
