@@ -16,7 +16,7 @@
         "dev": "node --env-file=.env --watch server.js",
         "avatar-img-update": "node --env-file=.env ./db/avatar-img-update-script.js",
         "db:seeds": "node --env-file=.env ./db/seeds.js",
-        "heroku-postbuild": "cd client && npm clean-install --production && npm run build"
+        "heroku-postbuild": "cd client && npm install && npm run build && npm prune --production"
     },
     "author": "Alex Curran",
     "license": "ISC",
