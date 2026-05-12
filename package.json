@@ -7,7 +7,6 @@
         "node": "24.x"
     },
     "scripts": {
-        "test": "jest",
         "cy:open": "npx cypress open",
         "cy:run": "npx cypress run",
         "lint": "oxlint",
