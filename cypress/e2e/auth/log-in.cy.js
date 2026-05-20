@@ -9,15 +9,16 @@ describe("log in page", () => {
     it("logs a test user into the app, then gets redirected to the user's 'subscriptions' page of the dashboard", () => {
         cy.intercept("POST", "/api/auth/log-in").as("log-in");
 
-        cy.get("input[type=email]").type(Cypress.env("testUserEmail"));
+        cy.env(["testUserEmail", "testUserPassword"]).then(
+            ({ testUserEmail, testUserPassword }) => {
+                cy.get("input[type=email]").type(testUserEmail);
+                cy.get("input[type=password]").type(testUserPassword);
+                cy.get("button[type=submit]").click();
 
-        cy.get("input[type=password]").type(Cypress.env("testUserPassword"));
-
-        cy.get("button[type=submit]").click();
-
-        cy.wait("@log-in");
-
-        cy.url().should("include", "/dashboard/subscriptions");
+                cy.wait("@log-in");
+                cy.url().should("include", "/dashboard/subscriptions");
+            },
+        );
     });
 
     it("gives an error message if the user email does not exist", () => {
@@ -25,49 +26,47 @@ describe("log in page", () => {
 
         cy.get("input[type=email]").type("thisdoesnotexist@gmail.com");
 
-        cy.get("input[type=password]").type(Cypress.env("testUserPassword"));
+        cy.env(["testUserPassword"]).then(({ testUserPassword }) => {
+            cy.get("input[type=password]").type(testUserPassword);
+            cy.get("button[type=submit]").click();
 
-        cy.get("button[type=submit]").click();
-
-        cy.wait("@log-in");
-
-        cy.contains("p", /email is not found./i)
-            .should("have.class", "error")
-            .should("exist");
+            cy.wait("@log-in");
+            cy.contains("p", /email is not found./i)
+                .should("have.class", "error")
+                .should("exist");
+        });
     });
 
     it("gives an error message when the user provides an incorrect password", () => {
         cy.intercept("POST", "/api/auth/log-in").as("log-in");
 
-        cy.get("input[type=email]").type(Cypress.env("testUserEmail"));
+        cy.env(["testUserEmail"]).then(({ testUserEmail }) => {
+            cy.get("input[type=email]").type(testUserEmail);
+            cy.get("input[type=password]").type("myfakepassword");
+            cy.get("button[type=submit]").click();
 
-        cy.get("input[type=password]").type("myfakepassword");
-
-        cy.get("button[type=submit]").click();
-
-        cy.wait("@log-in");
-
-        cy.contains("p", /invalid password./i)
-            .should("have.class", "error")
-            .should("exist");
+            cy.wait("@log-in");
+            cy.contains("p", /invalid password./i)
+                .should("have.class", "error")
+                .should("exist");
+        });
     });
 
     it("gives an error message when the user provides a password shorter than 6 characters long", () => {
         cy.intercept("POST", "/api/auth/log-in").as("log-in");
 
-        cy.get("input[type=email]").type(Cypress.env("testUserEmail"));
+        cy.env(["testUserEmail"]).then(({ testUserEmail }) => {
+            cy.get("input[type=email]").type(testUserEmail);
+            cy.get("input[type=password]").type("short");
+            cy.get("button[type=submit]").click();
 
-        cy.get("input[type=password]").type("short");
-
-        cy.get("button[type=submit]").click();
-
-        cy.wait("@log-in");
-
-        cy.contains(
-            "p",
-            /"password" length must be at least 6 characters long/i,
-        )
-            .should("have.class", "error")
-            .should("exist");
+            cy.wait("@log-in");
+            cy.contains(
+                "p",
+                /"password" length must be at least 6 characters long/i,
+            )
+                .should("have.class", "error")
+                .should("exist");
+        });
     });
 });
