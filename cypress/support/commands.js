@@ -2,19 +2,24 @@
 
 Cypress.Commands.add("login", () => {
     cy.session("user-session", () => {
-        cy.request({
-            method: "POST",
-            url: "/api/auth/log-in",
-            body: {
-                email: Cypress.env("testUserEmail"),
-                password: Cypress.env("testUserPassword"),
-            },
-        }).then((response) => {
-            const { accessToken, userId } = response.body;
+        // Fetch and destructure credentials right inside the session setup callback
+        cy.env(["testUserEmail", "testUserPassword"]).then(
+            ({ testUserEmail, testUserPassword }) => {
+                cy.request({
+                    method: "POST",
+                    url: "/api/auth/log-in",
+                    body: {
+                        email: testUserEmail,
+                        password: testUserPassword,
+                    },
+                }).then((response) => {
+                    const { accessToken, userId } = response.body;
 
-            window.localStorage.setItem("authToken", accessToken);
-            window.localStorage.setItem("userId", userId);
-        });
+                    window.localStorage.setItem("authToken", accessToken);
+                    window.localStorage.setItem("userId", userId);
+                });
+            },
+        );
     });
 });
 
