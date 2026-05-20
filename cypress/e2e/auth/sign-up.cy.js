@@ -12,14 +12,17 @@ describe("sign up flow", () => {
 
         cy.visit("/auth/sign-up");
 
-        cy.get("input[name=username]").type(Cypress.env("testUsername"));
+        cy.env(["testUsername", "testUserEmail", "testUserPassword"]).then(
+            ({ testUsername, testUserEmail, testUserPassword }) => {
+                cy.get("input[name=username]").type(testUsername);
+                cy.get("input[name=email]").type(testUserEmail);
+                cy.get("input[name=password]").type(testUserPassword, {
+                    log: false,
+                });
 
-        cy.get("input[name=email]").type(Cypress.env("testUserEmail"));
-
-        cy.get("input[name=password]").type(Cypress.env("testUserPassword"));
-
-        cy.contains("button", /submit/i).click();
-
-        cy.url().should("include", "/auth/log-in");
+                cy.contains("button", /submit/i).click();
+                cy.url().should("include", "/auth/log-in");
+            },
+        );
     });
 });
