@@ -6,19 +6,20 @@ describe("log out flow", () => {
 
         cy.visit("/auth/log-in");
 
-        cy.get("input[type=email]").type(Cypress.env("testUserEmail"));
+        cy.env(["testUserEmail", "testUserPassword"]).then(
+            ({ testUserEmail, testUserPassword }) => {
+                cy.get("input[type=email]").type(testUserEmail);
+                cy.get("input[type=password]").type(testUserPassword);
+                cy.get("button[type=submit]").click();
 
-        cy.get("input[type=password]").type(Cypress.env("testUserPassword"));
+                cy.wait("@log-in");
+                // user now logged in
+                cy.contains("button", /log out/i)
+                    .should("exist")
+                    .click();
 
-        cy.get("button[type=submit]").click();
-
-        cy.wait("@log-in");
-
-        // user now logged in
-        cy.contains("button", /log out/i)
-            .should("exist")
-            .click();
-
-        cy.url().should("eq", "http://localhost:3000/");
+                cy.url().should("eq", "http://localhost:3000/");
+            },
+        );
     });
 });
