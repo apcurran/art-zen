@@ -21,11 +21,9 @@ function App() {
     const { setIsLoggedIn, setUserId, userId } = useContext(AuthContext);
 
     useEffect(() => {
-        // Run auth check on app startup
-        // Set log in status for Auth Context
-        localStorage.authToken ? setIsLoggedIn(true) : setIsLoggedIn(false);
+        // check and sync auth context with localStorage on app init
+        setIsLoggedIn(Boolean(localStorage.getItem("authToken")));
 
-        // Set user id for Auth Context
         const parsedUserId = Number(localStorage.getItem("userId"));
         setUserId(parsedUserId || 0);
     }, [setIsLoggedIn, setUserId]);
