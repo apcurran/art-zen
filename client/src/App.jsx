@@ -25,9 +25,9 @@ function App() {
         // Set log in status for Auth Context
         localStorage.authToken ? setIsLoggedIn(true) : setIsLoggedIn(false);
 
-        const userId = Number(localStorage.getItem("userId"));
         // Set user id for Auth Context
-        userId ? setUserId(userId) : setUserId(0);
+        const parsedUserId = Number(localStorage.getItem("userId"));
+        setUserId(parsedUserId || 0);
     }, [setIsLoggedIn, setUserId]);
 
     return (
