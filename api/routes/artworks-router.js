@@ -1,10 +1,9 @@
-"use strict";
+import express from "express";
 
-const express = require("express");
+import * as artworksController from "../controllers/artworks-controller.js";
+import verifyAuth from "../middleware/verify-auth.js";
+
 const router = express.Router();
-
-const artworksController = require("../controllers/artworks-controller");
-const verifyAuth = require("../middleware/verify-auth");
 
 // GET all user favorites
 router.get(
@@ -61,4 +60,4 @@ router.delete(
 // DELETE artwork
 router.delete("/:artworkId", verifyAuth, artworksController.deleteUserArtwork);
 
-module.exports = router;
+export default router;

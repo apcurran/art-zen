@@ -1,10 +1,9 @@
-"use strict";
+import express from "express";
 
-const express = require("express");
+import * as usersController from "../controllers/users-controller.js";
+import verifyAuth from "../middleware/verify-auth.js";
+
 const router = express.Router();
-
-const usersController = require("../controllers/users-controller");
-const verifyAuth = require("../middleware/verify-auth");
 
 // GET subscriptions artworks
 router.get(
@@ -27,4 +26,4 @@ router.delete(
 // DELETE user account
 router.delete("/:userId", verifyAuth, usersController.deleteUser); // tested
 
-module.exports = router;
+export default router;

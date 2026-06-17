@@ -1,10 +1,9 @@
-"use strict";
+import express from "express";
 
-const express = require("express");
+import * as cloudinaryController from "../controllers/cloudinary-controller.js";
+import verifyAuth from "../middleware/verify-auth.js";
+
 const router = express.Router();
-
-const cloudinaryController = require("../controllers/cloudinary-controller.js");
-const verifyAuth = require("../middleware/verify-auth");
 
 router.post(
     "/sign",
@@ -12,4 +11,4 @@ router.post(
     cloudinaryController.postCloudinaryUploadSignature,
 );
 
-module.exports = router;
+export default router;

@@ -1,12 +1,11 @@
-"use strict";
+import express from "express";
 
-const express = require("express");
+import * as authController from "../controllers/auth-controller.js";
+
 const router = express.Router();
-
-const authController = require("../controllers/auth-controller");
 
 router.post("/sign-up", authController.postUserSignup); // tested
 
 router.post("/log-in", authController.postUserLogin); // tested
 
-module.exports = router;
+export default router;
