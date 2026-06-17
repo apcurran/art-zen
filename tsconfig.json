@@ -3,7 +3,7 @@
         "module": "nodenext",
         "target": "esnext",
         "allowJs": true,
-        "checkJs": false,
+        "checkJs": true,
         "noEmit": true
     },
     "exclude": ["node_modules", "client"]
