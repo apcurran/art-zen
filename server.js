@@ -2,7 +2,6 @@ import express from "express";
 import { rateLimit } from "express-rate-limit";
 import helmet from "helmet";
 import path from "path";
-import morgan from "morgan";
 
 // Import routers
 import authRouter from "./api/routes/auth-router.js";
@@ -14,6 +13,8 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 if (process.env.NODE_ENV === "development") {
+    // top-level await async import
+    const { default: morgan } = await import("morgan");
     app.use(morgan("dev"));
 }
 
