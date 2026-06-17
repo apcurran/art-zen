@@ -1,6 +1,4 @@
-"use strict";
-
-const { db } = require("../db/index");
+import { db } from "../db/index.js";
 
 async function updateAvatarImages() {
     try {
