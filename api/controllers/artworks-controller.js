@@ -1,11 +1,8 @@
-"use strict";
-
-const { db } = require("../../db/index");
-
-const {
+import { db } from "../../db/index.js";
+import {
     userArtworkValidation,
     userArtworkCommentValidation,
-} = require("../validation/artworks-validation");
+} from "../validation/artworks-validation.js";
 
 // GET controllers
 // Various artists sorted by most recent

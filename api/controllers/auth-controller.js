@@ -1,16 +1,14 @@
-"use strict";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-const { db } = require("../../db/index");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-
-const {
+import { db } from "../../db/index.js";
+import {
     signupValidation,
     loginValidation,
-} = require("../validation/auth-validation");
+} from "../validation/auth-validation.js";
 
 // POST controllers
-async function postUserSignup(req, res, next) {
+export async function postUserSignup(req, res, next) {
     try {
         const { username, email, password } = await signupValidation(req.body);
         // Data is valid, now reject creating an existing user.
@@ -55,7 +53,7 @@ async function postUserSignup(req, res, next) {
     }
 }
 
-async function postUserLogin(req, res, next) {
+export async function postUserLogin(req, res, next) {
     try {
         const { email, password } = await loginValidation(req.body);
         // Data valid, check for an existing email
@@ -95,8 +93,3 @@ async function postUserLogin(req, res, next) {
         next(err);
     }
 }
-
-module.exports = {
-    postUserSignup,
-    postUserLogin,
-};

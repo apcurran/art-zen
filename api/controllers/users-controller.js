@@ -1,10 +1,8 @@
-"use strict";
-
-const { db } = require("../../db/index");
-const { userPatchValidation } = require("../validation/users-validation");
+import { db } from "../../db/index.js";
+import { userPatchValidation } from "../validation/users-validation.js";
 
 // GET controller
-async function getUserInfo(req, res, next) {
+export async function getUserInfo(req, res, next) {
     const { userId } = req.params;
 
     try {
@@ -24,7 +22,7 @@ async function getUserInfo(req, res, next) {
 }
 
 // GET user subscriptions
-async function getSubscriptions(req, res, next) {
+export async function getSubscriptions(req, res, next) {
     const { userId } = req.params;
 
     try {
@@ -48,7 +46,7 @@ async function getSubscriptions(req, res, next) {
 }
 
 // POST controller
-async function postUserFollower(req, res, next) {
+export async function postUserFollower(req, res, next) {
     const { userId } = req.params;
     const followerId = req.user._id;
 
@@ -71,7 +69,7 @@ async function postUserFollower(req, res, next) {
 }
 
 // PATCH controller
-async function patchUser(req, res, next) {
+export async function patchUser(req, res, next) {
     try {
         const { bioDesc, avatarUrl } = await userPatchValidation(req.body);
         // If user did not send a new img to replace avatar img with, keep the old one.
@@ -99,7 +97,7 @@ async function patchUser(req, res, next) {
 }
 
 // DELETE controllers
-async function deleteUserFollower(req, res, next) {
+export async function deleteUserFollower(req, res, next) {
     const { userId } = req.params;
     const followerId = req.user._id;
 
@@ -120,7 +118,7 @@ async function deleteUserFollower(req, res, next) {
     }
 }
 
-async function deleteUser(req, res, next) {
+export async function deleteUser(req, res, next) {
     const userId = req.user._id;
 
     try {
@@ -137,12 +135,3 @@ async function deleteUser(req, res, next) {
         next(err);
     }
 }
-
-module.exports = {
-    getUserInfo,
-    getSubscriptions,
-    postUserFollower,
-    patchUser,
-    deleteUserFollower,
-    deleteUser,
-};
