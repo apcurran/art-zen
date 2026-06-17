@@ -1,8 +1,6 @@
-"use strict";
-
 const Joi = require("joi");
 
-function signupValidation(data) {
+export function signupValidation(data) {
     const schema = Joi.object({
         username: Joi.string().trim().max(100).required(),
         email: Joi.string().trim().email().min(4).max(100).required(),
@@ -14,7 +12,7 @@ function signupValidation(data) {
     return schema.validateAsync(data);
 }
 
-function loginValidation(data) {
+export function loginValidation(data) {
     const schema = Joi.object({
         email: Joi.string().trim().email().min(4).max(100).required(),
         password: Joi.string().trim().min(6).required(),
@@ -22,8 +20,3 @@ function loginValidation(data) {
 
     return schema.validateAsync(data);
 }
-
-module.exports = {
-    signupValidation,
-    loginValidation,
-};
