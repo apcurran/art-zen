@@ -1,22 +1,19 @@
-"use strict";
+import express from "express";
+import { rateLimit } from "express-rate-limit";
+import helmet from "helmet";
+import path from "path";
+import morgan from "morgan";
 
-const express = require("express");
-const { rateLimit } = require("express-rate-limit");
-const helmet = require("helmet");
-
-const path = require("path");
-const PORT = process.env.PORT || 5000;
 // Import routers
-const authRouter = require("./api/routes/auth-router");
-const usersRouter = require("./api/routes/users-router");
-const artworksRouter = require("./api/routes/artworks-router");
-const cloudinaryRouter = require("./api/routes/cloudinary-router");
+import authRouter from "./api/routes/auth-router.js";
+import usersRouter from "./api/routes/users-router.js";
+import artworksRouter from "./api/routes/artworks-router.js";
+import cloudinaryRouter from "./api/routes/cloudinary-router.js";
 
+const PORT = process.env.PORT || 5000;
 const app = express();
 
 if (process.env.NODE_ENV === "development") {
-    const morgan = require("morgan");
-
     app.use(morgan("dev"));
 }
 
@@ -68,7 +65,7 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "client", "build")));
+app.use(express.static(path.join(import.meta.dirname, "client", "build")));
 app.set("trust proxy", 1);
 
 // Rate-limiting setup
@@ -98,7 +95,9 @@ app.use((err, req, res, next) => {
 
 // Catch-all handler to send back React's index.html file
 app.get("/{*splat}", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+    res.sendFile(
+        path.join(import.meta.dirname, "client", "build", "index.html"),
+    );
 });
 
 app.listen(PORT, () =>
