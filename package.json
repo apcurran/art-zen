@@ -6,6 +6,7 @@
     "engines": {
         "node": "24.x"
     },
+    "type": "module",
     "scripts": {
         "cy:open": "npx cypress open",
         "cy:run": "npx cypress run",
