@@ -13,39 +13,39 @@ router.get(
     artworksController.getUserFavorites,
 );
 // GET specific user artworks based on user id
-router.get("/users/:userId", artworksController.getUserArtworks); // tested
+router.get("/users/:userId", artworksController.getUserArtworks);
 // GET search results for artwork title or genre
-router.get("/search", artworksController.getSearch); // tested
+router.get("/search", artworksController.getSearch);
 // GET specific artwork based on artwork id
-router.get("/:artworkId", artworksController.getUserArtwork); // tested
+router.get("/:artworkId", artworksController.getUserArtwork);
 // GET all artworks
-router.get("/", artworksController.getArtworks); // tested
+router.get("/", artworksController.getArtworks);
 // POST new artwork like
 router.post(
     "/:artworkId/likes",
     verifyAuth,
     artworksController.postUserArtworkLike,
-); // tested
+);
 // POST new artwork comment
 router.post(
     "/:artworkId/comments",
     verifyAuth,
     artworksController.postUserArtworkComment,
-); // tested
+);
 // POST new artwork favorite
 router.post(
     "/:artworkId/favorites",
     verifyAuth,
     artworksController.postUserArtworkFavorite,
-); // tested
+);
 // POST new artwork
-router.post("/", verifyAuth, artworksController.postUserArtwork); // tested
+router.post("/", verifyAuth, artworksController.postUserArtwork);
 // DELETE artwork like
 router.delete(
     "/:artworkId/likes/:likeId",
     verifyAuth,
     artworksController.deleteUserArtworkLike,
-); // tested
+);
 // DELETE artwork comment
 router.delete(
     "/:artworkId/comments/:commentId",
@@ -57,8 +57,8 @@ router.delete(
     "/:artworkId/favorites/:favoriteId",
     verifyAuth,
     artworksController.deleteUserArtworkFavorite,
-); // tested
+);
 // DELETE artwork
-router.delete("/:artworkId", verifyAuth, artworksController.deleteUserArtwork); // tested
+router.delete("/:artworkId", verifyAuth, artworksController.deleteUserArtwork);
 
 module.exports = router;
