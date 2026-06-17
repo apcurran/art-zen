@@ -9,7 +9,7 @@ const {
 
 // GET controllers
 // Various artists sorted by most recent
-async function getArtworks(req, res, next) {
+export async function getArtworks(req, res, next) {
     try {
         const artworks = await db.manyOrNone(`
             SELECT
@@ -27,7 +27,7 @@ async function getArtworks(req, res, next) {
     }
 }
 
-async function getUserArtwork(req, res, next) {
+export async function getUserArtwork(req, res, next) {
     try {
         const { artworkId } = req.params;
 
@@ -73,7 +73,7 @@ async function getUserArtwork(req, res, next) {
     }
 }
 
-async function getUserArtworks(req, res, next) {
+export async function getUserArtworks(req, res, next) {
     try {
         const { userId } = req.params;
         const queriesText = `
@@ -106,7 +106,7 @@ async function getUserArtworks(req, res, next) {
     }
 }
 
-async function getSearch(req, res, next) {
+export async function getSearch(req, res, next) {
     try {
         const { q } = req.query;
         const revisedWildcardQuery = `%${q}%`;
@@ -131,7 +131,7 @@ async function getSearch(req, res, next) {
     }
 }
 
-async function getUserFavorites(req, res, next) {
+export async function getUserFavorites(req, res, next) {
     const userId = req.user._id;
 
     try {
@@ -155,7 +155,7 @@ async function getUserFavorites(req, res, next) {
 }
 
 // POST controllers
-async function postUserArtwork(req, res, next) {
+export async function postUserArtwork(req, res, next) {
     try {
         const userId = req.user._id;
         const { title, description, genre, altTxt, public_id, width, height } =
@@ -191,7 +191,7 @@ async function postUserArtwork(req, res, next) {
     }
 }
 
-async function postUserArtworkLike(req, res, next) {
+export async function postUserArtworkLike(req, res, next) {
     const { artworkId } = req.params;
     const userId = req.user._id;
 
@@ -213,7 +213,7 @@ async function postUserArtworkLike(req, res, next) {
     }
 }
 
-async function postUserArtworkComment(req, res, next) {
+export async function postUserArtworkComment(req, res, next) {
     const userId = req.user._id;
     const { artworkId } = req.params;
 
@@ -267,7 +267,7 @@ async function postUserArtworkComment(req, res, next) {
     }
 }
 
-async function postUserArtworkFavorite(req, res, next) {
+export async function postUserArtworkFavorite(req, res, next) {
     const { artworkId } = req.params;
     const userId = req.user._id;
 
@@ -290,7 +290,7 @@ async function postUserArtworkFavorite(req, res, next) {
 }
 
 // DELETE controllers
-async function deleteUserArtworkLike(req, res, next) {
+export async function deleteUserArtworkLike(req, res, next) {
     const { likeId } = req.params;
     const userId = req.user._id;
 
@@ -309,7 +309,7 @@ async function deleteUserArtworkLike(req, res, next) {
     }
 }
 
-async function deleteUserComment(req, res, next) {
+export async function deleteUserComment(req, res, next) {
     const { commentId } = req.params;
     const userId = req.user._id;
 
@@ -328,7 +328,7 @@ async function deleteUserComment(req, res, next) {
     }
 }
 
-async function deleteUserArtworkFavorite(req, res, next) {
+export async function deleteUserArtworkFavorite(req, res, next) {
     const { favoriteId } = req.params;
     const userId = req.user._id;
 
@@ -347,7 +347,7 @@ async function deleteUserArtworkFavorite(req, res, next) {
     }
 }
 
-async function deleteUserArtwork(req, res, next) {
+export async function deleteUserArtwork(req, res, next) {
     const { artworkId } = req.params;
     const userId = req.user._id;
 
@@ -367,19 +367,3 @@ async function deleteUserArtwork(req, res, next) {
         next(err);
     }
 }
-
-module.exports = {
-    getArtworks,
-    getUserArtwork,
-    getUserArtworks,
-    getSearch,
-    getUserFavorites,
-    postUserArtwork,
-    postUserArtworkLike,
-    postUserArtworkComment,
-    postUserArtworkFavorite,
-    deleteUserArtworkLike,
-    deleteUserComment,
-    deleteUserArtworkFavorite,
-    deleteUserArtwork,
-};
