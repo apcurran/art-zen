@@ -1,10 +1,8 @@
-"use strict";
+import { faker } from "@faker-js/faker";
+import bcrypt from "bcrypt";
 
-const { faker } = require("@faker-js/faker");
-const bcrypt = require("bcrypt");
-
-const { db } = require("../db/index");
-const { cloudinary } = require("../utils/cloudinary");
+import { db } from "../db/index.js";
+import { cloudinary } from "../utils/cloudinary.js";
 
 async function clearDb() {
     await db.none("TRUNCATE app_user RESTART IDENTITY CASCADE");
