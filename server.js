@@ -11,8 +11,9 @@ import cloudinaryRouter from "./api/routes/cloudinary-router.js";
 
 const PORT = process.env.PORT || 5000;
 const app = express();
+const isDev = process.env.NODE_ENV === "development";
 
-if (process.env.NODE_ENV === "development") {
+if (isDev) {
     // top-level await async import
     const { default: morgan } = await import("morgan");
     app.use(morgan("dev"));
@@ -89,9 +90,13 @@ app.use("/api/cloudinary", cloudinaryRouter);
 // General server error handling
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
-    console.error(err);
+    console.error(err.stack || err);
+    const currStatus = Number.isInteger(err.status) ? err.status : 500;
+    // this only shows internal errors under dev mode, not production
+    // avoids leaking internals via error messages
+    const message = isDev ? err.message : "Internal server error";
 
-    return res.status(500).json({ error: err.message });
+    return res.status(currStatus).json({ error: message });
 });
 
 // Catch-all handler to send back React's index.html file
