@@ -16,7 +16,7 @@ export function userArtworkValidation(data) {
 
 export function userArtworkCommentValidation(data) {
     const schema = Joi.object({
-        text: Joi.string().max(500),
+        text: Joi.string().max(500).required(),
     });
 
     return schema.validateAsync(data);
