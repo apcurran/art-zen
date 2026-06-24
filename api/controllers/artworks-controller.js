@@ -292,6 +292,15 @@ export async function postUserArtworkFavorite(req, res, next) {
 
         res.status(201).json({ favoriteData: addedFavorite });
     } catch (err) {
+        if (
+            err.code === "23505" &&
+            err.constraint === "uq_artwork_favorite_art_user"
+        ) {
+            return res
+                .status(409)
+                .json({ error: "This artwork is already in your favorites." });
+        }
+
         next(err);
     }
 }
