@@ -206,6 +206,16 @@ export async function postUserArtworkLike(req, res, next) {
 
         res.status(201).json({ likesData: addedLike });
     } catch (err) {
+        // Handle database-level constraint conflict
+        if (
+            err.code === "23505" &&
+            err.constraint === "uq_artwork_like_art_user"
+        ) {
+            return res
+                .status(409)
+                .json({ error: "You have already liked this artwork." });
+        }
+
         next(err);
     }
 }
