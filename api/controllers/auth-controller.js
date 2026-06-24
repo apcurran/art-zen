@@ -49,6 +49,20 @@ export async function postUserSignup(req, res, next) {
             return res.status(400).json({ error: err.message });
         }
 
+        // handle PostgreSQL unique constraint errors
+        if (err.code === "23505") {
+            if (err.constraint === "uq_app_user_username") {
+                return res
+                    .status(409)
+                    .json({ error: "Username is already taken." });
+            }
+
+            // Fallback case for email in case of a race condition
+            if (err.constraint === "app_user_email_key") {
+                return res.status(409).json({ error: "Email already exists." });
+            }
+        }
+
         next(err);
     }
 }
