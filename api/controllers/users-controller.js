@@ -51,6 +51,13 @@ export async function postUserFollower(req, res, next) {
     const followerId = req.user._id;
 
     try {
+        // Prevent users from following themselves
+        if (Number(userId) === Number(followerId)) {
+            return res
+                .status(400)
+                .json({ error: "You cannot follow yourself." });
+        }
+
         const addedFollower = await db.one(
             `
             INSERT INTO follower
@@ -64,6 +71,15 @@ export async function postUserFollower(req, res, next) {
 
         res.status(201).json({ addedFollower });
     } catch (err) {
+        if (
+            err.code === "23505" &&
+            err.constraint === "uq_follower_user_account"
+        ) {
+            return res
+                .status(409)
+                .json({ error: "You are already following this user." });
+        }
+
         next(err);
     }
 }
