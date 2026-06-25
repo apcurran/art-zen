@@ -88,7 +88,7 @@ export async function postUserLogin(req, res, next) {
         const validPassword = await bcrypt.compare(password, user.password);
 
         if (!validPassword) {
-            return res.status(400).json({ error: "Invalid password." });
+            return res.status(400).json({ error: "Invalid email or password" });
         }
 
         // Create and send token
