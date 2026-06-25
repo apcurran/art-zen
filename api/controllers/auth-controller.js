@@ -81,7 +81,7 @@ export async function postUserLogin(req, res, next) {
         );
 
         if (!user) {
-            return res.status(400).json({ error: "Email is not found." });
+            return res.status(400).json({ error: "Invalid email or password" });
         }
 
         // Validate pw
