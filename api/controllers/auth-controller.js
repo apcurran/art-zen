@@ -24,7 +24,7 @@ export async function postUserSignup(req, res, next) {
             );
 
             if (emailExists) {
-                return res.status(400).json({ error: "Email already exists." });
+                return res.status(409).json({ error: "Email already exists." });
             }
 
             // Hash pw
