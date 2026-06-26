@@ -43,16 +43,11 @@ app.use(
                 // Allow scripts from your own domain (React's build files)
                 "script-src": [
                     "'self'",
-                    "'unsafe-inline'",
                     "https://upload-widget.cloudinary.com", // Added for the widget script
                     "https://widget.cloudinary.com",
                 ],
                 // enable Google Fonts to load for React client
-                "style-src": [
-                    "'self'",
-                    "'unsafe-inline'",
-                    "https://fonts.googleapis.com",
-                ],
+                "style-src": ["'self'", "https://fonts.googleapis.com"],
                 frameSrc: [
                     "'self'",
                     "https://upload-widget.cloudinary.com",
