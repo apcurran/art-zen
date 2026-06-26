@@ -28,6 +28,11 @@ app.use(
         contentSecurityPolicy: {
             directives: {
                 "default-src": ["'self'"],
+
+                baseUri: ["'self'"],
+                objectSrc: ["'none'"],
+                frameAncestors: ["'none'"],
+
                 // Allow images from self, data URIs, and Cloudinary
                 "img-src": [
                     "'self'",
