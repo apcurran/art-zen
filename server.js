@@ -47,7 +47,11 @@ app.use(
                     "https://widget.cloudinary.com",
                 ],
                 // enable Google Fonts to load for React client
-                "style-src": ["'self'", "https://fonts.googleapis.com"],
+                "style-src": [
+                    "'self'",
+                    "https://fonts.googleapis.com",
+                    "'unsafe-inline'",
+                ],
                 frameSrc: [
                     "'self'",
                     "https://upload-widget.cloudinary.com",
