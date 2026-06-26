@@ -31,7 +31,7 @@ describe("log in page", () => {
             cy.get("button[type=submit]").click();
 
             cy.wait("@log-in");
-            cy.contains("p", /email is not found./i)
+            cy.contains("p", /invalid email or password/i)
                 .should("have.class", "error")
                 .should("exist");
         });
@@ -46,7 +46,7 @@ describe("log in page", () => {
             cy.get("button[type=submit]").click();
 
             cy.wait("@log-in");
-            cy.contains("p", /invalid password./i)
+            cy.contains("p", /invalid email or password/i)
                 .should("have.class", "error")
                 .should("exist");
         });
