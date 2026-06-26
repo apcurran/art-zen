@@ -53,6 +53,11 @@ app.use(
                     "'unsafe-inline'",
                     "https://fonts.googleapis.com",
                 ],
+                frameSrc: [
+                    "'self'",
+                    "https://upload-widget.cloudinary.com",
+                    "https://widget.cloudinary.com",
+                ],
                 "font-src": ["'self'", "https://fonts.gstatic.com"],
                 // Connect-src must allow your API and Cloudinary if using their SDK
                 "connect-src": [
