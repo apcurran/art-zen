@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import "./ArtworkFavorites.css";
 import FavoriteItem from "./favorite-item/FavoriteItem";
 
-function ArtworkFavorites({ userId, token }) {
+function ArtworkFavorites({ token }) {
     const [favoritesData, setFavoritesData] = useState([]);
 
     useEffect(() => {
-        fetch(`/api/artworks/users/${userId}/favorites`, {
+        fetch(`/api/artworks/users/favorites`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -15,7 +15,7 @@ function ArtworkFavorites({ userId, token }) {
             .then((response) => response.json())
             .then((data) => setFavoritesData(data.favoritesData))
             .catch((err) => console.error(err));
-    }, [userId, token]);
+    }, [token]);
 
     async function deleteFavorite(artworkId, favoriteId) {
         try {
