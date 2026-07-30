@@ -135,7 +135,13 @@ export async function deleteUserFollower(req, res, next) {
 }
 
 export async function deleteUser(req, res, next) {
-    const userId = req.user._id;
+    const { userId } = req.params;
+
+    if (Number(req.user._id) !== Number(userId)) {
+        return res
+            .status(403)
+            .json({ message: `User ID does not match your account.` });
+    }
 
     try {
         await db.none(
