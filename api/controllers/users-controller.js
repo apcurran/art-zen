@@ -126,7 +126,8 @@ export async function deleteUserFollower(req, res, next) {
         await db.none(
             `
             DELETE FROM follower
-            WHERE (follower.follower_user_id = $<followerId>) AND (follower.account_user_id = $<userId>)
+            WHERE follower.follower_user_id = $<followerId> AND
+                  follower.account_user_id = $<userId>
         `,
             { followerId, userId },
         );
