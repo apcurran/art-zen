@@ -6,11 +6,7 @@ import verifyAuth from "../middleware/verify-auth.js";
 const router = express.Router();
 
 // GET all user favorites
-router.get(
-    "/users/:userid/favorites",
-    verifyAuth,
-    artworksController.getUserFavorites,
-);
+router.get("/users/favorites", verifyAuth, artworksController.getUserFavorites);
 // GET specific user artworks based on user id
 router.get("/users/:userId", artworksController.getUserArtworks);
 // GET search results for artwork title or genre
