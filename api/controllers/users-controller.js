@@ -114,8 +114,13 @@ export async function patchUser(req, res, next) {
 
 // DELETE controllers
 export async function deleteUserFollower(req, res, next) {
-    const { userId } = req.params;
-    const followerId = req.user._id;
+    const { userId, followerId } = req.params;
+
+    if (Number(followerId) !== Number(req.user._id)) {
+        return res.status(403).json({
+            message: "You are not authorized to remove this follower.",
+        });
+    }
 
     try {
         await db.none(
@@ -140,7 +145,7 @@ export async function deleteUser(req, res, next) {
     if (Number(req.user._id) !== Number(userId)) {
         return res
             .status(403)
-            .json({ message: `User ID does not match your account.` });
+            .json({ message: "User ID does not match your account." });
     }
 
     try {
