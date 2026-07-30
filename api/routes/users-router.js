@@ -12,18 +12,18 @@ router.get(
     usersController.getSubscriptions,
 );
 // POST new account follower
-router.post("/:userId/followers", verifyAuth, usersController.postUserFollower); // tested
+router.post("/:userId/followers", verifyAuth, usersController.postUserFollower);
 // GET user info
 router.get("/:userId", verifyAuth, usersController.getUserInfo);
 // PATCH user account
-router.patch("/:userId", verifyAuth, usersController.patchUser); // tested
+router.patch("/:userId", verifyAuth, usersController.patchUser);
 // DELETE account follower
 router.delete(
     "/:userId/followers/:followerId",
     verifyAuth,
     usersController.deleteUserFollower,
-); // tested
+);
 // DELETE user account
-router.delete("/:userId", verifyAuth, usersController.deleteUser); // tested
+router.delete("/:userId", verifyAuth, usersController.deleteUser);
 
 export default router;
