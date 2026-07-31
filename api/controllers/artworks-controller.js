@@ -100,8 +100,14 @@ export async function getUserArtworks(req, res, next) {
         const [resolvedUserData, resolvedFollowerData, resolvedArtworkData] =
             await db.multi(queriesText, { userId });
 
+        const userData = resolvedUserData[0];
+
+        if (!userData) {
+            return res.status(404).json({ message: "User not found." });
+        }
+
         res.status(200).json({
-            userData: resolvedUserData[0],
+            userData,
             followerData: resolvedFollowerData,
             artworkData: resolvedArtworkData,
         });
