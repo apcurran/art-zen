@@ -64,14 +64,14 @@ export async function getUserArtwork(req, res, next) {
             return res.status(404).json({ message: "Artwork not found." });
         }
 
-        const formattedFinalObj = {
+        const artworkResponse = {
             ...artwork,
             comments: commentsData,
             likes: likesData,
             favorites: favoritesData,
         };
 
-        res.status(200).json(formattedFinalObj);
+        res.status(200).json(artworkResponse);
     } catch (err) {
         next(err);
     }
