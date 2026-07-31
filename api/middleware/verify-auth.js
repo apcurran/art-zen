@@ -25,7 +25,8 @@ export default function verifyAuth(req, res, next) {
 
             // Validation passed
             req.user = user;
-            next();
+
+            return next();
         },
     );
 }
