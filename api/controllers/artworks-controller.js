@@ -57,8 +57,15 @@ export async function getUserArtwork(req, res, next) {
 
         const [artworkAndUserDataArr, commentsData, likesData, favoritesData] =
             await db.multi(queriesText, { artworkId });
+
+        const artwork = artworkAndUserDataArr[0];
+
+        if (!artwork) {
+            return res.status(404).json({ message: "Artwork not found." });
+        }
+
         const formattedFinalObj = {
-            ...artworkAndUserDataArr[0],
+            ...artwork,
             comments: commentsData,
             likes: likesData,
             favorites: favoritesData,
