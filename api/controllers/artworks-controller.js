@@ -327,7 +327,8 @@ export async function deleteUserArtworkLike(req, res, next) {
         await db.none(
             `
             DELETE FROM artwork_like
-            WHERE (artwork_like.like_id = $<likeId>) AND (artwork_like.user_id = $<userId>)
+            WHERE artwork_like.like_id = $<likeId> AND
+                  artwork_like.user_id = $<userId>
         `,
             { likeId, userId },
         );
