@@ -5,6 +5,8 @@ CREATE TABLE app_user(
     password VARCHAR NOT NULL,
     bio_description VARCHAR,
     avatar_img_url VARCHAR
+
+    CONSTRAINT uq_app_user_username UNIQUE (username)
 );
 
 CREATE TABLE artwork(
