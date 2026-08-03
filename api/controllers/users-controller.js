@@ -6,7 +6,7 @@ export async function getUserInfo(req, res, next) {
     const { userId } = req.params;
 
     try {
-        const userInfo = await db.one(
+        const userInfo = await db.oneOrNone(
             `
             SELECT app_user.username, app_user.bio_description, app_user.avatar_img_url
             FROM app_user
@@ -14,6 +14,10 @@ export async function getUserInfo(req, res, next) {
         `,
             { userId },
         );
+
+        if (!userInfo) {
+            return res.status(404).json({ message: "User not found." });
+        }
 
         res.status(200).json(userInfo);
     } catch (err) {
