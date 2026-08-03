@@ -4,8 +4,7 @@ CREATE TABLE app_user(
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR NOT NULL,
     bio_description VARCHAR,
-    avatar_img_url VARCHAR
-
+    avatar_img_url VARCHAR,
     CONSTRAINT uq_app_user_username UNIQUE (username)
 );
 
