@@ -347,7 +347,8 @@ export async function deleteUserComment(req, res, next) {
         await db.none(
             `
             DELETE FROM artwork_comment
-            WHERE (artwork_comment.comment_id = $<commentId>) AND (artwork_comment.user_id = $<userId>)
+            WHERE artwork_comment.comment_id = $<commentId> AND
+                  artwork_comment.user_id = $<userId>
         `,
             { commentId, userId },
         );
