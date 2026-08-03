@@ -324,7 +324,7 @@ export async function deleteUserArtworkLike(req, res, next) {
     const userId = req.user._id;
 
     try {
-        await db.none(
+        const result = await db.result(
             `
             DELETE FROM artwork_like
             WHERE artwork_like.like_id = $<likeId> AND
@@ -332,6 +332,10 @@ export async function deleteUserArtworkLike(req, res, next) {
         `,
             { likeId, userId },
         );
+
+        if (result.rowCount === 0) {
+            return res.status(404).json({ message: "Artwork like not found." });
+        }
 
         res.status(200).json({ message: "Deleted artwork like." });
     } catch (err) {
@@ -344,7 +348,7 @@ export async function deleteUserComment(req, res, next) {
     const userId = req.user._id;
 
     try {
-        await db.none(
+        const result = await db.result(
             `
             DELETE FROM artwork_comment
             WHERE artwork_comment.comment_id = $<commentId> AND
@@ -352,6 +356,12 @@ export async function deleteUserComment(req, res, next) {
         `,
             { commentId, userId },
         );
+
+        if (result.rowCount === 0) {
+            return res
+                .status(404)
+                .json({ message: "Artwork comment not found." });
+        }
 
         res.status(200).json({ message: "Deleted artwork comment." });
     } catch (err) {
@@ -364,7 +374,7 @@ export async function deleteUserArtworkFavorite(req, res, next) {
     const userId = req.user._id;
 
     try {
-        await db.none(
+        const result = await db.result(
             `
             DELETE FROM artwork_favorite
             WHERE artwork_favorite.favorite_id = $<favoriteId> AND
@@ -372,6 +382,12 @@ export async function deleteUserArtworkFavorite(req, res, next) {
         `,
             { favoriteId, userId },
         );
+
+        if (result.rowCount === 0) {
+            return res
+                .status(404)
+                .json({ message: "Artwork favorite not found." });
+        }
 
         res.status(200).json({ message: "Deleted artwork favorite." });
     } catch (err) {
@@ -384,7 +400,7 @@ export async function deleteUserArtwork(req, res, next) {
     const userId = req.user._id;
 
     try {
-        await db.none(
+        const result = await db.result(
             `
             DELETE FROM artwork
             WHERE artwork.artwork_id = $<artworkId> AND
@@ -393,8 +409,12 @@ export async function deleteUserArtwork(req, res, next) {
             { artworkId, userId },
         );
 
+        if (result.rowCount === 0) {
+            return res.status(404).json({ message: "Artwork not found." });
+        }
+
         res.status(200).json({
-            message: `Artwork with id, ${artworkId} deleted.`,
+            message: `Deleted artwork.`,
         });
     } catch (err) {
         next(err);
