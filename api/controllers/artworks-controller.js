@@ -367,7 +367,8 @@ export async function deleteUserArtworkFavorite(req, res, next) {
         await db.none(
             `
             DELETE FROM artwork_favorite
-            WHERE (artwork_favorite.favorite_id = $<favoriteId>) AND (artwork_favorite.user_id = $<userId>)
+            WHERE artwork_favorite.favorite_id = $<favoriteId> AND
+                  artwork_favorite.user_id = $<userId>
         `,
             { favoriteId, userId },
         );
@@ -386,7 +387,8 @@ export async function deleteUserArtwork(req, res, next) {
         await db.none(
             `
             DELETE FROM artwork
-            WHERE (artwork.artwork_id = $<artworkId>) AND (artwork.user_id = $<userId>)
+            WHERE artwork.artwork_id = $<artworkId> AND
+                  artwork.user_id = $<userId>
         `,
             { artworkId, userId },
         );
