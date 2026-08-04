@@ -119,7 +119,14 @@ export async function getUserArtworks(req, res, next) {
 export async function getSearch(req, res, next) {
     try {
         const { q } = req.query;
-        const revisedWildcardQuery = `%${q}%`;
+
+        if (typeof q !== "string" || q.trim() === "") {
+            return res
+                .status(400)
+                .json({ message: "Search query is required." });
+        }
+
+        const revisedWildcardQuery = `%${q.trim()}%`;
         const searchResults = await db.manyOrNone(
             `
             SELECT
@@ -128,8 +135,8 @@ export async function getSearch(req, res, next) {
             FROM artwork
             LEFT JOIN app_user
                 ON artwork.user_id = app_user.user_id
-            WHERE title ILIKE TRIM($<revisedWildcardQuery>) OR
-                  genre ILIKE TRIM($<revisedWildcardQuery>)
+            WHERE title ILIKE $<revisedWildcardQuery> OR
+                  genre ILIKE $<revisedWildcardQuery>
             ORDER BY artwork.created_at DESC
         `,
             { revisedWildcardQuery },
