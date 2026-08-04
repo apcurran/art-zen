@@ -84,6 +84,12 @@ export async function postUserFollower(req, res, next) {
                 .json({ error: "You are already following this user." });
         }
 
+        // FK violation
+        // missing target user in db table
+        if (err.code === "23503") {
+            return res.status(404).json({ message: "User not found." });
+        }
+
         next(err);
     }
 }
