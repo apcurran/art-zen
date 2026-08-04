@@ -127,7 +127,7 @@ export async function deleteUserFollower(req, res, next) {
     }
 
     try {
-        await db.none(
+        const result = await db.result(
             `
             DELETE FROM follower
             WHERE follower.follower_user_id = $<followerId> AND
@@ -135,6 +135,12 @@ export async function deleteUserFollower(req, res, next) {
         `,
             { followerId, userId },
         );
+
+        if (result.rowCount === 0) {
+            return res
+                .status(404)
+                .json({ message: "Follower relationship not found." });
+        }
 
         res.status(200).json({
             message: `Follower with user id, ${followerId} deleted from account with user id, ${userId}.`,
@@ -154,13 +160,17 @@ export async function deleteUser(req, res, next) {
     }
 
     try {
-        await db.none(
+        const result = await db.result(
             `
             DELETE FROM app_user
             WHERE app_user.user_id = $<userId>
         `,
             { userId },
         );
+
+        if (result.rowCount === 0) {
+            return res.status(404).json({ message: "User not found." });
+        }
 
         res.status(200).json({ message: `User with id, ${userId} deleted.` });
     } catch (err) {
